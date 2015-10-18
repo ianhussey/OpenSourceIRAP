@@ -1,0 +1,5 @@
+To use an alternative file, rename the desired file to “stimuli.xlsx” and move to the same folder as the psyexp and py files.
+
+The only difference between them is that the Natural Language IRAP contains all the words within the label stimuli. 
+
+NB in order to work, the target stimuli must have present at least one character or PsychoPy will throw and error. As such, the target stimuli contain a single space in the Natural Language IRAP stimuli file.
