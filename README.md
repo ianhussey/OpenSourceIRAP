@@ -16,7 +16,7 @@ Ian Hussey (ian.hussey@ugent.be)
 
 - psydat and csv files are produced for each participant. csv file alone is sufficient to most analyses (e.g., calculation of D scores).
 
-- All stimuli and instructions can be altered by editing the excel files. Indeed, all strings presented within the task are variables, so tranlating the task into other languages only requires changes to the stimuli and instructions files. 
+- All stimuli and instructions can be altered by editing the excel files. Indeed, all strings presented within the task are variables, so tranlating the task into other languages only requires changes to the stimuli and instructions files.
 
 - The Traditional IRAP does not randomly sample Label stimuli separately from Target stimuli. I.e., each trial presents stimuli from a single row in the stimuli.xlsx file. As such, one can only present 1) a single Label exemplar per category and multiple Target exemplars, 2) or visa versa, 3) or have specific label exemplars tied to specific target exemplars. This differs from the 2012 and 2014 versions of the Visual Basic IRAP which allowed for multiple exemplars and randomisation of both. Changing this is not easy within the confines of the PsychoPy builder. It could be done with manual editing of the .py file code, but I haven't attempted this.
 
@@ -29,12 +29,12 @@ Ian Hussey (ian.hussey@ugent.be)
 - ITI is set to 400 ms, as in the original publication.
 
 # Block Layout
-[up to 3 practice block pairs. When participants meet the accuracy and latency criteria on both blocks in a pair they move on to test blocks. If criteria are not bet within 3 pairs of blocks the tast skips the test blocks and goes to the end screen]
-practice block - Rule A - 24 trials (6 exemplars, 4 trials-types)
-practice block - Rule B - 24 trials (6 exemplars, 4 trials-types)
-[3 test block pairs.]
-practice block - Rule A - 24 trials (6 exemplars, 4 trials-types)
-practice block - Rule B - 24 trials (6 exemplars, 4 trials-types)
+- [up to 3 practice block pairs. When participants meet the accuracy and latency criteria on both blocks in a pair they move on to test blocks. If criteria are not bet within 3 pairs of blocks the tast skips the test blocks and goes to the end screen]
+  - practice block - Rule A - 24 trials (6 exemplars, 4 trials-types)
+  - practice block - Rule B - 24 trials (6 exemplars, 4 trials-types)
+- [3 test block pairs.]
+  - practice block - Rule A - 24 trials (6 exemplars, 4 trials-types)
+  - practice block - Rule B - 24 trials (6 exemplars, 4 trials-types)
 
 # Known issues
 1. If duplicate stimuli are entered in the stimuli file then participants can be presented with two identical exemplars one after another. This is not easy to overcome within the confines of the Psychopy builder. However, the included stimulus file does not repeat stimuli, thus if a similar pattern is followed this issue will not arise.
