@@ -1,15 +1,14 @@
-# Created by
-Ian Hussey (ian.hussey@ugent.be)
+# Implicit Relational Assessment Procedure (IRAP) written in PsychoPy
 
-# Last change
-19/10/2015
+## LicenceCopyright Ian Hussey (ian.hussey@ugent.be)
 
-# Version number
-0.9
+Distributed under the MIT licence
+## Version
+0.9 (19/10/2015)
 
-### This is still in beta - I have not had this code reviewed to guarantee that it functions as intended.
+*This is still in beta - I have not had this code reviewed to guarantee that it functions as intended.*
 
-# Notes
+## Notes
 - The escape key quits the task at any time. The return key ends the task properly once it’s complete.
 
 - You can run either the psyexp file or the py file inside PsychoPy. The py file should have greater cross platform support; if you run into errors with the psyexp file use the py instead.
@@ -28,7 +27,7 @@ Ian Hussey (ian.hussey@ugent.be)
 
 - ITI is set to 400 ms, as in the original publication.
 
-# Block Layout
+## Block Layout
 - [up to 3 practice block pairs. When participants meet the accuracy and latency criteria on both blocks in a pair they move on to test blocks. If criteria are not bet within 3 pairs of blocks the tast skips the test blocks and goes to the end screen]
   - practice block - Rule A - 24 trials (6 exemplars, 4 trials-types)
   - practice block - Rule B - 24 trials (6 exemplars, 4 trials-types)
@@ -36,7 +35,7 @@ Ian Hussey (ian.hussey@ugent.be)
   - practice block - Rule A - 24 trials (6 exemplars, 4 trials-types)
   - practice block - Rule B - 24 trials (6 exemplars, 4 trials-types)
 
-# Known issues
+## Known issues
 1. If duplicate stimuli are entered in the stimuli file then participants can be presented with two identical exemplars one after another. This is not easy to overcome within the confines of the Psychopy builder. However, the included stimulus file does not repeat stimuli, thus if a similar pattern is followed this issue will not arise.
 
 2. If participants get 100% of trials correct on either blocks 1+2+3 or blocks 4+5 then the incorrect response RT column will not be created for that participant. This is a) unlikely, and b) not a problem if you merge files across participants based on column header matching (e.g., using dplyr’s `rbind_list()` command). However, it can be problematic if your data processing workflow relies on column ORDER rather than column header NAME, e.g., a SPSS script using a GET command.
