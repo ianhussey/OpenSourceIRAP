@@ -43,11 +43,11 @@ Written in PsychoPy 1.82
 ## Changelog
 ### 0.9.5
 1. Added option for block order selection via the dialogue box.
-2. Added autorespone monkey
+2. Added autoresponse monkey
 3. Added option for image stimuli.
 4. Added Colored text for pre block rules.
 5. Added option for moving response options.
 6. Tidied up post block text and locations.
 7. Added warning level logging
-8. Seperated the block layout and stimuli excel files. This allows for an arbitrary number of exemplars for each stimulus category.
+8. Separated the block layout and stimuli excel files. This allows for an arbitrary number of exemplars for each stimulus category.
 9. Commented out the saving of median latency and % accuracy data to the csv file, as it was causing problems in reading the file into R.
