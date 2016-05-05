@@ -45,6 +45,9 @@ Written in PsychoPy 1.82
 5. Shuffle/pop method isn't that clear; should be consolidated into a function and function call, as in the RRT and IAT implimentations.
 
 ## Changelog
+### 0.9.6
+- Made the shuffle()/pop() code more transparent by writing a fucntion and calling it rather than repeating code. No functional difference for the user, but better code transparency and consistency across the IAT/RRT/IRAP.
+
 ### 0.9.5
 1. Added option for block order selection via the dialogue box.
 2. Added autoresponse monkey
