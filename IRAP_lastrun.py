@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-This experiment was created using PsychoPy2 Experiment Builder (v1.82.01), Thu May  5 17:03:42 2016
+This experiment was created using PsychoPy2 Experiment Builder (v1.82.01), Thu May  5 17:02:21 2016
 If you publish work using this script please cite the relevant PsychoPy publications
   Peirce, JW (2007) PsychoPy - Psychophysics software in Python. Journal of Neuroscience Methods, 162(1-2), 8-13.
   Peirce, JW (2009) Generating stimuli for neuroscience using PsychoPy. Frontiers in Neuroinformatics, 2:10. doi: 10.3389/neuro.11.010.2008
@@ -33,7 +33,7 @@ filename = _thisDir + os.sep + u'data' + os.path.sep + '%s_%s' %(expInfo['partic
 # An ExperimentHandler isn't essential but helps with data saving
 thisExp = data.ExperimentHandler(name=expName, version='',
     extraInfo=expInfo, runtimeInfo=None,
-    originPath=None,
+    originPath=u'/Users/Ian/git/IRAP/IRAP.psyexp',
     savePickle=True, saveWideText=True,
     dataFileName=filename)
 #save a log file for detail verbose info
@@ -711,7 +711,7 @@ routineTimer = core.CountdownTimer()  # to track time remaining of each (non-sli
 
 # set up handler to look after randomisation of conditions etc
 task = data.TrialHandler(nReps=1, method='sequential', 
-    extraInfo=expInfo, originPath=None,
+    extraInfo=expInfo, originPath=u'/Users/Ian/git/IRAP/IRAP.psyexp',
     trialList=data.importConditions('task.xlsx'),
     seed=None, name='task')
 thisExp.addLoop(task)  # add the loop to the experiment
@@ -810,7 +810,7 @@ for thisTask in task:
     
     # set up handler to look after randomisation of conditions etc
     practice_blocks = data.TrialHandler(nReps=max_pairs_practice_blocks, method='sequential', 
-        extraInfo=expInfo, originPath=None,
+        extraInfo=expInfo, originPath=u'/Users/Ian/git/IRAP/IRAP.psyexp',
         trialList=[None],
         seed=None, name='practice_blocks')
     thisExp.addLoop(practice_blocks)  # add the loop to the experiment
@@ -829,7 +829,7 @@ for thisTask in task:
         
         # set up handler to look after randomisation of conditions etc
         practice_Afirst = data.TrialHandler(nReps=Afirst_nReps, method='sequential', 
-            extraInfo=expInfo, originPath=None,
+            extraInfo=expInfo, originPath=u'/Users/Ian/git/IRAP/IRAP.psyexp',
             trialList=[None],
             seed=None, name='practice_Afirst')
         thisExp.addLoop(practice_Afirst)  # add the loop to the experiment
@@ -939,7 +939,7 @@ for thisTask in task:
             
             # set up handler to look after randomisation of conditions etc
             practice_trials_Afirst = data.TrialHandler(nReps=reptitions, method='random', 
-                extraInfo=expInfo, originPath=None,
+                extraInfo=expInfo, originPath=u'/Users/Ian/git/IRAP/IRAP.psyexp',
                 trialList=data.importConditions('block_layout.xlsx'),
                 seed=None, name='practice_trials_Afirst')
             thisExp.addLoop(practice_trials_Afirst)  # add the loop to the experiment
@@ -1487,7 +1487,7 @@ for thisTask in task:
         
         # set up handler to look after randomisation of conditions etc
         practice_trials_B = data.TrialHandler(nReps=reptitions, method='random', 
-            extraInfo=expInfo, originPath=None,
+            extraInfo=expInfo, originPath=u'/Users/Ian/git/IRAP/IRAP.psyexp',
             trialList=data.importConditions('block_layout.xlsx'),
             seed=None, name='practice_trials_B')
         thisExp.addLoop(practice_trials_B)  # add the loop to the experiment
@@ -1930,7 +1930,7 @@ for thisTask in task:
         
         # set up handler to look after randomisation of conditions etc
         practice_Asecond = data.TrialHandler(nReps=Asecond_nReps, method='sequential', 
-            extraInfo=expInfo, originPath=None,
+            extraInfo=expInfo, originPath=u'/Users/Ian/git/IRAP/IRAP.psyexp',
             trialList=[None],
             seed=None, name='practice_Asecond')
         thisExp.addLoop(practice_Asecond)  # add the loop to the experiment
@@ -2040,7 +2040,7 @@ for thisTask in task:
             
             # set up handler to look after randomisation of conditions etc
             practice_trials_Asecond = data.TrialHandler(nReps=reptitions, method='random', 
-                extraInfo=expInfo, originPath=None,
+                extraInfo=expInfo, originPath=u'/Users/Ian/git/IRAP/IRAP.psyexp',
                 trialList=data.importConditions('block_layout.xlsx'),
                 seed=None, name='practice_trials_Asecond')
             thisExp.addLoop(practice_trials_Asecond)  # add the loop to the experiment
@@ -2549,7 +2549,7 @@ for thisTask in task:
     
     # set up handler to look after randomisation of conditions etc
     test_blocks = data.TrialHandler(nReps=complete_test_blocks, method='sequential', 
-        extraInfo=expInfo, originPath=None,
+        extraInfo=expInfo, originPath=u'/Users/Ian/git/IRAP/IRAP.psyexp',
         trialList=[None],
         seed=None, name='test_blocks')
     thisExp.addLoop(test_blocks)  # add the loop to the experiment
@@ -2568,7 +2568,7 @@ for thisTask in task:
         
         # set up handler to look after randomisation of conditions etc
         Afirst = data.TrialHandler(nReps=Afirst_nReps, method='sequential', 
-            extraInfo=expInfo, originPath=None,
+            extraInfo=expInfo, originPath=u'/Users/Ian/git/IRAP/IRAP.psyexp',
             trialList=[None],
             seed=None, name='Afirst')
         thisExp.addLoop(Afirst)  # add the loop to the experiment
@@ -2678,7 +2678,7 @@ for thisTask in task:
             
             # set up handler to look after randomisation of conditions etc
             trials_Afirst = data.TrialHandler(nReps=reptitions, method='random', 
-                extraInfo=expInfo, originPath=None,
+                extraInfo=expInfo, originPath=u'/Users/Ian/git/IRAP/IRAP.psyexp',
                 trialList=data.importConditions('block_layout.xlsx'),
                 seed=None, name='trials_Afirst')
             thisExp.addLoop(trials_Afirst)  # add the loop to the experiment
@@ -3226,7 +3226,7 @@ for thisTask in task:
         
         # set up handler to look after randomisation of conditions etc
         trials_B = data.TrialHandler(nReps=reptitions, method='random', 
-            extraInfo=expInfo, originPath=None,
+            extraInfo=expInfo, originPath=u'/Users/Ian/git/IRAP/IRAP.psyexp',
             trialList=data.importConditions('block_layout.xlsx'),
             seed=None, name='trials_B')
         thisExp.addLoop(trials_B)  # add the loop to the experiment
@@ -3669,7 +3669,7 @@ for thisTask in task:
         
         # set up handler to look after randomisation of conditions etc
         Asecond = data.TrialHandler(nReps=Asecond_nReps, method='sequential', 
-            extraInfo=expInfo, originPath=None,
+            extraInfo=expInfo, originPath=u'/Users/Ian/git/IRAP/IRAP.psyexp',
             trialList=[None],
             seed=None, name='Asecond')
         thisExp.addLoop(Asecond)  # add the loop to the experiment
@@ -3779,7 +3779,7 @@ for thisTask in task:
             
             # set up handler to look after randomisation of conditions etc
             trials_Asecond = data.TrialHandler(nReps=reptitions, method='random', 
-                extraInfo=expInfo, originPath=None,
+                extraInfo=expInfo, originPath=u'/Users/Ian/git/IRAP/IRAP.psyexp',
                 trialList=data.importConditions('block_layout.xlsx'),
                 seed=None, name='trials_Asecond')
             thisExp.addLoop(trials_Asecond)  # add the loop to the experiment

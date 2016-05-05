@@ -42,6 +42,7 @@ Written in PsychoPy 1.82
 1. If participants get 100% of trials correct on either blocks 1+2+3 or blocks 4+5 then the incorrect response RT column will not be created for that participant. This is a) unlikely, and b) not a problem if you process data files based on column header matching (e.g., most R methods). However, it can be problematic if your data processing workflow relies on column order rather than column header name, e.g., a SPSS script using a GET command.
 2. Task requires equal numbers of label and target stimuli. This could be changes by splitting the stimuli files in two and sampling the labels with random but the targets with pop(). Indeed, this is how the original VB6 program works. However, assuming that there are equal number of label and target stimuli, the current implimentation is technically supperior as it results in an equal number of presentations of the label stimuli exemplars.
 4. Needs a block length multiplier, given that many people will use only 3 or 4 stimulus exemplars. A simple multiplier variable in the task.xlsx file could make this easier.  
+5. Shuffle/pop method isn't that clear; should be consolidated into a function and function call, as in the RRT and IAT implimentations.
 
 ## Changelog
 ### 0.9.5
