@@ -1,0 +1,673 @@
+response_option_left_location,accuracyCriterion,response_option_right_location,stimulus1_location,seconds,percentCorrect,end_message,image_stimulus1_location,speed,accuracy_feedback_location,moving_response_options,rule_A,image_stimulus2_location,rule_B,press_message,intro_message,aim,response_option_B,response_option_A,latencyCriterion,stimulus2_location,n_pairs_test_blocks,max_pairs_practice_blocks,accuracy,trialType,stimulus1_category,stimulus2_category,task.thisRepN,task.thisTrialN,task.thisN,task.thisIndex,practice_blocks.thisRepN,practice_blocks.thisTrialN,practice_blocks.thisN,practice_blocks.thisIndex,practice_blocks.thisTrial,practice_Afirst.thisRepN,practice_Afirst.thisTrialN,practice_Afirst.thisN,practice_Afirst.thisIndex,practice_trials_Afirst.thisRepN,practice_trials_Afirst.thisTrialN,practice_trials_Afirst.thisN,practice_trials_Afirst.thisIndex,practice_trials_B.thisRepN,practice_trials_B.thisTrialN,practice_trials_B.thisN,practice_trials_B.thisIndex,practice_Asecond.thisRepN,practice_Asecond.thisTrialN,practice_Asecond.thisN,practice_Asecond.thisIndex,test_blocks.thisRepN,test_blocks.thisTrialN,test_blocks.thisN,test_blocks.thisIndex,Afirst.thisRepN,Afirst.thisTrialN,Afirst.thisN,Afirst.thisIndex,trials_Afirst.thisRepN,trials_Afirst.thisTrialN,trials_Afirst.thisN,trials_Afirst.thisIndex,trials_B.thisRepN,trials_B.thisTrialN,trials_B.thisN,trials_B.thisIndex,Asecond.thisRepN,Asecond.thisTrialN,Asecond.thisN,Asecond.thisIndex,stimulus1,stimulus2,img_stimulus1,img_stimulus2,response_option_left,response_option_right,required_response_A.keys,required_response_A.corr,required_response_A.rt,feedback_response_A.keys,feedback_response_A.corr,feedback_response_A.rt,required_response_B.keys,required_response_B.corr,required_response_B.rt,feedback_response_B.keys,feedback_response_B.corr,feedback_response_B.rt,participant,UseMonkey,gender,age,frameRate,expName,date,StartingBlock,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,4,b,d,0,0,0,0,0,0,0,0,None,0,0,0,0,0,0,0,3,,,,,,,,,,,,,,,,,,,,,,,,,,,,,spider,pain,blank.png,blank.png,Different,Similar,i,1,0.268052101135,None,0,,,,,,,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,2,a,d,0,0,0,0,0,0,0,0,None,0,0,0,0,0,1,1,1,,,,,,,,,,,,,,,,,,,,,,,,,,,,,daffodil,pain,blank.png,blank.png,Different,Similar,e,1,0.151106834412,i,1,0.117187976837,,,,,,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,3,b,c,0,0,0,0,0,0,0,0,None,0,0,0,0,0,2,2,2,,,,,,,,,,,,,,,,,,,,,,,,,,,,,spider,happy,blank.png,blank.png,Different,Similar,e,1,0.0674741268158,i,1,0.0505979061127,,,,,,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,1,a,c,0,0,0,0,0,0,0,0,None,0,0,0,0,0,3,3,0,,,,,,,,,,,,,,,,,,,,,,,,,,,,,daffodil,happy,blank.png,blank.png,Different,Similar,i,1,0.101556062698,e,1,0.0832781791687,,,,,,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,3,b,c,0,0,0,0,0,0,0,0,None,,,,,,,,,0,0,0,2,,,,,,,,,,,,,,,,,,,,,,,,,spider,happy,blank.png,blank.png,Different,Similar,,,,,,,i,1,0.318037033081,e,1,0.217761993408,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,1,a,c,0,0,0,0,0,0,0,0,None,,,,,,,,,0,1,1,0,,,,,,,,,,,,,,,,,,,,,,,,,daffodil,happy,blank.png,blank.png,Different,Similar,,,,,,,e,1,0.0843060016632,None,0,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,4,b,d,0,0,0,0,0,0,0,0,None,,,,,,,,,0,2,2,3,,,,,,,,,,,,,,,,,,,,,,,,,spider,pain,blank.png,blank.png,Different,Similar,,,,,,,e,1,0.2350461483,None,0,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,2,a,d,0,0,0,0,0,0,0,0,None,,,,,,,,,0,3,3,1,,,,,,,,,,,,,,,,,,,,,,,,,daffodil,pain,blank.png,blank.png,Different,Similar,,,,,,,i,1,0.302175998688,e,1,0.219071149826,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,4,b,d,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,0,0,0,0,0,0,0,0,0,0,0,3,,,,,,,,,spider,pain,blank.png,blank.png,Different,Similar,i,1,0.268824100494,e,1,0.268306970596,,,,,,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,1,a,c,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,0,0,0,0,0,0,0,0,0,1,1,0,,,,,,,,,daffodil,happy,blank.png,blank.png,Different,Similar,i,1,0.168633937836,e,1,0.168177843094,,,,,,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,2,a,d,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,0,0,0,0,0,0,0,0,0,2,2,1,,,,,,,,,daffodil,pain,blank.png,blank.png,Different,Similar,e,1,0.151507854462,i,1,0.151246070862,,,,,,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,3,b,c,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,0,0,0,0,0,0,0,0,0,3,3,2,,,,,,,,,spider,happy,blank.png,blank.png,Different,Similar,e,1,0.16813993454,None,0,,,,,,,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,2,a,d,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,0,0,0,0,,,,,,,,,0,0,0,1,,,,,daffodil,pain,blank.png,blank.png,Different,Similar,,,,,,,i,1,0.301949977875,None,0,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,3,b,c,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,0,0,0,0,,,,,,,,,0,1,1,2,,,,,spider,happy,blank.png,blank.png,Different,Similar,,,,,,,i,1,0.184351921082,e,1,0.133409976959,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,4,b,d,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,0,0,0,0,,,,,,,,,0,2,2,3,,,,,spider,pain,blank.png,blank.png,Different,Similar,,,,,,,e,1,0.0854380130768,i,1,0.0853190422058,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,1,a,c,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,0,0,0,0,,,,,,,,,0,3,3,0,,,,,daffodil,happy,blank.png,blank.png,Different,Similar,,,,,,,e,1,0.0850880146027,None,0,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,4,b,d,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,1,0,1,0,0,0,0,0,0,0,0,3,,,,,,,,,spider,pain,blank.png,blank.png,Different,Similar,i,1,0.33522105217,e,1,0.319665908813,,,,,,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,3,b,c,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,1,0,1,0,0,0,0,0,0,1,1,2,,,,,,,,,spider,happy,blank.png,blank.png,Different,Similar,e,1,0.151406049728,None,0,,,,,,,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,1,a,c,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,1,0,1,0,0,0,0,0,0,2,2,0,,,,,,,,,daffodil,happy,blank.png,blank.png,Different,Similar,i,1,0.136354923248,e,1,0.136126041412,,,,,,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,2,a,d,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,1,0,1,0,0,0,0,0,0,3,3,1,,,,,,,,,daffodil,pain,blank.png,blank.png,Different,Similar,e,1,0.117082118988,i,1,0.100945949554,,,,,,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,1,a,c,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,1,0,1,0,,,,,,,,,0,0,0,0,,,,,daffodil,happy,blank.png,blank.png,Different,Similar,,,,,,,e,1,0.285889148712,i,1,0.285668849945,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,3,b,c,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,1,0,1,0,,,,,,,,,0,1,1,2,,,,,spider,happy,blank.png,blank.png,Different,Similar,,,,,,,i,1,0.118161916733,None,0,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,2,a,d,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,1,0,1,0,,,,,,,,,0,2,2,1,,,,,daffodil,pain,blank.png,blank.png,Different,Similar,,,,,,,i,1,0.185116767883,e,1,0.134082078934,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,4,b,d,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,1,0,1,0,,,,,,,,,0,3,3,3,,,,,spider,pain,blank.png,blank.png,Different,Similar,,,,,,,e,1,0.167290210724,None,0,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,3,b,c,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,2,0,2,0,0,0,0,0,0,0,0,2,,,,,,,,,spider,happy,blank.png,blank.png,Different,Similar,e,1,0.704592943192,i,1,0.7040579319,,,,,,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,4,b,d,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,2,0,2,0,0,0,0,0,0,1,1,3,,,,,,,,,spider,pain,blank.png,blank.png,Different,Similar,i,1,0.218426942825,None,0,,,,,,,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,2,a,d,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,2,0,2,0,0,0,0,0,0,2,2,1,,,,,,,,,daffodil,pain,blank.png,blank.png,Different,Similar,e,1,0.185014009476,i,1,0.167604923248,,,,,,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,1,a,c,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,2,0,2,0,0,0,0,0,0,3,3,0,,,,,,,,,daffodil,happy,blank.png,blank.png,Different,Similar,i,1,0.185399055481,None,0,,,,,,,,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,3,b,c,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,2,0,2,0,,,,,,,,,0,0,0,2,,,,,spider,happy,blank.png,blank.png,Different,Similar,,,,,,,i,1,0.351982116699,e,1,0.351459026337,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,4,b,d,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,2,0,2,0,,,,,,,,,0,1,1,3,,,,,spider,pain,blank.png,blank.png,Different,Similar,,,,,,,e,1,0.268460035324,i,1,0.23449587822,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,2,a,d,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,2,0,2,0,,,,,,,,,0,2,2,1,,,,,daffodil,pain,blank.png,blank.png,Different,Similar,,,,,,,i,1,0.219446182251,e,1,0.219027996063,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,
+"[-0.3, -0.6]",0,"[0.3, -0.6]","[0, 0.2]",seconds,percent correct,End of task,"[0, 0.3]",Speed:,"[0, -0.7]",False,"Respond AS IF: 
+    flowers are positive 
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","[0, -0.3]","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue",Press 'e' or 'i' to continue,"This task will present you with pairs of words. 
+
+You will be given rules on how to respond to them. 
+
+Go as quickly as you can while being accurate.
+
+Place your fingers on the 'e' and 'i' keys. 
+
+Press either one to continue.",Aim for >80% and <2 seconds,Similar,Different,5000,"[0, -0.2]",3,4,Accuracy:,1,a,c,0,0,0,0,,,,,,,,,,,,,,,,,,,,,,2,0,2,0,,,,,,,,,0,3,3,0,,,,,daffodil,happy,blank.png,blank.png,Different,Similar,,,,,,,e,1,0.236726999283,i,1,0.236264944077,2,n,,,59.8375913763,IRAP,2016_Aug_07_0301,a,

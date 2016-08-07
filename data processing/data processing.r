@@ -1,22 +1,24 @@
 ########################################################################
-# Calculate D1 scores, accuracy and latency summary statistics 
+# Calculate D1 scores, accuracy and latency summary statistics for the 
+# Open Source IRAP (Implicit Relational Assessment Procedure)
 ########################################################################
 # Author: 
 # Ian Hussey (ian.hussey@ugent.be)
 
-# Known issues:
-# 
+# Version:
+# 0.5
 
-# Instructions:
+# Usage:
 # Simply set the input [line containing setwd()] and output 
 # [line containing write.csv()] directories and run script.
+# NB see README for notes.
 
 # To do:
-# 1. DIRAP produces some scores >2, which shouldn't be possible. check with manual calc.
-# consolidate the latency summaries. the one in the dIRAP calc is neat, 
-# but it lacks a fast trial excluder.
-# 2. Accuracy summary calc hasn't been updated.
-# internal consistency data needed.
+# 1. D1 produces some scores >2, which shouldn't be possible. check with manual calc.
+# 2. check that distinct call in output_df doesn't cause problems
+# 3. check that alt block order doesn't change things
+# 4. check that monkey still works
+# 5. check that moving response options works
 
 ########################################################################
 # Clean workspace
@@ -37,12 +39,23 @@ setwd("~/git/IRAP/data")
 files <- list.files(pattern = "\\.csv$")
 input_df <- tbl_df(rbind.fill(lapply(files, fread, header=TRUE)))
 
+# Depending on block order, one of two column names must be renamed. 
+## This var is used for split half D1 scores later.
+if ("trials_Afirst.thisTrialN" %in% names(input_df)){  # if block A first trial order column exists
+  cleaned_df <- rename(input_df, trial_order_a = trials_Afirst.thisTrialN)  # rename it to generic trial order column
+}
+
+if ("trials_Asecond.thisTrialN" %in% names(input_df)){  # if block B first trial order column exists
+  cleaned_df <- rename(input_df, trial_order_a = trials_Asecond.thisTrialN)  # rename it to generic trial order column
+}
+
 # Make some variable names more transparent, plus rectify the the accuracy variable
 cleaned_df <- 
-  rename(input_df,
+  rename(cleaned_df,
          trial_type = trialType,
          practice_block_pair = practice_blocks.thisRepN,
          test_block_pair = test_blocks.thisRepN,
+         trial_order_b = trials_B.thisTrialN,
          rt_a = required_response_A.rt,
          rt_b = required_response_B.rt,
          accuracy_a = feedback_response_A.corr,
@@ -56,18 +69,21 @@ cleaned_df <-
          practice_block_pair = practice_block_pair + 1,  # recifies block to start at 1
          test_block_pair = test_block_pair + 1,
          rt = sum(rt_a, rt_b, na.rm=TRUE),  # get all rts in one column 
-         accuracy = sum(accuracy_a, accuracy_b, na.rm=TRUE)) %>%  # get all accuracies in one column
+         accuracy = sum(accuracy_a, accuracy_b, na.rm=TRUE),  # get all accuracies in one column
+         trial_order = sum(trial_order_a, trial_order_b, na.rm = TRUE)) %>%  # get all trial_order in one column
   ungroup() %>%  # removes rowwise
   select(participant,
          starting_block,
          practice_block_pair,
          test_block_pair,
+         trial_order,
          trial_type,
          rt_a,
          rt_b,
          rt,
          accuracy_a,
          accuracy_b,
+         accuracy,
          accuracy_criterion,
          latency_criterion,
          age,
@@ -78,7 +94,7 @@ cleaned_df <-
          n_pairs_test_blocks)
 
 ########################################################################
-# demographics and parameter data
+# demographics and test parameters 
 demographics_df <-
   select(cleaned_df,
          participant,
@@ -92,90 +108,124 @@ demographics_df <-
          accuracy_criterion,
          moving_response_options)
 
-########################################################################
-# D-IRAP scores and latency summaries
-
-# D-IRAP calculated from all test blocks at once
-D_IRAP_df <-  
+n_pairs_practice_blocks_df <-
   group_by(cleaned_df, 
            participant) %>%
-  filter(rt <= 10000) %>%  # SAMPLE DATA IS PRAC BLOCKS ONLY
-  #filter(rt <= 10000 &
-  #         !is.na(test_block_pair)) %>%  # test blocks only
-  summarize(rt_a_mean = round(mean(rt_a, na.rm = TRUE), 2),
-            rt_b_mean = round(mean(rt_b, na.rm = TRUE), 2),
-            rt_mean = round(mean(rt), 2),
-            rt_sd = sd(rt)) %>%
-  mutate(diff = rt_b_mean - rt_a_mean,
-         D_IRAP = round(diff / rt_sd, 2)) %>%  # D_IRAP refers calculated from all test blocks at once.
-  select(participant, 
-         rt_a_mean,
-         rt_b_mean,
-         rt_mean,
-         D_IRAP)
+  summarise(n_pairs_practice_blocks = max(practice_block_pair, na.rm = TRUE))
 
-# D-IRAP calculated for each trial type, calculated from all test blocks at once
-D_IRAP_by_tt_df <-  
+########################################################################
+# D1 scores (following Greenwald et al., 2003) and mean latency
+
+# D1 calculated from all test block rts
+D1_df <-  
+  group_by(cleaned_df, 
+           participant) %>%
+  filter(rt <= 10000 &
+           !is.na(test_block_pair)) %>%  # test blocks only
+  summarize(rt_a_mean = round(mean(rt_a, na.rm = TRUE), 3),
+            rt_b_mean = round(mean(rt_b, na.rm = TRUE), 3),
+            rt_mean = round(mean(rt), 3),
+            rt_sd = round(sd(rt), 3),
+            rt_block_As_median = round(median(rt_a, na.rm = TRUE), 3),
+            rt_block_Bs_median = round(median(rt_b, na.rm = TRUE), 3)) %>%
+  mutate(diff = rt_b_mean - rt_a_mean,
+         D1 = round(diff / rt_sd, 2)) %>%  # D1 calculated from all test blocks at once.
+  select(participant, 
+         #rt_a_mean,
+         #rt_b_mean,
+         rt_mean,
+         rt_sd,
+         rt_block_As_median,
+         rt_block_Bs_median,
+         D1)
+
+# D1 calculated for each of the four trial-types from all test block rts
+D1_by_tt_df <-  
   group_by(cleaned_df, 
            participant,
            trial_type) %>%
-  filter(rt <= 10000) %>%  # SAMPLE DATA IS PRAC BLOCKS ONLY
-  #filter(rt <= 10000 &
-  #         !is.na(test_block_pair)) %>%  # test blocks only
+  filter(rt <= 10000 &
+           !is.na(test_block_pair)) %>%  # test blocks only
   summarize(rt_a_mean = round(mean(rt_a, na.rm = TRUE), 2),
             rt_b_mean = round(mean(rt_b, na.rm = TRUE), 2),
             rt_mean = round(mean(rt), 2),
             rt_sd = sd(rt)) %>%
   mutate(diff = rt_b_mean - rt_a_mean,
-         D_IRAP_by_tt = round(diff / rt_sd, 2)) %>%  # D_IRAP refers calculated from all test blocks at once.
+         D1_by_tt = round(diff / rt_sd, 2)) %>%  # D1 calculated from all test blocks at once.
   select(participant, 
          trial_type,
-         D_IRAP_by_tt) %>%
-  spread(trial_type, D_IRAP_by_tt) %>%
-  rename(D_IRAP_trial_type_1 = `1`,
-         D_IRAP_trial_type_2 = `2`,
-         D_IRAP_trial_type_3 = `3`,
-         D_IRAP_trial_type_4 = `4`)
+         D1_by_tt) %>%
+  spread(trial_type, D1_by_tt) %>%
+  rename(D1_trial_type_1 = `1`,
+         D1_trial_type_2 = `2`,
+         D1_trial_type_3 = `3`,
+         D1_trial_type_4 = `4`)
+
+# D1 for ODD trials by order of presentation (for split half reliability) calculated from all test block rts
+D1_odd_df <-  
+  group_by(cleaned_df, 
+           participant) %>%
+  filter(rt <= 10000 &
+           !is.na(test_block_pair) &  # test blocks only
+           trial_order %% 2 == 0) %>%  # odd trials only, nb count starts at 0
+  summarize(rt_a_mean = round(mean(rt_a, na.rm = TRUE), 2),
+            rt_b_mean = round(mean(rt_b, na.rm = TRUE), 2),
+            rt_mean = round(mean(rt), 2),
+            rt_sd = sd(rt)) %>%
+  mutate(diff = rt_b_mean - rt_a_mean,
+         D1_odd = round(diff / rt_sd, 2)) %>%  # D1 calculated from all test blocks at once.
+  select(participant, 
+         D1_odd)
+
+# D1 for EVEN trials by order of presentation (for split half reliability) calculated from all test block rts
+D1_even_df <-  
+  group_by(cleaned_df, 
+           participant) %>%
+  filter(rt <= 10000 &
+           !is.na(test_block_pair) &  # test blocks only
+           trial_order %% 2 == 1) %>%  # odd trials only, nb count starts at 0
+  summarize(rt_a_mean = round(mean(rt_a, na.rm = TRUE), 2),
+            rt_b_mean = round(mean(rt_b, na.rm = TRUE), 2),
+            rt_mean = round(mean(rt), 2),
+            rt_sd = sd(rt)) %>%
+  mutate(diff = rt_b_mean - rt_a_mean,
+         D1_even = round(diff / rt_sd, 2)) %>%  # D1 calculated from all test blocks at once.
+  select(participant, 
+         D1_even)
 
 ########################################################################
-# Accuracy and latency stats 
-######## Needs changing becasue of variable block lengths!
-accuracy_summary_df <- 
-  group_by(df, participant) %>%
-  summarize(critical_blocks_percentage_accuracy = round(sum(accuracy[block == 3 |
-                                                                    block == 4 | 
-                                                                    block == 6 | 
-                                                                    block == 7]) / 120, 2)) # 120 critical trials in the IAT
+# Percentage accuracy and percentage fast trials 
+## exclusions based on fast trials (>10% trials <300ms) is part of the D1 algorithm
 
-df$fast_trial <- ifelse(df$rt < .3, 1, 0)  # add new column that records if RT < 300. Should probably be done using mutate() for code consistency, but this works fine.
+# add new column that records if RT < 300ms.
+cleaned_df$too_fast_trial <- ifelse(cleaned_df$rt < .3, 1, 0) 
 
-latency_summary_df <-
-  group_by(df, participant) %>%
-  filter(block == 3 | block == 4 | block == 6 | block == 7) %>%
-  summarize(critical_blocks_mean_rt = round(mean(rt), 2), 
-            percent_fast_trials = sum(fast_trial)/120) %>%  # 120 critical trials
-  mutate(exclude_based_on_fast_trials = ifelse(percent_fast_trials>=0.1, TRUE, FALSE)) %>%  # exclusions based on too many fast trials is part of the D1 algorithm
+# calculate % acc and % fast trials from test block data
+percentage_accuracy_and_fast_trials_df <- 
+  group_by(cleaned_df, 
+           participant) %>%
+  filter(!is.na(test_block_pair)) %>%  # test blocks only
+  summarize(percentage_accuracy = round(sum(accuracy)/n(), 2),
+            percent_fast_trials = sum(too_fast_trial)/n()) %>%  # arbitrary number of test block trials
+  mutate(exclude_based_on_fast_trials = ifelse(percent_fast_trials>=0.1, TRUE, FALSE)) %>%  
   select(participant,
-         critical_blocks_mean_rt,
+         percentage_accuracy,
          exclude_based_on_fast_trials)
 
 ########################################################################
-# Prac block data
-
-# calc number of prac blocks completed. 
-# DIRAP data too?
-
-########################################################################
 # Join data frames
-all_tasks_df <- 
+output_df <- 
   join_all(list(demographics_df,
-                accuracy_summary_df,
-                latency_summary_df,
-                D_IRAP_df,
-                D_IRAP_by_tt_df),
+                n_pairs_practice_blocks_df,
+                D1_df,
+                D1_by_tt_df,
+                D1_odd_df,
+                D1_even_df,
+                percentage_accuracy_and_fast_trials_df),
            by = "participant",
-           type = "full")
+           type = "full") %>%
+  distinct(participant, .keep_all = TRUE)
 
 ########################################################################
 # Write to file
-write.csv(all_tasks_df, file = '~/git/IRAP/data processing/IRAP_data.csv', row.names=FALSE)
+write.csv(output_df, file = '~/git/IRAP/data processing/processed_IRAP_data.csv', row.names=FALSE)

@@ -37,7 +37,7 @@ This implimentation of the IRAP has high fidelity to the procedure described in 
 ### Timing accuracy
 - PsychoPy is technically capable of better timing accuracy than Visual Basic 6, depending on design choices by the researcher (see Garaizar & Vadillo, 2014). 
 - The current implimentation is written to be at least as accurate as the VB6 implimentations of the IRAP (i.e., accurate to within a frame or c.17ms). The stimuli to be presented within a block are generated on the preblock rule screen, and then `pop()`'d on each trial.
-- If you're looking for higher accuracy (e.g., for EEG/fMRI work) you'll  want to change all timings to frames rather than seconds. You may also want to remove the presentation of images if you're not using them.
+- If you're looking for higher accuracy (e.g., for EEG/fMRI work) you'll want to change all timings to frames rather than seconds. You may also want to remove the presentation of images if you're not using them.
 	- NB no assessment of jitter has been conducted for the current implimentation.
 
 ### Usage
@@ -49,21 +49,54 @@ This implimentation of the IRAP has high fidelity to the procedure described in 
 	- NB a poorly documented bug is that if you zip and unzip excel files using archieve utility on Mac OS X, unicode characters are no longer correctly displayed and will throw an ASCII error in PsychoPy. Make new excel files to correct the issue.
 - When you run the task, an autoresponse 'monkey' can be invoked by setting "UseMonkey" in the dialogue box to "y" or "yes". This will simulate keypresses throughout the task to that you can test your script without you having to hit D and K interminably. NB you may have to lower your accuracy criterion to below 50% (i.e., just put it to 0) for the task to run through entirely, as the monkey simply simulates the D key and then the K key, in that order, on every trial.
 
-### Data output and processing 
+### Data output 
 - `.psydat`, `.csv` and `.log` files are produced for each participant. The `.csv` file alone is sufficient to most analyses (e.g., calculation of D scores).
 - To my understanding, the format of the `.csv` output files are Tidy Data compliant (Wickam, 2014) and therefore easy to analyse in R with little to no processing needed.
 	- NB If a participant gets 100% of trials correct throughout the task then the incorrect response RT column will not be created for that participant. This is a) extremely unlikely, and b) not a problem if you process data files based on column header matching (e.g., most R methods, including the bundled script). However, it can be problematic if your data processing workflow relies on column order rather than column header name (e.g., a SPSS script using a GET command).
-- The included `data processing.r` R script produces accuracy and latency summary data as well as D-IRAP scores (overall, trial-type, and split half). Very little familiarity with R is needed: simply change the set working directory line to the location of your data (e.g., `setwd("~/git/IRAP/data`), and the save output line to your chosen directory (e.g., `write.csv(all_tasks_df, file = '~/git/IRAP/data processing/IRAP_data.csv', row.names=FALSE)`).
-	- NB accuracies are calculated by reverse scoring the `feedback_response` variable. 
+
+### Data processing R script
+- The included `data processing.r` R script produces accuracy and latency summary data and *D*1 scores for each participant (including "overall" *D*1 scores, *D*1 scores for each trial-type, and split-half overall *D*1 scores).
+- Very little familiarity with R/Rstudio is needed to use this script: simply change the set working directory line to the location of your data (e.g., `setwd("~/git/IRAP/data`), and the save output line to your chosen directory (e.g., `write.csv(all_tasks_df, file = '~/git/IRAP/data processing/IRAP_data.csv', row.names=FALSE)`), and then run the script.
+- Some important notes on the methods included in this script are included below.
+
+#### *D*1 scoring method
+*D* scores are (Greenwald et al., 2003) are a variant of Cohen's *d*, and are used to quantify the effect size difference between two response patterns (e.g., rts on block As vs. block Bs in an IRAP). They differ from Cohen's *d* in how standard deviations are calculated, subvariants differ in their exclusion criteria and the presence/absence of an error penalty. *D*1 scores are have been employed in the majority of published IRAP research to date (although see next heading). The generic steps in calculating *D*1 scores are as follows: 
+
+1. Participants with >10% of (test block) trials <300ms are exlcuded. 
+2. All rts > 10000 ms are excluded.
+3. *D*1 = (mean rt block B - mean rt block A) / SD of all trials in blocks A and B.
+
+As noted above, one key step in calculating *D*1 scores is excluding participants who produce >10% rts < 300ms. The current R script outputs the variable `exclude_based_on_fast_trials` which indicates that a participant should be excluded if `TRUE`.
+
+- These exclusions must be done by the researcher, and are not automatically done by the script, in order to allow the auto response monkey functions correctly and quickly. 
+- Researchers may not be that familar with this step as it is not produced by Dermot Barnes-Holmes' "IRAP 2010" program and variants, written in VB6.
+
+#### *D*-IRAP vs *D*1 nomenclature
+Many published articles refer to the "*D*-IRAP" score rather than the " *D*1" score, as it was originally referred to by Greenwald et al. (2003). This was on the rationale that there are differences between the two, e.g., when applied to the IRAP scores are often calculated for each trial type rather than one overall score. However, *D*1 refers only to the general strategy of [difference between means/SD of all items, with some exclusion criteria]. Indeed, even when applied to the IAT, "pure" *D*1s are not typically calculated; rather, one is typically caculated for blocks 3&6 and a second for 4&7 and the two are then averaged. As such, to seperate the generic effect size score from the analytic strategy employed in a given experiment (e.g., overall D scores, trial type D scores, etc), this script refers to *D*1 scores throughout. 
+
+#### Block-pair *D*1 scores vs. All-task *D*1 scores
+Some background for this point is required: Dermot Barnes-Holmes' "IRAP 2010" program (and variants, written in VB6) both delivers the task and calculates *D*1 scores (however, it is both closed source and its output is difficult to work with: hence the motivation for the Open Source IRAP). The method employed to calculate *D*1 scores in the VB6 IRAP programs, which has been is detailed in several published articles (e.g., Barnes-Holmes, Barnes-Holmes, Stewart & Boles, 2010), notes that four *D*1 scores are caculated for each test block pair, one for each trial type. 
+
+Given that most IRAP studies deliver three pairs of test blocks, these *D*1 scores are then averaged across the three block pairs to leave four trial-type *D*1 scores. One "overall" *D*1 score is then often caculated by averaging these four trial- type *D*1 scores. As such, this method involves the calculation and averaging of a large number of point estimation effect sizes. 
+
+An alternative "whole task" method is employed to caculated *D*1 scores in the R script here, whereby the number of point estimation effect sizes is purposefully minimised, so that each is calcualted using the maximum number of data points. Specifically, an "overall" *D*1 score (simply called *D*1) is calculated from all the test block reaction times at once (split only by which half of a block pair they occured in). Trial type *D*1 scores are then calculated by splitting the reaction times up by trial type and recalculating *D*1 scores, but again pooling across all test blocks. This is arguably statistically more appropriate. 
+
+I've compared *D*1 scores produced by the two methods from a real dataset of typical size (n = 61), and correlations between the two methods are extremely high (r > .99), and means and SDs are equivalent. Additionally, difference scores between the two are not correlated with *D*1 score or absolute values of *D*1 scores. 
+
+The *take home point* here is that the two methods are generally comparable, so choice of method should not affect publication etc. However, the "whole task" method employed here is:
+	
+a. Arguably more statistically appropriate.
+b. Requires fewer steps and is therefore easier to explain in a manuscript. E.g., " *D*1 scores (Greenwald et al., 2003) were calculated from the test block data"
+c. As such, it is therefore also easier to interpret.
+d. Finally, by calculating all-task *D*1 scores, this method constrains the degrees of experimenter freedom regarding how to conduct exclusions of test block data. Several articles have employed the method used by Nicholson & Barnes-Holmes (2012) which excludes single test block pairs and averages the remaining ones. However, De Schryver, Hughes, De Houwer & Rosseel (On the Interpretation of Reliability in the Context of Implicit Cognition, in prep) make a persuasive arguement for treating the data produced by a given instance of a measure (e.g., an IRAP) as a single analytic unit. Personally, I plan to make test block exclusions based on performance at the whole task level rather than the block pair level in future. Calcualting "whole task" *D*1 scores is both in line with this and precludes the possiblity of cherry picking a method post hoc.
 
 ## Known issues & to do list
 1. R script for processing D scores, development and proofing.
-2. Needs a block length multiplier, given that many people will use only 3 or 4 stimulus exemplars. A simple multiplier variable in the task.xlsx file could make this easier.  
-3. Doesn't seem to deliver test blocks when I last tested it?? 
+2. Needs a block length multiplier, given that many people will use only 3 or 4 stimulus exemplars. A simple multiplier variable in the task.xlsx file could make this easier. 
 
 ## Changelog
 ### 0.9.6
-- Made the shuffle()/pop() code more transparent by writing a function and calling it rather than repeating code. No functional difference for the user, but better code transparency and consistency across the IAT/RRT/IRAP.
+- Made the code that generates and selects the stimuli for each trial in a block more transparent by writing it as a function and calling it rather than repeating code. No functional difference for the user, but better code transparency and consistency across the IAT/RRT/IRAP code.
 
 ### 0.9.5
 1. Added option for block order selection via the dialogue box.
