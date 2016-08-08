@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-This experiment was created using PsychoPy2 Experiment Builder (v1.82.01), Thu May  5 17:03:42 2016
+This experiment was created using PsychoPy2 Experiment Builder (v1.82.01), Mon Aug  8 19:07:18 2016
 If you publish work using this script please cite the relevant PsychoPy publications
   Peirce, JW (2007) PsychoPy - Psychophysics software in Python. Journal of Neuroscience Methods, 162(1-2), 8-13.
   Peirce, JW (2009) Generating stimuli for neuroscience using PsychoPy. Frontiers in Neuroinformatics, 2:10. doi: 10.3389/neuro.11.010.2008
@@ -45,7 +45,7 @@ endExpNow = False  # flag for 'escape' or other condition => quit the exp
 # Start Code - component code to be run before the window creation
 
 # Setup the Window
-win = visual.Window(size=(1366, 768), fullscr=True, screen=0, allowGUI=False, allowStencil=False,
+win = visual.Window(size=(1280, 1024), fullscr=True, screen=0, allowGUI=False, allowStencil=False,
     monitor='testMonitor', color='black', colorSpace='rgb',
     blendMode='avg', useFBO=True,
     units='norm')
@@ -158,9 +158,9 @@ stimulus2_box_A = visual.TextStim(win=win, ori=0, name='stimulus2_box_A',
     color='white', colorSpace='rgb', opacity=1,
     depth=-4.0)
 left_box_A = visual.TextStim(win=win, ori=0, name='left_box_A',
-    text='default text',    font='Arial',
+    text='default text',    font=u'Arial',
     pos=[0,0], height=0.1, wrapWidth=None,
-    color='white', colorSpace='rgb', opacity=1,
+    color=u'white', colorSpace='rgb', opacity=1,
     depth=-7.0)
 right_box_A = visual.TextStim(win=win, ori=0, name='right_box_A',
     text='default text',    font='Arial',
@@ -348,9 +348,9 @@ stimulus2_box_A = visual.TextStim(win=win, ori=0, name='stimulus2_box_A',
     color='white', colorSpace='rgb', opacity=1,
     depth=-4.0)
 left_box_A = visual.TextStim(win=win, ori=0, name='left_box_A',
-    text='default text',    font='Arial',
+    text='default text',    font=u'Arial',
     pos=[0,0], height=0.1, wrapWidth=None,
-    color='white', colorSpace='rgb', opacity=1,
+    color=u'white', colorSpace='rgb', opacity=1,
     depth=-7.0)
 right_box_A = visual.TextStim(win=win, ori=0, name='right_box_A',
     text='default text',    font='Arial',
@@ -468,9 +468,9 @@ stimulus2_box_A = visual.TextStim(win=win, ori=0, name='stimulus2_box_A',
     color='white', colorSpace='rgb', opacity=1,
     depth=-4.0)
 left_box_A = visual.TextStim(win=win, ori=0, name='left_box_A',
-    text='default text',    font='Arial',
+    text='default text',    font=u'Arial',
     pos=[0,0], height=0.1, wrapWidth=None,
-    color='white', colorSpace='rgb', opacity=1,
+    color=u'white', colorSpace='rgb', opacity=1,
     depth=-7.0)
 right_box_A = visual.TextStim(win=win, ori=0, name='right_box_A',
     text='default text',    font='Arial',
@@ -658,9 +658,9 @@ stimulus2_box_A = visual.TextStim(win=win, ori=0, name='stimulus2_box_A',
     color='white', colorSpace='rgb', opacity=1,
     depth=-4.0)
 left_box_A = visual.TextStim(win=win, ori=0, name='left_box_A',
-    text='default text',    font='Arial',
+    text='default text',    font=u'Arial',
     pos=[0,0], height=0.1, wrapWidth=None,
-    color='white', colorSpace='rgb', opacity=1,
+    color=u'white', colorSpace='rgb', opacity=1,
     depth=-7.0)
 right_box_A = visual.TextStim(win=win, ori=0, name='right_box_A',
     text='default text',    font='Arial',
@@ -858,15 +858,14 @@ for thisTask in task:
                 responder.start()
             
             # Generate list of stimuli for the block
-            stim1_catA_stimuli_many = generate_trials('categoryA_stimuli', 2)  # function and variable determined at begin exp.
-            stim1_catB_stimuli_many = generate_trials('categoryB_stimuli', 2)
-            stim2_catA_stimuli_many = generate_trials('categoryC_stimuli', 2)
-            stim2_catB_stimuli_many = generate_trials('categoryD_stimuli', 2)
-            img_stim1_catA_stimuli_many = generate_trials('categoryA_image_stimuli', 2)
-            img_stim1_catB_stimuli_many = generate_trials('categoryB_image_stimuli', 2)
-            img_stim2_catA_stimuli_many = generate_trials('categoryC_image_stimuli', 2)
-            img_stim2_catB_stimuli_many = generate_trials('categoryD_image_stimuli', 2)
-            
+            stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2)  # function and variable determined at begin exp.
+            stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2)
+            stim2_catA_stimuli_many = generate_trials('targetA_stimuli', 2)
+            stim2_catB_stimuli_many = generate_trials('targetB_stimuli', 2)
+            img_stim1_catA_stimuli_many = generate_trials('labelA_image_stimuli', 2)
+            img_stim1_catB_stimuli_many = generate_trials('labelB_image_stimuli', 2)
+            img_stim2_catA_stimuli_many = generate_trials('targetA_image_stimuli', 2)
+            img_stim2_catB_stimuli_many = generate_trials('targetB_image_stimuli', 2)
             rule_box_A.setText(rule_A)
             preblock_response_A = event.BuilderKeyResponse()  # create an object of type KeyResponse
             preblock_response_A.status = NOT_STARTED
@@ -994,8 +993,8 @@ for thisTask in task:
                 
                 # set correct and incorrect responses
                 if string_to_booleanl(moving_response_options) == False:
-                    response_option_left = response_option_A
-                    response_option_right = response_option_B
+                    response_option_left = response_option_B  # i.e., the focal trial type is the right hand one, for hand dominance
+                    response_option_right = response_option_A
                     response_option_onset = 0  # response options are onscreen constantly
                     if (trialType == 1) or (trialType == 4):
                         required_allowed = 'i'
@@ -1011,8 +1010,8 @@ for thisTask in task:
                     rand_positions = randint(1, 3)
                     response_option_onset = 0.4  # response options appear with stimuli
                     if rand_positions == 1:
-                        response_option_left = response_option_A
-                        response_option_right = response_option_B
+                        response_option_left = response_option_B
+                        response_option_right = response_option_A
                         if (trialType == 1) or (trialType == 4):
                             required_allowed = 'i'
                             required_correct = 'i'
@@ -1024,8 +1023,8 @@ for thisTask in task:
                             feedback_allowed = 'i'
                             feedback_correct = 'i'
                     elif rand_positions == 2:
-                        response_option_left = response_option_B
-                        response_option_right = response_option_A
+                        response_option_left = response_option_A
+                        response_option_right = response_option_B
                         if (trialType == 1) or (trialType == 4):
                             required_allowed = 'e'
                             required_correct = 'e'
@@ -1407,14 +1406,14 @@ for thisTask in task:
             responder.start()
         
         # Generate list of stimuli for the block
-        stim1_catA_stimuli_many = generate_trials('categoryA_stimuli', 2)  # function and variable determined at begin exp.
-        stim1_catB_stimuli_many = generate_trials('categoryB_stimuli', 2)
-        stim2_catA_stimuli_many = generate_trials('categoryC_stimuli', 2)
-        stim2_catB_stimuli_many = generate_trials('categoryD_stimuli', 2)
-        img_stim1_catA_stimuli_many = generate_trials('categoryA_image_stimuli', 2)
-        img_stim1_catB_stimuli_many = generate_trials('categoryB_image_stimuli', 2)
-        img_stim2_catA_stimuli_many = generate_trials('categoryC_image_stimuli', 2)
-        img_stim2_catB_stimuli_many = generate_trials('categoryD_image_stimuli', 2)
+        stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2)  # function and variable determined at begin exp.
+        stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2)
+        stim2_catA_stimuli_many = generate_trials('targetA_stimuli', 2)
+        stim2_catB_stimuli_many = generate_trials('targetB_stimuli', 2)
+        img_stim1_catA_stimuli_many = generate_trials('labelA_image_stimuli', 2)
+        img_stim1_catB_stimuli_many = generate_trials('labelB_image_stimuli', 2)
+        img_stim2_catA_stimuli_many = generate_trials('targetA_image_stimuli', 2)
+        img_stim2_catB_stimuli_many = generate_trials('targetB_image_stimuli', 2)
         rule_box_B.setText(rule_B)
         preblock_response_B = event.BuilderKeyResponse()  # create an object of type KeyResponse
         preblock_response_B.status = NOT_STARTED
@@ -1542,8 +1541,8 @@ for thisTask in task:
             
             # set correct and incorrect responses
             if string_to_booleanl(moving_response_options) == False:
-                response_option_left = response_option_A
-                response_option_right = response_option_B
+                response_option_left = response_option_B  # i.e., the focal trial type is the right hand one, for hand dominance
+                response_option_right = response_option_A
                 response_option_onset = 0  # response options are onscreen constantly
                 if (trialType == 1) or (trialType == 4):
                     required_allowed = 'e'  # PATTERN REVERED FROM BLOCK A
@@ -1559,8 +1558,8 @@ for thisTask in task:
                 rand_positions = randint(1, 3)
                 response_option_onset = 0.4  # response options appear with stimuli
                 if rand_positions == 1:
-                    response_option_left = response_option_A
-                    response_option_right = response_option_B
+                    response_option_left = response_option_B
+                    response_option_right = response_option_A
                     if (trialType == 1) or (trialType == 4):
                         required_allowed = 'e'  # PATTERN REVERED FROM BLOCK A
                         required_correct = 'e'
@@ -1572,8 +1571,8 @@ for thisTask in task:
                         feedback_allowed = 'e'
                         feedback_correct = 'e'
                 elif rand_positions == 2:
-                    response_option_left = response_option_B
-                    response_option_right = response_option_A
+                    response_option_left = response_option_A
+                    response_option_right = response_option_B
                     if (trialType == 1) or (trialType == 4):
                         required_allowed = 'i'  # PATTERN REVERED FROM BLOCK A
                         required_correct = 'i'
@@ -1959,15 +1958,14 @@ for thisTask in task:
                 responder.start()
             
             # Generate list of stimuli for the block
-            stim1_catA_stimuli_many = generate_trials('categoryA_stimuli', 2)  # function and variable determined at begin exp.
-            stim1_catB_stimuli_many = generate_trials('categoryB_stimuli', 2)
-            stim2_catA_stimuli_many = generate_trials('categoryC_stimuli', 2)
-            stim2_catB_stimuli_many = generate_trials('categoryD_stimuli', 2)
-            img_stim1_catA_stimuli_many = generate_trials('categoryA_image_stimuli', 2)
-            img_stim1_catB_stimuli_many = generate_trials('categoryB_image_stimuli', 2)
-            img_stim2_catA_stimuli_many = generate_trials('categoryC_image_stimuli', 2)
-            img_stim2_catB_stimuli_many = generate_trials('categoryD_image_stimuli', 2)
-            
+            stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2)  # function and variable determined at begin exp.
+            stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2)
+            stim2_catA_stimuli_many = generate_trials('targetA_stimuli', 2)
+            stim2_catB_stimuli_many = generate_trials('targetB_stimuli', 2)
+            img_stim1_catA_stimuli_many = generate_trials('labelA_image_stimuli', 2)
+            img_stim1_catB_stimuli_many = generate_trials('labelB_image_stimuli', 2)
+            img_stim2_catA_stimuli_many = generate_trials('targetA_image_stimuli', 2)
+            img_stim2_catB_stimuli_many = generate_trials('targetB_image_stimuli', 2)
             rule_box_A.setText(rule_A)
             preblock_response_A = event.BuilderKeyResponse()  # create an object of type KeyResponse
             preblock_response_A.status = NOT_STARTED
@@ -2095,8 +2093,8 @@ for thisTask in task:
                 
                 # set correct and incorrect responses
                 if string_to_booleanl(moving_response_options) == False:
-                    response_option_left = response_option_A
-                    response_option_right = response_option_B
+                    response_option_left = response_option_B  # i.e., the focal trial type is the right hand one, for hand dominance
+                    response_option_right = response_option_A
                     response_option_onset = 0  # response options are onscreen constantly
                     if (trialType == 1) or (trialType == 4):
                         required_allowed = 'i'
@@ -2112,8 +2110,8 @@ for thisTask in task:
                     rand_positions = randint(1, 3)
                     response_option_onset = 0.4  # response options appear with stimuli
                     if rand_positions == 1:
-                        response_option_left = response_option_A
-                        response_option_right = response_option_B
+                        response_option_left = response_option_B
+                        response_option_right = response_option_A
                         if (trialType == 1) or (trialType == 4):
                             required_allowed = 'i'
                             required_correct = 'i'
@@ -2125,8 +2123,8 @@ for thisTask in task:
                             feedback_allowed = 'i'
                             feedback_correct = 'i'
                     elif rand_positions == 2:
-                        response_option_left = response_option_B
-                        response_option_right = response_option_A
+                        response_option_left = response_option_A
+                        response_option_right = response_option_B
                         if (trialType == 1) or (trialType == 4):
                             required_allowed = 'e'
                             required_correct = 'e'
@@ -2503,8 +2501,8 @@ for thisTask in task:
         # update component parameters for each repeat
         # Assess if acc and latency mastery criteria were met
         if (prac_block_A_percentage_accuracy >= accuracyCriterion) and (prac_block_B_percentage_accuracy >= accuracyCriterion) and (prac_block_A_median_latency <= latencyCriterion) and (prac_block_B_median_latency <= latencyCriterion):
-            practice_blocks.finished=True
             complete_test_blocks = n_pairs_test_blocks # latter from blocks.xlsx
+            practice_blocks.finished = True
         # keep track of which components have finished
         end_practice_blocksComponents = []
         for thisComponent in end_practice_blocksComponents:
@@ -2597,15 +2595,14 @@ for thisTask in task:
                 responder.start()
             
             # Generate list of stimuli for the block
-            stim1_catA_stimuli_many = generate_trials('categoryA_stimuli', 2)  # function and variable determined at begin exp.
-            stim1_catB_stimuli_many = generate_trials('categoryB_stimuli', 2)
-            stim2_catA_stimuli_many = generate_trials('categoryC_stimuli', 2)
-            stim2_catB_stimuli_many = generate_trials('categoryD_stimuli', 2)
-            img_stim1_catA_stimuli_many = generate_trials('categoryA_image_stimuli', 2)
-            img_stim1_catB_stimuli_many = generate_trials('categoryB_image_stimuli', 2)
-            img_stim2_catA_stimuli_many = generate_trials('categoryC_image_stimuli', 2)
-            img_stim2_catB_stimuli_many = generate_trials('categoryD_image_stimuli', 2)
-            
+            stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2)  # function and variable determined at begin exp.
+            stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2)
+            stim2_catA_stimuli_many = generate_trials('targetA_stimuli', 2)
+            stim2_catB_stimuli_many = generate_trials('targetB_stimuli', 2)
+            img_stim1_catA_stimuli_many = generate_trials('labelA_image_stimuli', 2)
+            img_stim1_catB_stimuli_many = generate_trials('labelB_image_stimuli', 2)
+            img_stim2_catA_stimuli_many = generate_trials('targetA_image_stimuli', 2)
+            img_stim2_catB_stimuli_many = generate_trials('targetB_image_stimuli', 2)
             rule_box_A.setText(rule_A)
             preblock_response_A = event.BuilderKeyResponse()  # create an object of type KeyResponse
             preblock_response_A.status = NOT_STARTED
@@ -2733,8 +2730,8 @@ for thisTask in task:
                 
                 # set correct and incorrect responses
                 if string_to_booleanl(moving_response_options) == False:
-                    response_option_left = response_option_A
-                    response_option_right = response_option_B
+                    response_option_left = response_option_B  # i.e., the focal trial type is the right hand one, for hand dominance
+                    response_option_right = response_option_A
                     response_option_onset = 0  # response options are onscreen constantly
                     if (trialType == 1) or (trialType == 4):
                         required_allowed = 'i'
@@ -2750,8 +2747,8 @@ for thisTask in task:
                     rand_positions = randint(1, 3)
                     response_option_onset = 0.4  # response options appear with stimuli
                     if rand_positions == 1:
-                        response_option_left = response_option_A
-                        response_option_right = response_option_B
+                        response_option_left = response_option_B
+                        response_option_right = response_option_A
                         if (trialType == 1) or (trialType == 4):
                             required_allowed = 'i'
                             required_correct = 'i'
@@ -2763,8 +2760,8 @@ for thisTask in task:
                             feedback_allowed = 'i'
                             feedback_correct = 'i'
                     elif rand_positions == 2:
-                        response_option_left = response_option_B
-                        response_option_right = response_option_A
+                        response_option_left = response_option_A
+                        response_option_right = response_option_B
                         if (trialType == 1) or (trialType == 4):
                             required_allowed = 'e'
                             required_correct = 'e'
@@ -3146,14 +3143,14 @@ for thisTask in task:
             responder.start()
         
         # Generate list of stimuli for the block
-        stim1_catA_stimuli_many = generate_trials('categoryA_stimuli', 2)  # function and variable determined at begin exp.
-        stim1_catB_stimuli_many = generate_trials('categoryB_stimuli', 2)
-        stim2_catA_stimuli_many = generate_trials('categoryC_stimuli', 2)
-        stim2_catB_stimuli_many = generate_trials('categoryD_stimuli', 2)
-        img_stim1_catA_stimuli_many = generate_trials('categoryA_image_stimuli', 2)
-        img_stim1_catB_stimuli_many = generate_trials('categoryB_image_stimuli', 2)
-        img_stim2_catA_stimuli_many = generate_trials('categoryC_image_stimuli', 2)
-        img_stim2_catB_stimuli_many = generate_trials('categoryD_image_stimuli', 2)
+        stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2)  # function and variable determined at begin exp.
+        stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2)
+        stim2_catA_stimuli_many = generate_trials('targetA_stimuli', 2)
+        stim2_catB_stimuli_many = generate_trials('targetB_stimuli', 2)
+        img_stim1_catA_stimuli_many = generate_trials('labelA_image_stimuli', 2)
+        img_stim1_catB_stimuli_many = generate_trials('labelB_image_stimuli', 2)
+        img_stim2_catA_stimuli_many = generate_trials('targetA_image_stimuli', 2)
+        img_stim2_catB_stimuli_many = generate_trials('targetB_image_stimuli', 2)
         rule_box_B.setText(rule_B)
         preblock_response_B = event.BuilderKeyResponse()  # create an object of type KeyResponse
         preblock_response_B.status = NOT_STARTED
@@ -3281,8 +3278,8 @@ for thisTask in task:
             
             # set correct and incorrect responses
             if string_to_booleanl(moving_response_options) == False:
-                response_option_left = response_option_A
-                response_option_right = response_option_B
+                response_option_left = response_option_B  # i.e., the focal trial type is the right hand one, for hand dominance
+                response_option_right = response_option_A
                 response_option_onset = 0  # response options are onscreen constantly
                 if (trialType == 1) or (trialType == 4):
                     required_allowed = 'e'  # PATTERN REVERED FROM BLOCK A
@@ -3298,8 +3295,8 @@ for thisTask in task:
                 rand_positions = randint(1, 3)
                 response_option_onset = 0.4  # response options appear with stimuli
                 if rand_positions == 1:
-                    response_option_left = response_option_A
-                    response_option_right = response_option_B
+                    response_option_left = response_option_B
+                    response_option_right = response_option_A
                     if (trialType == 1) or (trialType == 4):
                         required_allowed = 'e'  # PATTERN REVERED FROM BLOCK A
                         required_correct = 'e'
@@ -3311,8 +3308,8 @@ for thisTask in task:
                         feedback_allowed = 'e'
                         feedback_correct = 'e'
                 elif rand_positions == 2:
-                    response_option_left = response_option_B
-                    response_option_right = response_option_A
+                    response_option_left = response_option_A
+                    response_option_right = response_option_B
                     if (trialType == 1) or (trialType == 4):
                         required_allowed = 'i'  # PATTERN REVERED FROM BLOCK A
                         required_correct = 'i'
@@ -3698,15 +3695,14 @@ for thisTask in task:
                 responder.start()
             
             # Generate list of stimuli for the block
-            stim1_catA_stimuli_many = generate_trials('categoryA_stimuli', 2)  # function and variable determined at begin exp.
-            stim1_catB_stimuli_many = generate_trials('categoryB_stimuli', 2)
-            stim2_catA_stimuli_many = generate_trials('categoryC_stimuli', 2)
-            stim2_catB_stimuli_many = generate_trials('categoryD_stimuli', 2)
-            img_stim1_catA_stimuli_many = generate_trials('categoryA_image_stimuli', 2)
-            img_stim1_catB_stimuli_many = generate_trials('categoryB_image_stimuli', 2)
-            img_stim2_catA_stimuli_many = generate_trials('categoryC_image_stimuli', 2)
-            img_stim2_catB_stimuli_many = generate_trials('categoryD_image_stimuli', 2)
-            
+            stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2)  # function and variable determined at begin exp.
+            stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2)
+            stim2_catA_stimuli_many = generate_trials('targetA_stimuli', 2)
+            stim2_catB_stimuli_many = generate_trials('targetB_stimuli', 2)
+            img_stim1_catA_stimuli_many = generate_trials('labelA_image_stimuli', 2)
+            img_stim1_catB_stimuli_many = generate_trials('labelB_image_stimuli', 2)
+            img_stim2_catA_stimuli_many = generate_trials('targetA_image_stimuli', 2)
+            img_stim2_catB_stimuli_many = generate_trials('targetB_image_stimuli', 2)
             rule_box_A.setText(rule_A)
             preblock_response_A = event.BuilderKeyResponse()  # create an object of type KeyResponse
             preblock_response_A.status = NOT_STARTED
@@ -3834,8 +3830,8 @@ for thisTask in task:
                 
                 # set correct and incorrect responses
                 if string_to_booleanl(moving_response_options) == False:
-                    response_option_left = response_option_A
-                    response_option_right = response_option_B
+                    response_option_left = response_option_B  # i.e., the focal trial type is the right hand one, for hand dominance
+                    response_option_right = response_option_A
                     response_option_onset = 0  # response options are onscreen constantly
                     if (trialType == 1) or (trialType == 4):
                         required_allowed = 'i'
@@ -3851,8 +3847,8 @@ for thisTask in task:
                     rand_positions = randint(1, 3)
                     response_option_onset = 0.4  # response options appear with stimuli
                     if rand_positions == 1:
-                        response_option_left = response_option_A
-                        response_option_right = response_option_B
+                        response_option_left = response_option_B
+                        response_option_right = response_option_A
                         if (trialType == 1) or (trialType == 4):
                             required_allowed = 'i'
                             required_correct = 'i'
@@ -3864,8 +3860,8 @@ for thisTask in task:
                             feedback_allowed = 'i'
                             feedback_correct = 'i'
                     elif rand_positions == 2:
-                        response_option_left = response_option_B
-                        response_option_right = response_option_A
+                        response_option_left = response_option_A
+                        response_option_right = response_option_B
                         if (trialType == 1) or (trialType == 4):
                             required_allowed = 'e'
                             required_correct = 'e'
