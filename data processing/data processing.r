@@ -6,19 +6,16 @@
 # Ian Hussey (ian.hussey@ugent.be)
 
 # Version:
-# 0.5
+# 0.6
 
 # Usage:
-# Simply set the input [line containing setwd()] and output 
-# [line containing write.csv()] directories and run script.
-# NB see README for notes.
+# Simply set the input directory [the line containing setwd()] and 
+# output directory [the line containing write.csv()] and run script.
+# See README for notes.
 
 # To do:
-# 1. D1 produces some scores >2, which shouldn't be possible. check with manual calc.
-# 2. check that distinct call in output_df doesn't cause problems
-# 3. check that alt block order doesn't change things
-# 4. check that monkey still works
-# 5. check that moving response options works
+# 1. check that distinct call in output_df doesn't cause problems, or how to avoid having to call it.
+# 2. check that alt block order, moving response options, block length, images etc doesn't break things
 
 ########################################################################
 # Clean workspace
@@ -35,7 +32,7 @@ library(lazyeval)
 
 ########################################################################
 # Data acquisition and cleaning
-setwd("~/git/IRAP/data")
+setwd("~/git/Open Source IRAP/data")
 files <- list.files(pattern = "\\.csv$")
 input_df <- tbl_df(rbind.fill(lapply(files, fread, header=TRUE)))
 
@@ -122,21 +119,23 @@ D1_df <-
            participant) %>%
   filter(rt <= 10000 &
            !is.na(test_block_pair)) %>%  # test blocks only
-  summarize(rt_a_mean = round(mean(rt_a, na.rm = TRUE), 3),
-            rt_b_mean = round(mean(rt_b, na.rm = TRUE), 3),
-            rt_mean = round(mean(rt), 3),
-            rt_sd = round(sd(rt), 3),
-            rt_block_As_median = round(median(rt_a, na.rm = TRUE), 3),
-            rt_block_Bs_median = round(median(rt_b, na.rm = TRUE), 3)) %>%
+  summarize(rt_a_mean = mean(rt_a, na.rm = TRUE),
+            rt_b_mean = mean(rt_b, na.rm = TRUE),
+            rt_mean = mean(rt),
+            rt_sd = sd(rt),
+            rt_block_A_median = median(rt_a, na.rm = TRUE),
+            rt_block_B_median = median(rt_b, na.rm = TRUE)) %>%
   mutate(diff = rt_b_mean - rt_a_mean,
-         D1 = round(diff / rt_sd, 2)) %>%  # D1 calculated from all test blocks at once.
+         D1 = round(diff / rt_sd, 2),
+         rt_mean = round(rt_mean, 3),  # rounding for output simplicity is done only after D1 score calculation
+         rt_sd = round(rt_sd, 3),
+         rt_block_A_median = round(rt_block_A_median, 3),
+         rt_block_B_median = round(rt_block_B_median, 3)) %>% 
   select(participant, 
-         #rt_a_mean,
-         #rt_b_mean,
          rt_mean,
          rt_sd,
-         rt_block_As_median,
-         rt_block_Bs_median,
+         rt_block_A_median,
+         rt_block_B_median,
          D1)
 
 # D1 calculated for each of the four trial-types from all test block rts
@@ -146,12 +145,11 @@ D1_by_tt_df <-
            trial_type) %>%
   filter(rt <= 10000 &
            !is.na(test_block_pair)) %>%  # test blocks only
-  summarize(rt_a_mean = round(mean(rt_a, na.rm = TRUE), 2),
-            rt_b_mean = round(mean(rt_b, na.rm = TRUE), 2),
-            rt_mean = round(mean(rt), 2),
+  summarize(rt_a_mean = mean(rt_a, na.rm = TRUE),
+            rt_b_mean = mean(rt_b, na.rm = TRUE),
             rt_sd = sd(rt)) %>%
   mutate(diff = rt_b_mean - rt_a_mean,
-         D1_by_tt = round(diff / rt_sd, 2)) %>%  # D1 calculated from all test blocks at once.
+         D1_by_tt = round(diff / rt_sd, 2)) %>%
   select(participant, 
          trial_type,
          D1_by_tt) %>%
@@ -168,12 +166,11 @@ D1_odd_df <-
   filter(rt <= 10000 &
            !is.na(test_block_pair) &  # test blocks only
            trial_order %% 2 == 0) %>%  # odd trials only, nb count starts at 0
-  summarize(rt_a_mean = round(mean(rt_a, na.rm = TRUE), 2),
-            rt_b_mean = round(mean(rt_b, na.rm = TRUE), 2),
-            rt_mean = round(mean(rt), 2),
+  summarize(rt_a_mean = mean(rt_a, na.rm = TRUE),
+            rt_b_mean = mean(rt_b, na.rm = TRUE),
             rt_sd = sd(rt)) %>%
   mutate(diff = rt_b_mean - rt_a_mean,
-         D1_odd = round(diff / rt_sd, 2)) %>%  # D1 calculated from all test blocks at once.
+         D1_odd = round(diff / rt_sd, 2)) %>%
   select(participant, 
          D1_odd)
 
@@ -184,12 +181,11 @@ D1_even_df <-
   filter(rt <= 10000 &
            !is.na(test_block_pair) &  # test blocks only
            trial_order %% 2 == 1) %>%  # odd trials only, nb count starts at 0
-  summarize(rt_a_mean = round(mean(rt_a, na.rm = TRUE), 2),
-            rt_b_mean = round(mean(rt_b, na.rm = TRUE), 2),
-            rt_mean = round(mean(rt), 2),
+  summarize(rt_a_mean = mean(rt_a, na.rm = TRUE),
+            rt_b_mean = mean(rt_b, na.rm = TRUE),
             rt_sd = sd(rt)) %>%
   mutate(diff = rt_b_mean - rt_a_mean,
-         D1_even = round(diff / rt_sd, 2)) %>%  # D1 calculated from all test blocks at once.
+         D1_even = round(diff / rt_sd, 2)) %>%
   select(participant, 
          D1_even)
 
@@ -228,4 +224,4 @@ output_df <-
 
 ########################################################################
 # Write to file
-write.csv(output_df, file = '~/git/IRAP/data processing/processed_IRAP_data.csv', row.names=FALSE)
+write.csv(output_df, file = '~/git/Open Source IRAP/data processing/processed_IRAP_data.csv', row.names=FALSE)
