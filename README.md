@@ -167,6 +167,7 @@ d. Finally, by calculating all-task *D*1 scores, this method constrains the degr
 ## Changelog
 ### 0.9.6
 1. Made the code that generates and selects the stimuli for each trial in a block more transparent by writing it as a function and calling it rather than repeating code. No functional difference for the user, but better code transparency and consistency across the IAT/RRT/IRAP codebase.
+2. Added data processing R script. 
 
 ### 0.9.5
 1. Added option for block order selection via the dialogue box.
