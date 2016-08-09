@@ -14,7 +14,8 @@
 # See README for notes.
 
 # To do:
-# None.
+# 1. quantify participants who fail prac blocks. currently they appear as 
+# N prac blocks = (max) and with no test block data.
 
 ########################################################################
 # Clean workspace
@@ -50,6 +51,14 @@ if("trials_Asecond.thisTrialN" %in% colnames(input_df)){
   # column already exists: do nothing.
 } else {
   input_df[,"trials_Asecond.thisTrialN"] <- NA
+}
+
+# If participants fail the practice blocks, this column will also be absent. 
+# Create it so that n who failed prac blocks can be quantified.  
+if("trials_B.thisTrialN" %in% colnames(input_df)){
+  # column already exists: do nothing.
+} else {
+  input_df[,"trials_B.thisTrialN"] <- NA
 }
 
 # Make some variable names more transparent, plus rectify the the accuracy variable
