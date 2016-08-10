@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-This experiment was created using PsychoPy2 Experiment Builder (v1.82.01), Wed Aug 10 17:02:37 2016
+This experiment was created using PsychoPy2 Experiment Builder (v1.82.01), Wed Aug 10 23:26:49 2016
 If you publish work using this script please cite the relevant PsychoPy publications
   Peirce, JW (2007) PsychoPy - Psychophysics software in Python. Journal of Neuroscience Methods, 162(1-2), 8-13.
   Peirce, JW (2009) Generating stimuli for neuroscience using PsychoPy. Frontiers in Neuroinformatics, 2:10. doi: 10.3389/neuro.11.010.2008
@@ -58,52 +58,18 @@ else:
 
 # Initialize components for Routine "instructions"
 instructionsClock = core.Clock()
-# Dependencies 
+# Dependencies
+
 from psychopy.hardware.emulator import ResponseEmulator  #for response emulator
 import itertools  # for flattening lists of lists into lists
 import random  # for shuffling lists
 
-# Assess if monkey should run based on dialogue box
-if str(expInfo['UseMonkey']) == 'y' or str(expInfo['UseMonkey']) == 'Y' or str(expInfo['UseMonkey']) == 'yes' or str(expInfo['UseMonkey']) == 't' or str(expInfo['UseMonkey']) == 'true' or str(expInfo['UseMonkey']) == 'True' or str(expInfo['UseMonkey']) == 'TRUE':
-    Monkey = True
-else:
-    Monkey = False
+# Functions
 
-# Assess if monkey should run based on dialogue box
-if str(expInfo['StartingBlock']) == 'a' or str(expInfo['StartingBlock']) == 'A':
-    starting_block = 'a'
-    Afirst_nReps = 1
-    Asecond_nReps = 0
-elif str(expInfo['StartingBlock']) == 'b' or str(expInfo['StartingBlock']) == 'B':
-    starting_block = 'b'
-    Afirst_nReps = 0
-    Asecond_nReps = 1
-
-# FUNCTIONS FOR GENERATING SHUFFLED LISTS OF STIMULI FOR TRIALS
-# To convert the moving_response_options String to a boolean:
+# Convert string to boolean.
+# Take any likely input from the task.xlsx file and convert to a boolean. This helps to idiot-proof the excel files.
 def string_to_booleanl(v):
-  return v.lower() in ("yes", "true", "TRUE", "True", "t", "T", "1")  # Take any likely input from the blocks.xlsx file and convert to a boolean. This helps to idiot-proof the excel files.
-
-"""
-Create sufficiently long lists of stimuli
-
-This allows us to keep the stimuli in an excel file across multiple lines, and to present them based on the categories 
-set by the 'layout.xlsx' file. This allows for shuffled (counterbalanced pseudorandom) presentation of the stimuli examplars 
-as well as the categories. 
-
-The method to do this below is to first declare a dictionary to be populated from the exemplars conditions, but not in the usual way. 
-Usually, psychopy would read across columns. If the stimuli were entered as a list within the excel file (e.g., ['male', 'female']) 
-rather on seperate rows as they are now all we would have to do is multiply the length of the list to get enough exemplars. However, 
-I wanted the stimuli file to be as use friendly as possible, so instead the below code allows you to enter the exemplars on seperate
-rows, and then populates the dict vertically from the rows. 
-"""
-
-# Import stimuli exemplars
-exemplars_filename = 'stimuli.xlsx'
-exemplars = data.importConditions(exemplars_filename)# Import stimuli exemplars
-
-# Determine nReps of trials loop based on number of exemplars
-reptitions = len(exemplars)
+  return v.lower() in ("yes", "true", "TRUE", "True", "t", "T", "1")
 
 # Trial generation function
 def generate_trials(trial_type_column, multiplier, shuffle_list):
@@ -117,25 +83,25 @@ def generate_trials(trial_type_column, multiplier, shuffle_list):
         random.shuffle(a)  # shuffle this list, so that it can be drawn from by the trials
     return a
 
-# Generate a first, unshuffled list of the stimuli exemplars for saving to output file
-# no shuffling, multiplier = 1.
-labelA_stimuli_for_output = generate_trials('labelA_stimuli', 1, False)  # function and variable determined at begin exp.
-labelB_stimuli_for_output = generate_trials('labelB_stimuli', 1, False)
-targetA_stimuli_for_output = generate_trials('targetA_stimuli', 1, False)
-targetB_stimuli_for_output = generate_trials('targetB_stimuli', 1, False)
-labelA_image_stimuli_for_output = generate_trials('labelA_image_stimuli', 1, False)
-labelB_image_stimuli_for_output = generate_trials('labelB_image_stimuli', 1, False)
-targetA_image_stimuli_for_output = generate_trials('targetA_image_stimuli', 1, False)
-targetB_image_stimuli_for_output = generate_trials('targetB_image_stimuli', 1, False)
-# save these lists to the trial handler to be written to csv
-thisExp.addData('labelA_stimuli_for_output', labelA_stimuli_for_output)
-thisExp.addData('labelB_stimuli_for_output', labelB_stimuli_for_output)
-thisExp.addData('targetA_stimuli_for_output', targetA_stimuli_for_output)
-thisExp.addData('targetB_stimuli_for_output', targetB_stimuli_for_output)
-thisExp.addData('labelA_image_stimuli_for_output', labelA_image_stimuli_for_output)
-thisExp.addData('labelB_image_stimuli_for_output', labelB_image_stimuli_for_output)
-thisExp.addData('targetA_image_stimuli_for_output', targetA_image_stimuli_for_output)
-thisExp.addData('targetB_image_stimuli_for_output', targetB_image_stimuli_for_output)
+
+# Determine variables based on dialogue box
+
+# auto response monkey
+if str(expInfo['UseMonkey']) == 'y' or str(expInfo['UseMonkey']) == 'Y' or str(expInfo['UseMonkey']) == 'yes' or str(expInfo['UseMonkey']) == 't' or str(expInfo['UseMonkey']) == 'true' or str(expInfo['UseMonkey']) == 'True' or str(expInfo['UseMonkey']) == 'TRUE':
+    Monkey = True
+else:
+    Monkey = False
+
+# starting block
+if str(expInfo['StartingBlock']) == 'a' or str(expInfo['StartingBlock']) == 'A':
+    starting_block = 'a'
+    Afirst_nReps = 1
+    Asecond_nReps = 0
+elif str(expInfo['StartingBlock']) == 'b' or str(expInfo['StartingBlock']) == 'B':
+    starting_block = 'b'
+    Afirst_nReps = 0
+    Asecond_nReps = 1
+
 intro_box = visual.TextStim(win=win, ori=0, name='intro_box',
     text='default text',    font='Arial',
     pos=[0, 0], height=0.08, wrapWidth=1.5,
@@ -637,11 +603,52 @@ for thisTask in task:
     instructionsClock.reset()  # clock 
     frameN = -1
     # update component parameters for each repeat
-    # Option to simulates using ResponseEmulator:
+    # ResponseEmulator
     if Monkey:
         simulated_responses = [(1.1, 'e'), (1.1, 'i')]  # simulated responses take the form (onsetTime, responseKey). You can simulate more than one.
         responder = ResponseEmulator(simulated_responses)
         responder.start()
+    
+    # Create sufficiently long lists of stimuli
+    """
+    This allows us to keep the stimuli in an excel file across multiple lines, and to present them based on the categories 
+    set by the 'layout.xlsx' file. This allows for shuffled (counterbalanced pseudorandom) presentation of the stimuli examplars 
+    as well as the categories. 
+    
+    The method to do this below is to first declare a dictionary to be populated from the exemplars conditions, but not in the usual way. 
+    Usually, psychopy would read across columns. If the stimuli were entered as a list within the excel file (e.g., ['male', 'female']) 
+    rather on seperate rows as they are now all we would have to do is multiply the length of the list to get enough exemplars. However, 
+    I wanted the stimuli file to be as use friendly as possible, so instead the below code allows you to enter the exemplars on seperate
+    rows, and then populates the dict vertically from the rows. 
+    """
+    # Import stimuli exemplars
+    exemplars = data.importConditions(stimulus_file)  # Import stimuli exemplars. stimulus_file is defined in task.xlsx
+    
+    # Determine nReps of trials loop based on number of exemplars
+    reptitions = len(exemplars)
+    
+    
+    # Generate a first, unshuffled list of the stimuli exemplars for saving to output file
+    
+    # 1. generate: no shuffling, multiplier = 1.
+    labelA_stimuli_for_output = generate_trials('labelA_stimuli', 1, False)  # function and variable determined at begin exp.
+    labelB_stimuli_for_output = generate_trials('labelB_stimuli', 1, False)
+    targetA_stimuli_for_output = generate_trials('targetA_stimuli', 1, False)
+    targetB_stimuli_for_output = generate_trials('targetB_stimuli', 1, False)
+    labelA_image_stimuli_for_output = generate_trials('labelA_image_stimuli', 1, False)
+    labelB_image_stimuli_for_output = generate_trials('labelB_image_stimuli', 1, False)
+    targetA_image_stimuli_for_output = generate_trials('targetA_image_stimuli', 1, False)
+    targetB_image_stimuli_for_output = generate_trials('targetB_image_stimuli', 1, False)
+    
+    # 2. save these lists to the trial handler to be written to csv
+    thisExp.addData('labelA_stimuli_for_output', labelA_stimuli_for_output)
+    thisExp.addData('labelB_stimuli_for_output', labelB_stimuli_for_output)
+    thisExp.addData('targetA_stimuli_for_output', targetA_stimuli_for_output)
+    thisExp.addData('targetB_stimuli_for_output', targetB_stimuli_for_output)
+    thisExp.addData('labelA_image_stimuli_for_output', labelA_image_stimuli_for_output)
+    thisExp.addData('labelB_image_stimuli_for_output', labelB_image_stimuli_for_output)
+    thisExp.addData('targetA_image_stimuli_for_output', targetA_image_stimuli_for_output)
+    thisExp.addData('targetB_image_stimuli_for_output', targetB_image_stimuli_for_output)
     intro_box.setText(intro_message)
     intro_resp = event.BuilderKeyResponse()  # create an object of type KeyResponse
     intro_resp.status = NOT_STARTED

@@ -6,7 +6,7 @@
 # Ian Hussey (ian.hussey@ugent.be)
 
 # Version:
-# 0.7
+# 0.7.1
 
 # Usage:
 # Simply set the input directory [the line containing setwd()] and 
@@ -34,7 +34,7 @@ library(data.table)
 
 ########################################################################
 # Data acquisition and cleaning
-setwd("~/git/Open Source IRAP/data")
+setwd("/Users/Ian/Dropbox/Work/Studies/DCC work/Coherence and untested IRAP relations/Political preferences CC training/Measures/multi IRAP/data")
 files <- list.files(pattern = "\\.csv$")
 input_df <- tbl_df(rbind.fill(lapply(files, fread, header=TRUE)))  # tbl_df() requires dplyr, rbind.fill() requires plyr, fread requires data.table
 
@@ -85,6 +85,13 @@ cleaned_df <-
                 labelB_image_stimuli_exemplars = labelB_image_stimuli_for_output,
                 targetA_image_stimuli_exemplars = targetA_image_stimuli_for_output,
                 targetB_image_stimuli_exemplars = targetB_image_stimuli_for_output) %>%
+  # If participants complete multiple IRAPs within one task/output file, you should note that this script
+  # currently does not differentiate between the IRAPs but treats them all as one. To differentiate the IRAPs,
+  # uncomment the next line with filter() and replace "self_others_stimuli.xlsx" with the name of IRAP stimulus 
+  # file you want to produce data for. You might want to change the name of the output file on the very last line 
+  # too, before running the script. Then change the stimulus_file (and output name) to the next IRAP's stimulus 
+  # file. Then run the script again. 
+  #filter(stimulus_file == "self_others_stimuli.xlsx") %>%  
   rowwise() %>%  # needed for the row-wise mutate() for rt and accuracy below 
   dplyr::mutate(accuracy_a = abs(accuracy_a - 1),  # recitfies the direction of accuracy so that 0 = error and 1 = correct.
                 accuracy_b = abs(accuracy_b - 1),
@@ -283,4 +290,4 @@ output_df <-
 
 ########################################################################
 # Write to file
-write.csv(output_df, file = '~/git/Open Source IRAP/data processing/processed_IRAP_data.csv', row.names=FALSE)
+write.csv(output_df, file = "/Users/Ian/Dropbox/Work/Studies/DCC work/Coherence and untested IRAP relations/Political preferences CC training/Measures/multi IRAP/data processing/processed_IRAP_data.csv", row.names=FALSE)
