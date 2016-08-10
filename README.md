@@ -1,5 +1,10 @@
+![IRAP icon](https://github.com/ianhussey/OpenSourceIRAP/blob/master/screenshots/icon_256x256.png?raw=true style="text-align:center")
+
 # Open Source IRAP
-###### Implicit Relational Assessment Procedure
+
+###### Implicit Relational Assessment Procedure</center>
+
+<div style="page-break-after: always;"></div>
 
 ## License
 Copyright (c) Ian Hussey 2015 (ian.hussey@ugent.be)
