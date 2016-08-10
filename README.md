@@ -14,7 +14,7 @@ Open Source IRAP: 0.9.7
 
 R processing script: 0.7
 
-*NB This code is still in beta - I haven't used it in an experiment yet.*
+*NB This code is still in beta - it hasn't been used it in a published article yet.*
 
 ## Description & purpose
 The IRAP is an indirect measure of implicit attitudes. 
@@ -109,7 +109,7 @@ The values provided in the included file are representative of commonly used tas
 One key parameter that is not set in the `task.xlsx` file is the order of presentation of the blocks (i.e., block order). Instead, this is set for each participant in the dialogue box that appears after you run the task. This was implimented this was as it's the only variable that sometimes differs between participants within a study. The default is "a" (rule A first). Set this to "b" for rule B first. I.e., if you wish to counterbalance block order, the researcher must set the block order for each participant using the dialogue box when the participant number is entered.
 
 ### 5. Auto-response "monkey" for piloting the task
-When you run the task, an auto-response 'monkey' can be invoked by setting "UseMonkey" in the dialogue box to "y" or "yes". This will simulate key presses throughout the task to that you can test your script without you having to hit E and I interminably. NB you may have to lower your accuracy criterion to below 50% (i.e., just put it to 0) for the task to run through entirely, as the monkey simply simulates the I key and then the E key, in that order, on every trial.
+When you run the task, an auto-response 'monkey' can be invoked by setting "UseMonkey" in the dialogue box to "y" or "yes". This will simulate key presses throughout the task to that you can test your script without you having to hit E and I interminably. The monkey simply simulates the I key and then the E key, in that order, on every trial. As such, the simulated accuracy should be c.50%. For the task to run through fully including test blocks, you must to lower the accuracy criterion to below 50% (e.g., just put it to 0).
 
 ## Output
 ### 1. Data files
@@ -120,16 +120,20 @@ The included `data processing.r` R script produces accuracy and latency summary 
 
 Very little familiarity with R/RStudio is needed to use this script. 
 
-1. change the set working directory line to the location of your data (e.g., `setwd("~/git/Open Source IRAP/data`)
+1. Change the set working directory line to the location of your data
+	- i.e., the line containing[the line containing `setwd()`
+	- e.g. `setwd("~/git/Open Source IRAP/data`
 	- NB you must have at least one output file that has test block data for the script to run. 
-2. change the save output line to your chosen directory (e.g., `write.csv(all_tasks_df, file = '~/git/Open Source IRAP/data processing/processed_IRAP_data.csv', row.names=FALSE)`), 
-3. run the script (e.g., in RStudio on mac: ⌘-a to select all lines and ⌘-⏎ to run; windows: ctrl-a to select all lines and ctrl-⏎ to run).
+2. Change the save output line to your chosen directory 
+	- i.e., the line containing `write.csv()`
+	- e.g., `write.csv(all_tasks_df, file = '~/git/Open Source IRAP/data processing/processed_IRAP_data.csv', row.names=FALSE)`)
+3. Run the script (e.g., in RStudio on mac: ⌘-a to select all lines and ⌘-⏎ to run; windows: ctrl-a to select all lines and ctrl-⏎ to run).
 
 The script produces a `processed_IRAP_data.csv` file with the following variables for analysis:
 	
-	IRAP_name	participant	gender	age	date	starting_block	max_pairs_practice_blocks	n_pairs_test_blocks	latency_criterion	accuracy_criterion	moving_response_options	auto_response_monkey	rule_A	rule_B	response_option_A	response_option_B	labelA_text_stimuli_exemplars	labelB_text_stimuli_exemplars	targetA_text_stimuli_exemplars	targetB_text_stimuli_exemplars	labelA_image_stimuli_exemplars	labelB_image_stimuli_exemplars	targetA_image_stimuli_exemplars	targetB_image_stimuli_exemplars	n_pairs_practice_blocks	rt_mean	rt_sd	rt_block_A_median	rt_block_B_median	D1	D1_trial_type_1	D1_trial_type_2	D1_trial_type_3	D1_trial_type_4	D1_odd	D1_even	percentage_accuracy	exclude_based_on_fast_trials
+	IRAP_name	participant	gender	age	date	starting_block  # a or b	max_pairs_practice_blocks	n_pairs_test_blocks	latency_criterion  # in seconds, not ms	accuracy_criterion  # out of 100%, not 1.0 (e.g., 80)	moving_response_options  # TRUE or FALSE	auto_response_monkey  # TRUE or FALSE	rule_A	rule_B	response_option_A	response_option_B	labelA_text_stimuli_exemplars  # list of unicode exemplars	labelB_text_stimuli_exemplars	targetA_text_stimuli_exemplars	targetB_text_stimuli_exemplars	labelA_image_stimuli_exemplars	labelB_image_stimuli_exemplars	targetA_image_stimuli_exemplars	targetB_image_stimuli_exemplars	n_pairs_practice_blocks	rt_mean	rt_sd	rt_block_A_median	rt_block_B_median	D1	D1_trial_type_1	D1_trial_type_2	D1_trial_type_3	D1_trial_type_4	D1_odd	D1_even	percentage_accuracy	exclude_based_on_fast_trials  # TRUE or FALSE	passed_practice_blocks  # TRUE or FALSE
 
-Note that while this file includes contains all the necessary info to replicate an IRAP in the absense of having access to the psychopy script, `stimuli.xlsx` file and `task.xlsx file`, including all stimuli exemplars. Only the screen locations and initial instructions are not saved here. This also allows one to easily determine what experiment an output file was produced by should it have been misplaced. 
+Note that while this file includes contains all the necessary info to replicate an IRAP in the absense of having access to the PsychoPy `.psyexp`/`.py file`, `stimuli.xlsx` file and `task.xlsx file`. Only the screen locations and initial instructions are not saved here. This also allows one to easily determine what experiment an output file was produced by, e.g., if it were misplaced.
 	
 #### a. *D*1 scoring method
 *D* scores are (Greenwald et al., 2003) are a variant of Cohen's *d* effect size, and are used to quantify the effect size difference between two response patterns (e.g., rts on block As vs. block Bs in an IRAP). They differ from Cohen's *d* in how standard deviations are calculated, sub variants differ in their exclusion criteria and the presence/absence of an error penalty. *D*1 scores are have been employed in the majority of published IRAP research to date (although see next heading). The generic steps in calculating *D*1 scores are as follows: 
@@ -138,9 +142,7 @@ Note that while this file includes contains all the necessary info to replicate 
 2. All rts > 10000 ms are excluded.
 3. *D*1 = (mean rt block B - mean rt block A) / SD of all trials in blocks A and B.
 
-As noted above, one key step in calculating *D*1 scores is excluding participants who produce >10% rts < 300ms. The current R script outputs the variable `exclude_based_on_fast_trials` which indicates that a participant should be excluded if `TRUE`.
-
-- These exclusions must be done by the researcher, and are not automatically done by the script. This is in order to allow the auto response monkey functions correctly and quickly, and due to the fact that the majority of IRAP research to date has not explicitly included this step, given that some other implimentations of the task do not output this specific information.
+As noted above, one key step in calculating *D*1 scores is excluding participants who produce >10% rts < 300ms. The current R script outputs the variable `exclude_based_on_fast_trials` which indicates that a participant should be excluded if `TRUE`. These exclusions must be done by the researcher, and are not automatically done by the script. This is in order to allow the auto response monkey functions correctly and quickly, and due to the fact that the majority of IRAP research to date has not explicitly included this step, given that some other implimentations of the task do not output this specific information.
 
 #### b. Interpretation
 In brief, a positive *D*1 score (overall only, not by trial type) indicates an automatic preferences for resopnding in block A over block B. That is for responding to label A (e.g., flowers) and target A (e.g., positive) faster with response option A (e.g., similar) than with response option B (e.g., different). 
@@ -189,12 +191,12 @@ If you're looking for higher accuracy (e.g., for EEG/fMRI work) you'll want to c
 
 ## To do list
 1. Update the `Open Source IRAP.psyexp` file to work in PsychoPy v1.84+ once it's released.
-2. Alter `data_processing.r` script to explicitly quantify the number of participants who failed the practice blocks. currently they appear as participants with N prac blocks = the max allowed, who also have test block data == NA.
 
 ## Changelog
 ### 0.9.7
 1. Changes to the stimuli selection and shuffling function. All functions now in the first routine. All stimulus exemplars are now saved to the output file (first row only).
 2. R script (v.7) now saves the stimulus exemplars, rules, and response options to the `processed_IRAP_data.csv` file. This file now contains all the necessary info to replicate an IRAP in the absense of having access to the psychopy script, `stimuli.xlsx` file and `task.xlsx file`. Only the screen locations and initial instructions are not saved here. This also allows one to easily determine what experiment an output file was produced by should it have been misplaced. 
+3. The R script also quantifies participants who passed the practice block criteria and completed test blocks.
 
 ### 0.9.6
 1. Made the code that generates and selects the stimuli for each trial in a block more transparent by writing it as a function and calling it rather than repeating code. No functional difference for the user, but better code transparency and consistency across the IAT/RRT/IRAP codebase.
