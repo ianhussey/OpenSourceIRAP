@@ -6,7 +6,7 @@
 # Ian Hussey (ian.hussey@ugent.be)
 
 # Version:
-# 0.6
+# 0.7
 
 # Usage:
 # Simply set the input directory [the line containing setwd()] and 
@@ -77,7 +77,15 @@ cleaned_df <-
                 starting_block = StartingBlock,
                 latency_criterion = latencyCriterion,
                 accuracy_criterion = accuracyCriterion,
-                auto_response_monkey = UseMonkey) %>%
+                auto_response_monkey = UseMonkey,
+                labelA_text_stimuli_exemplars = labelA_stimuli_for_output,
+                labelB_text_stimuli_exemplars = labelB_stimuli_for_output,
+                targetA_text_stimuli_exemplars = targetA_stimuli_for_output,
+                targetB_text_stimuli_exemplars = targetB_stimuli_for_output,
+                labelA_image_stimuli_exemplars = labelA_image_stimuli_for_output,
+                labelB_image_stimuli_exemplars = labelB_image_stimuli_for_output,
+                targetA_image_stimuli_exemplars = targetA_image_stimuli_for_output,
+                targetB_image_stimuli_exemplars = targetB_image_stimuli_for_output) %>%
   rowwise() %>%  # needed for the row-wise mutate() for rt and accuracy below 
   dplyr::mutate(accuracy_a = abs(accuracy_a - 1),  # recitfies the direction of accuracy so that 0 = error and 1 = correct.
                 accuracy_b = abs(accuracy_b - 1),
@@ -108,7 +116,19 @@ cleaned_df <-
          max_pairs_practice_blocks,
          n_pairs_test_blocks,
          moving_response_options,
-         auto_response_monkey)
+         auto_response_monkey,
+         rule_A,
+         rule_B,
+         response_option_A,
+         response_option_B,
+         labelA_text_stimuli_exemplars,
+         labelB_text_stimuli_exemplars,
+         targetA_text_stimuli_exemplars,
+         targetB_text_stimuli_exemplars,
+         labelA_image_stimuli_exemplars,
+         labelB_image_stimuli_exemplars,
+         targetA_image_stimuli_exemplars,
+         targetB_image_stimuli_exemplars)
 
 ########################################################################
 # demographics and test parameters 
@@ -125,7 +145,19 @@ demographics_df <-
          latency_criterion,
          accuracy_criterion,
          moving_response_options,
-         auto_response_monkey) %>%
+         auto_response_monkey,
+         rule_A,
+         rule_B,
+         response_option_A,
+         response_option_B,
+         labelA_text_stimuli_exemplars,
+         labelB_text_stimuli_exemplars,
+         targetA_text_stimuli_exemplars,
+         targetB_text_stimuli_exemplars,
+         labelA_image_stimuli_exemplars,
+         labelB_image_stimuli_exemplars,
+         targetA_image_stimuli_exemplars,
+         targetB_image_stimuli_exemplars) %>%
   distinct(participant, .keep_all = TRUE)
 
 n_pairs_practice_blocks_df <-

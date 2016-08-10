@@ -10,9 +10,9 @@ This program is free software: you can redistribute it and/or modify it under th
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 ## Version
-Open Source IRAP: 0.9.6 
+Open Source IRAP: 0.9.7
 
-R processing script: 0.6 
+R processing script: 0.7
 
 *NB This code is still in beta - I haven't used it in an experiment yet.*
 
@@ -113,26 +113,23 @@ When you run the task, an auto-response 'monkey' can be invoked by setting "UseM
 
 ## Output
 ### 1. Data files
-`.psydat`, `.csv` and `.log` files are produced for each participant. The `.csv` file alone is sufficient to most analyses (e.g., calculation of D scores). To my understanding, the format of the `.csv` output files are Tidy Data compliant (Wickham, 2014) and therefore easy to analyse in R with little to no processing needed.
+`.psydat`, `.csv` and `.log` files are produced for each participant. The `.csv` file alone is sufficient to most analyses (e.g., calculation of D scores). To my understanding, the format of the `.csv` output files are Tidy Data compliant (Wickham, 2014) and therefore easy to analyse (e.g., in R) with little to no processing needed.
 
 ### 2. Data processing
 The included `data processing.r` R script produces accuracy and latency summary data and *D*1 scores for each participant (including "overall" *D*1 scores, *D*1 scores for each trial-type, and split-half overall *D*1 scores).
 
-Very little familiarity with R/RStudio is needed to use this script: simply change the set working directory line to the location of your data (e.g., `setwd("~/git/Open Source IRAP/data`), and the save output line to your chosen directory (e.g., `write.csv(all_tasks_df, file = '~/git/Open Source IRAP/data processing/processed_IRAP_data.csv', row.names=FALSE)`), and then run the script.
+Very little familiarity with R/RStudio is needed to use this script. 
+
+1. change the set working directory line to the location of your data (e.g., `setwd("~/git/Open Source IRAP/data`)
+	- NB you must have at least one output file that has test block data for the script to run. 
+2. change the save output line to your chosen directory (e.g., `write.csv(all_tasks_df, file = '~/git/Open Source IRAP/data processing/processed_IRAP_data.csv', row.names=FALSE)`), 
+3. run the script (e.g., in RStudio on mac: ⌘-a to select all lines and ⌘-⏎ to run; windows: ctrl-a to select all lines and ctrl-⏎ to run).
 
 The script produces a `processed_IRAP_data.csv` file with the following variables for analysis:
 	
-	IRAP_name
-	participant	gender	age	date	starting_block  # a or b	max_pairs_practice_blocks	n_pairs_test_blocks	latency_criterion  # in seconds, not milliseconds
-	accuracy_criterion  # out of 100% (e.g., 80)	moving_response_options  # true or false	auto_response_monkey  # true or false	n_pairs_practice_blocks	rt_mean	rt_sd	rt_block_A_median	rt_block_B_median	D1	D1_trial_type_1	D1_trial_type_2	D1_trial_type_3	D1_trial_type_4	D1_odd	D1_even	percentage_accuracy	exclude_based_on_fast_trials  # true or false
+	IRAP_name	participant	gender	age	date	starting_block	max_pairs_practice_blocks	n_pairs_test_blocks	latency_criterion	accuracy_criterion	moving_response_options	auto_response_monkey	rule_A	rule_B	response_option_A	response_option_B	labelA_text_stimuli_exemplars	labelB_text_stimuli_exemplars	targetA_text_stimuli_exemplars	targetB_text_stimuli_exemplars	labelA_image_stimuli_exemplars	labelB_image_stimuli_exemplars	targetA_image_stimuli_exemplars	targetB_image_stimuli_exemplars	n_pairs_practice_blocks	rt_mean	rt_sd	rt_block_A_median	rt_block_B_median	D1	D1_trial_type_1	D1_trial_type_2	D1_trial_type_3	D1_trial_type_4	D1_odd	D1_even	percentage_accuracy	exclude_based_on_fast_trials
 
-Note that while the `processed_IRAP_data.csv` file lists many of the  task paramters employed and the identifying information (e.g., IRAP_name, participant number, age, date, etc.), it does not include:
-
-- the pre block rules (variables rule_A, rule_B in `task.xlsx`)
-- the response options (variables response_option_A, response_option_B in `task.xlsx`)
-- or the stimuli exemplars (all variables in `stimuli.xslx`)
-
-As such, it's important to retain copies of the `task.xlsx` and `stimuli.xslx` that produced the raw data files in order to be able interpret its effects/replicate a given IRAP in future.
+Note that while this file includes contains all the necessary info to replicate an IRAP in the absense of having access to the psychopy script, `stimuli.xlsx` file and `task.xlsx file`, including all stimuli exemplars. Only the screen locations and initial instructions are not saved here. This also allows one to easily determine what experiment an output file was produced by should it have been misplaced. 
 	
 #### a. *D*1 scoring method
 *D* scores are (Greenwald et al., 2003) are a variant of Cohen's *d* effect size, and are used to quantify the effect size difference between two response patterns (e.g., rts on block As vs. block Bs in an IRAP). They differ from Cohen's *d* in how standard deviations are calculated, sub variants differ in their exclusion criteria and the presence/absence of an error penalty. *D*1 scores are have been employed in the majority of published IRAP research to date (although see next heading). The generic steps in calculating *D*1 scores are as follows: 
@@ -195,6 +192,10 @@ If you're looking for higher accuracy (e.g., for EEG/fMRI work) you'll want to c
 2. Alter `data_processing.r` script to explicitly quantify the number of participants who failed the practice blocks. currently they appear as participants with N prac blocks = the max allowed, who also have test block data == NA.
 
 ## Changelog
+### 0.9.7
+1. Changes to the stimuli selection and shuffling function. All functions now in the first routine. All stimulus exemplars are now saved to the output file (first row only).
+2. R script (v.7) now saves the stimulus exemplars, rules, and response options to the `processed_IRAP_data.csv` file. This file now contains all the necessary info to replicate an IRAP in the absense of having access to the psychopy script, `stimuli.xlsx` file and `task.xlsx file`. Only the screen locations and initial instructions are not saved here. This also allows one to easily determine what experiment an output file was produced by should it have been misplaced. 
+
 ### 0.9.6
 1. Made the code that generates and selects the stimuli for each trial in a block more transparent by writing it as a function and calling it rather than repeating code. No functional difference for the user, but better code transparency and consistency across the IAT/RRT/IRAP codebase.
 2. Added data processing R script. 
