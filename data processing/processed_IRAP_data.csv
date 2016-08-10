@@ -1,0 +1,14 @@
+"stimulus_file","participant","gender","age","date","starting_block","max_pairs_practice_blocks","n_pairs_test_blocks","latency_criterion","accuracy_criterion","moving_response_options","auto_response_monkey","rule_A","rule_B","response_option_A","response_option_B","labelA_text_stimuli_exemplars","labelB_text_stimuli_exemplars","targetA_text_stimuli_exemplars","targetB_text_stimuli_exemplars","labelA_image_stimuli_exemplars","labelB_image_stimuli_exemplars","targetA_image_stimuli_exemplars","targetB_image_stimuli_exemplars","n_pairs_practice_blocks","rt_mean","rt_sd","rt_block_A_median","rt_block_B_median","D1","D1_trial_type_1","D1_trial_type_2","D1_trial_type_3","D1_trial_type_4","D1_odd","D1_even","percentage_accuracy","exclude_based_on_fast_trials","passed_practice_blocks"
+"stimuli.xlsx",2,NA,NA,"2016_Aug_10_2356","a",4,1,2,0,FALSE,TRUE,"Respond AS IF: 
+    flowers are positive
+    insects are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","Respond AS IF: 
+    insects are positive 
+    flowers are negative
+
+Go as quickly as you can while being accurate
+
+Press 'e' or 'i' to continue","Similar","Different","[u'daffodil', u'rose', u'lilly', u'daisy', u'daffodil', u'rose', u'lilly', u'daisy']","[u'spider', u'wasp', u'maggot', u'bee', u'spider', u'wasp', u'maggot', u'bee']","[u'happy', u'friendly', u'pretty', u'good', u'happy', u'friendly', u'pretty', u'good']","[u'pain', u'mean', u'hostile', u'hateful', u'pain', u'mean', u'hostile', u'hateful']","[u'blank.png', u'blank.png', u'blank.png', u'blank.png', u'blank.png', u'blank.png', u'blank.png', u'blank.png']","[u'blank.png', u'blank.png', u'blank.png', u'blank.png', u'blank.png', u'blank.png', u'blank.png', u'blank.png']","[u'blank.png', u'blank.png', u'blank.png', u'blank.png', u'blank.png', u'blank.png', u'blank.png', u'blank.png']","[u'blank.png', u'blank.png', u'blank.png', u'blank.png', u'blank.png', u'blank.png', u'blank.png', u'blank.png']",1,0.102,0.002,0.102,0.102,0.3,0.04,0.09,0.55,0.81,-0.1,0.83,0,TRUE,TRUE

@@ -34,7 +34,7 @@ library(data.table)
 
 ########################################################################
 # Data acquisition and cleaning
-setwd("/Users/Ian/Dropbox/Work/Studies/DCC work/Coherence and untested IRAP relations/Political preferences CC training/Measures/multi IRAP/data")
+setwd("~/git/Open Source IRAP/data")
 files <- list.files(pattern = "\\.csv$")
 input_df <- tbl_df(rbind.fill(lapply(files, fread, header=TRUE)))  # tbl_df() requires dplyr, rbind.fill() requires plyr, fread requires data.table
 
@@ -105,7 +105,7 @@ cleaned_df <-
                                               ifelse(auto_response_monkey == "n", 
                                                      FALSE, NA))) %>%  # convert y/n to TRUE/FALSE
   ungroup() %>%  # removes rowwise
-  select(IRAP_name,
+  select(stimulus_file,
          participant,
          starting_block,
          practice_block_pair,
@@ -144,7 +144,7 @@ cleaned_df <-
 # demographics and test parameters 
 demographics_df <-
   select(cleaned_df,
-         IRAP_name,
+         stimulus_file,
          participant,
          gender,
          age,
@@ -168,11 +168,11 @@ demographics_df <-
          labelB_image_stimuli_exemplars,
          targetA_image_stimuli_exemplars,
          targetB_image_stimuli_exemplars) %>%
-  distinct(participant, .keep_all = TRUE)
+  distinct(date, .keep_all = TRUE)  
 
 n_pairs_practice_blocks_df <-
   group_by(cleaned_df, 
-           participant) %>%
+           date) %>%
   dplyr::summarize(n_pairs_practice_blocks = max(practice_block_pair, na.rm = TRUE))
 
 ########################################################################
@@ -181,7 +181,7 @@ n_pairs_practice_blocks_df <-
 # D1 calculated from all test block rts
 D1_df <-  
   group_by(cleaned_df, 
-           participant) %>%
+           date) %>%
   filter(rt <= 10000 &
            !is.na(test_block_pair)) %>%  # test blocks only
   dplyr::summarize(rt_a_mean = mean(rt_a, na.rm = TRUE),
@@ -196,7 +196,7 @@ D1_df <-
                 rt_sd = round(rt_sd, 3),
                 rt_block_A_median = round(rt_block_A_median, 3),
                 rt_block_B_median = round(rt_block_B_median, 3)) %>% 
-  select(participant, 
+  select(date, 
          rt_mean,
          rt_sd,
          rt_block_A_median,
@@ -206,7 +206,7 @@ D1_df <-
 # D1 calculated for each of the four trial-types from all test block rts
 D1_by_tt_df <-  
   group_by(cleaned_df, 
-           participant,
+           date,
            trial_type) %>%
   filter(rt <= 10000 &
            !is.na(test_block_pair)) %>%  # test blocks only
@@ -215,7 +215,7 @@ D1_by_tt_df <-
                    rt_sd = sd(rt)) %>%
   dplyr::mutate(diff = rt_b_mean - rt_a_mean,
                 D1_by_tt = round(diff / rt_sd, 2)) %>%
-  select(participant, 
+  select(date, 
          trial_type,
          D1_by_tt) %>%
   spread(trial_type, D1_by_tt) %>%
@@ -227,7 +227,7 @@ D1_by_tt_df <-
 # D1 for ODD trials by order of presentation (for split half reliability) calculated from all test block rts
 D1_odd_df <-  
   group_by(cleaned_df, 
-           participant) %>%
+           date) %>%
   filter(rt <= 10000 &
            !is.na(test_block_pair) &  # test blocks only
            trial_order %% 2 == 0) %>%  # odd trials only, nb count starts at 0
@@ -236,13 +236,13 @@ D1_odd_df <-
                    rt_sd = sd(rt)) %>%
   dplyr::mutate(diff = rt_b_mean - rt_a_mean,
                 D1_odd = round(diff / rt_sd, 2)) %>%
-  select(participant, 
+  select(date, 
          D1_odd)
 
 # D1 for EVEN trials by order of presentation (for split half reliability) calculated from all test block rts
 D1_even_df <-  
   group_by(cleaned_df, 
-           participant) %>%
+           date) %>%
   filter(rt <= 10000 &
            !is.na(test_block_pair) &  # test blocks only
            trial_order %% 2 == 1) %>%  # odd trials only, nb count starts at 0
@@ -251,7 +251,7 @@ D1_even_df <-
                    rt_sd = sd(rt)) %>%
   dplyr::mutate(diff = rt_b_mean - rt_a_mean,
                 D1_even = round(diff / rt_sd, 2)) %>%
-  select(participant, 
+  select(date, 
          D1_even)
 
 ########################################################################
@@ -264,12 +264,12 @@ cleaned_df$too_fast_trial <- ifelse(cleaned_df$rt < .3, 1, 0)
 # calculate % acc and % fast trials from test block data
 percentage_accuracy_and_fast_trials_df <- 
   group_by(cleaned_df, 
-           participant) %>%
+           date) %>%
   filter(!is.na(test_block_pair)) %>%  # test blocks only
   dplyr::summarize(percentage_accuracy = round(sum(accuracy)/n(), 2),
                    percent_fast_trials = sum(too_fast_trial)/n()) %>%  # arbitrary number of test block trials
   dplyr::mutate(exclude_based_on_fast_trials = ifelse(percent_fast_trials>=0.1, TRUE, FALSE)) %>%  
-  select(participant,
+  select(date,
          percentage_accuracy,
          exclude_based_on_fast_trials)
 
@@ -283,11 +283,11 @@ output_df <-
                 D1_odd_df,
                 D1_even_df,
                 percentage_accuracy_and_fast_trials_df),
-           by = "participant",
+           by = "date",
            type = "full") %>%
   rowwise() %>%
   mutate(passed_practice_blocks = ifelse(!is.na(D1), TRUE, FALSE))
 
 ########################################################################
 # Write to file
-write.csv(output_df, file = "/Users/Ian/Dropbox/Work/Studies/DCC work/Coherence and untested IRAP relations/Political preferences CC training/Measures/multi IRAP/data processing/processed_IRAP_data.csv", row.names=FALSE)
+write.csv(output_df, file = "~/git/Open Source IRAP/data processing/processed_IRAP_data.csv", row.names=FALSE)

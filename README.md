@@ -17,7 +17,7 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 ## Version
 Open Source IRAP: 0.9.8
 
-R processing script: 0.7.1
+R processing script: 0.7.2
 
 *NB This code is still in beta - it hasn't been used it in a published article yet.*
 
@@ -217,9 +217,10 @@ If you're looking for higher accuracy (e.g., for EEG/fMRI work) you'll want to c
 ### 0.9.8
 1. Tidied up the `inst_code` code component so that dependencies and functions run at Begin Experiment and only necessary code runs at Begin routine.
 2. Changed `inst_code` from loading stimuli from a hard coded `stimuli.xlsx` to a soft coded `stimulus_file` variable, which was added to `task.xlsx`. This allows the researcher to deliver multiple different sequential IRAPs within the one script while still producing a single output file for each participant.
-3. Change `data processing.r` (now 0.7.1) to add a single filter() line to select only the data from the IRAP of interest. This line is commented out but contains a note on its use. 
+3. Changed `data processing.r` (now 0.7.2) to add a single filter() line to select only the data from the IRAP of interest. This line is commented out but contains a note on its use. 
 4. Added additional example stimuli files to demonstrate how multiple IRAPs may be delivered in sequence. 
 5. Updated documentation appropriately.
+6. `data processing.r` (now 0.7.2) also groups data by date (which is minute accurate) rather than participant code, which often contains duplicates (which would be treated as single data files).
 
 ### 0.9.7
 1. Changes to the stimuli selection and shuffling function. All functions now in the first routine. All stimulus exemplars are now saved to the output file (first row only).
