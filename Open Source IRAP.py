@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-This experiment was created using PsychoPy2 Experiment Builder (v1.82.01), Mon Aug  8 19:07:18 2016
+This experiment was created using PsychoPy2 Experiment Builder (v1.82.01), Wed Aug 10 17:02:37 2016
 If you publish work using this script please cite the relevant PsychoPy publications
   Peirce, JW (2007) PsychoPy - Psychophysics software in Python. Journal of Neuroscience Methods, 162(1-2), 8-13.
   Peirce, JW (2009) Generating stimuli for neuroscience using PsychoPy. Frontiers in Neuroinformatics, 2:10. doi: 10.3389/neuro.11.010.2008
@@ -45,7 +45,7 @@ endExpNow = False  # flag for 'escape' or other condition => quit the exp
 # Start Code - component code to be run before the window creation
 
 # Setup the Window
-win = visual.Window(size=(1280, 1024), fullscr=True, screen=0, allowGUI=False, allowStencil=False,
+win = visual.Window(size=(1366, 768), fullscr=True, screen=0, allowGUI=False, allowStencil=False,
     monitor='testMonitor', color='black', colorSpace='rgb',
     blendMode='avg', useFBO=True,
     units='norm')
@@ -58,13 +58,10 @@ else:
 
 # Initialize components for Routine "instructions"
 instructionsClock = core.Clock()
-intro_box = visual.TextStim(win=win, ori=0, name='intro_box',
-    text='default text',    font='Arial',
-    pos=[0, 0], height=0.08, wrapWidth=1.5,
-    color='white', colorSpace='rgb', opacity=1,
-    depth=0.0)
-# Dependencies for response emulator
-from psychopy.hardware.emulator import ResponseEmulator
+# Dependencies 
+from psychopy.hardware.emulator import ResponseEmulator  #for response emulator
+import itertools  # for flattening lists of lists into lists
+import random  # for shuffling lists
 
 # Assess if monkey should run based on dialogue box
 if str(expInfo['UseMonkey']) == 'y' or str(expInfo['UseMonkey']) == 'Y' or str(expInfo['UseMonkey']) == 'yes' or str(expInfo['UseMonkey']) == 't' or str(expInfo['UseMonkey']) == 'true' or str(expInfo['UseMonkey']) == 'True' or str(expInfo['UseMonkey']) == 'TRUE':
@@ -82,15 +79,7 @@ elif str(expInfo['StartingBlock']) == 'b' or str(expInfo['StartingBlock']) == 'B
     Afirst_nReps = 0
     Asecond_nReps = 1
 
-# Initialize components for Routine "preblock_A"
-preblock_AClock = core.Clock()
-# Dependencies
-import itertools  # for flattening lists of lists into lists
-import random
-
-#msg variable just needs some value at start
-accuracyFeedback=''
-
+# FUNCTIONS FOR GENERATING SHUFFLED LISTS OF STIMULI FOR TRIALS
 # To convert the moving_response_options String to a boolean:
 def string_to_booleanl(v):
   return v.lower() in ("yes", "true", "TRUE", "True", "t", "T", "1")  # Take any likely input from the blocks.xlsx file and convert to a boolean. This helps to idiot-proof the excel files.
@@ -117,15 +106,47 @@ exemplars = data.importConditions(exemplars_filename)# Import stimuli exemplars
 reptitions = len(exemplars)
 
 # Trial generation function
-def generate_trials(trial_type_column, multiplier):
+def generate_trials(trial_type_column, multiplier, shuffle_list):
     """Generate a shuffled list of stimuli exemplars from a column in an excel stimuli file""" 
     a = dict()  # declare a dict to be populated
     for i in range(len(exemplars)):
         a[i] = [exemplars[i][trial_type_column]] * multiplier  # populate the dict from vertical reads of the conditions
     a = a.values()  # extract only values (and not keys) from the list of dicts
     a = list(itertools.chain(*a))  # flatten the list of dicts into a list
-    random.shuffle(a)  # shuffle this list, so that it can be drawn from by the trials
+    if shuffle_list == True:
+        random.shuffle(a)  # shuffle this list, so that it can be drawn from by the trials
     return a
+
+# Generate a first, unshuffled list of the stimuli exemplars for saving to output file
+# no shuffling, multiplier = 1.
+labelA_stimuli_for_output = generate_trials('labelA_stimuli', 1, False)  # function and variable determined at begin exp.
+labelB_stimuli_for_output = generate_trials('labelB_stimuli', 1, False)
+targetA_stimuli_for_output = generate_trials('targetA_stimuli', 1, False)
+targetB_stimuli_for_output = generate_trials('targetB_stimuli', 1, False)
+labelA_image_stimuli_for_output = generate_trials('labelA_image_stimuli', 1, False)
+labelB_image_stimuli_for_output = generate_trials('labelB_image_stimuli', 1, False)
+targetA_image_stimuli_for_output = generate_trials('targetA_image_stimuli', 1, False)
+targetB_image_stimuli_for_output = generate_trials('targetB_image_stimuli', 1, False)
+# save these lists to the trial handler to be written to csv
+thisExp.addData('labelA_stimuli_for_output', labelA_stimuli_for_output)
+thisExp.addData('labelB_stimuli_for_output', labelB_stimuli_for_output)
+thisExp.addData('targetA_stimuli_for_output', targetA_stimuli_for_output)
+thisExp.addData('targetB_stimuli_for_output', targetB_stimuli_for_output)
+thisExp.addData('labelA_image_stimuli_for_output', labelA_image_stimuli_for_output)
+thisExp.addData('labelB_image_stimuli_for_output', labelB_image_stimuli_for_output)
+thisExp.addData('targetA_image_stimuli_for_output', targetA_image_stimuli_for_output)
+thisExp.addData('targetB_image_stimuli_for_output', targetB_image_stimuli_for_output)
+intro_box = visual.TextStim(win=win, ori=0, name='intro_box',
+    text='default text',    font='Arial',
+    pos=[0, 0], height=0.08, wrapWidth=1.5,
+    color='white', colorSpace='rgb', opacity=1,
+    depth=-1.0)
+
+# Initialize components for Routine "preblock_A"
+preblock_AClock = core.Clock()
+# msg variable just needs some value at start
+accuracyFeedback=''
+
 rule_box_A = visual.TextStim(win=win, ori=0, name='rule_box_A',
     text='default text',    font='Arial',
     pos=[0, 0], height=0.08, wrapWidth=1.5,
@@ -158,9 +179,9 @@ stimulus2_box_A = visual.TextStim(win=win, ori=0, name='stimulus2_box_A',
     color='white', colorSpace='rgb', opacity=1,
     depth=-4.0)
 left_box_A = visual.TextStim(win=win, ori=0, name='left_box_A',
-    text='default text',    font=u'Arial',
+    text='default text',    font='Arial',
     pos=[0,0], height=0.1, wrapWidth=None,
-    color=u'white', colorSpace='rgb', opacity=1,
+    color='white', colorSpace='rgb', opacity=1,
     depth=-7.0)
 right_box_A = visual.TextStim(win=win, ori=0, name='right_box_A',
     text='default text',    font='Arial',
@@ -274,48 +295,9 @@ press_box_prac_B = visual.TextStim(win=win, ori=0, name='press_box_prac_B',
 
 # Initialize components for Routine "preblock_A"
 preblock_AClock = core.Clock()
-# Dependencies
-import itertools  # for flattening lists of lists into lists
-import random
-
-#msg variable just needs some value at start
+# msg variable just needs some value at start
 accuracyFeedback=''
 
-# To convert the moving_response_options String to a boolean:
-def string_to_booleanl(v):
-  return v.lower() in ("yes", "true", "TRUE", "True", "t", "T", "1")  # Take any likely input from the blocks.xlsx file and convert to a boolean. This helps to idiot-proof the excel files.
-
-"""
-Create sufficiently long lists of stimuli
-
-This allows us to keep the stimuli in an excel file across multiple lines, and to present them based on the categories 
-set by the 'layout.xlsx' file. This allows for shuffled (counterbalanced pseudorandom) presentation of the stimuli examplars 
-as well as the categories. 
-
-The method to do this below is to first declare a dictionary to be populated from the exemplars conditions, but not in the usual way. 
-Usually, psychopy would read across columns. If the stimuli were entered as a list within the excel file (e.g., ['male', 'female']) 
-rather on seperate rows as they are now all we would have to do is multiply the length of the list to get enough exemplars. However, 
-I wanted the stimuli file to be as use friendly as possible, so instead the below code allows you to enter the exemplars on seperate
-rows, and then populates the dict vertically from the rows. 
-"""
-
-# Import stimuli exemplars
-exemplars_filename = 'stimuli.xlsx'
-exemplars = data.importConditions(exemplars_filename)# Import stimuli exemplars
-
-# Determine nReps of trials loop based on number of exemplars
-reptitions = len(exemplars)
-
-# Trial generation function
-def generate_trials(trial_type_column, multiplier):
-    """Generate a shuffled list of stimuli exemplars from a column in an excel stimuli file""" 
-    a = dict()  # declare a dict to be populated
-    for i in range(len(exemplars)):
-        a[i] = [exemplars[i][trial_type_column]] * multiplier  # populate the dict from vertical reads of the conditions
-    a = a.values()  # extract only values (and not keys) from the list of dicts
-    a = list(itertools.chain(*a))  # flatten the list of dicts into a list
-    random.shuffle(a)  # shuffle this list, so that it can be drawn from by the trials
-    return a
 rule_box_A = visual.TextStim(win=win, ori=0, name='rule_box_A',
     text='default text',    font='Arial',
     pos=[0, 0], height=0.08, wrapWidth=1.5,
@@ -348,9 +330,9 @@ stimulus2_box_A = visual.TextStim(win=win, ori=0, name='stimulus2_box_A',
     color='white', colorSpace='rgb', opacity=1,
     depth=-4.0)
 left_box_A = visual.TextStim(win=win, ori=0, name='left_box_A',
-    text='default text',    font=u'Arial',
+    text='default text',    font='Arial',
     pos=[0,0], height=0.1, wrapWidth=None,
-    color=u'white', colorSpace='rgb', opacity=1,
+    color='white', colorSpace='rgb', opacity=1,
     depth=-7.0)
 right_box_A = visual.TextStim(win=win, ori=0, name='right_box_A',
     text='default text',    font='Arial',
@@ -394,48 +376,9 @@ complete_test_blocks = 0
 
 # Initialize components for Routine "preblock_A"
 preblock_AClock = core.Clock()
-# Dependencies
-import itertools  # for flattening lists of lists into lists
-import random
-
-#msg variable just needs some value at start
+# msg variable just needs some value at start
 accuracyFeedback=''
 
-# To convert the moving_response_options String to a boolean:
-def string_to_booleanl(v):
-  return v.lower() in ("yes", "true", "TRUE", "True", "t", "T", "1")  # Take any likely input from the blocks.xlsx file and convert to a boolean. This helps to idiot-proof the excel files.
-
-"""
-Create sufficiently long lists of stimuli
-
-This allows us to keep the stimuli in an excel file across multiple lines, and to present them based on the categories 
-set by the 'layout.xlsx' file. This allows for shuffled (counterbalanced pseudorandom) presentation of the stimuli examplars 
-as well as the categories. 
-
-The method to do this below is to first declare a dictionary to be populated from the exemplars conditions, but not in the usual way. 
-Usually, psychopy would read across columns. If the stimuli were entered as a list within the excel file (e.g., ['male', 'female']) 
-rather on seperate rows as they are now all we would have to do is multiply the length of the list to get enough exemplars. However, 
-I wanted the stimuli file to be as use friendly as possible, so instead the below code allows you to enter the exemplars on seperate
-rows, and then populates the dict vertically from the rows. 
-"""
-
-# Import stimuli exemplars
-exemplars_filename = 'stimuli.xlsx'
-exemplars = data.importConditions(exemplars_filename)# Import stimuli exemplars
-
-# Determine nReps of trials loop based on number of exemplars
-reptitions = len(exemplars)
-
-# Trial generation function
-def generate_trials(trial_type_column, multiplier):
-    """Generate a shuffled list of stimuli exemplars from a column in an excel stimuli file""" 
-    a = dict()  # declare a dict to be populated
-    for i in range(len(exemplars)):
-        a[i] = [exemplars[i][trial_type_column]] * multiplier  # populate the dict from vertical reads of the conditions
-    a = a.values()  # extract only values (and not keys) from the list of dicts
-    a = list(itertools.chain(*a))  # flatten the list of dicts into a list
-    random.shuffle(a)  # shuffle this list, so that it can be drawn from by the trials
-    return a
 rule_box_A = visual.TextStim(win=win, ori=0, name='rule_box_A',
     text='default text',    font='Arial',
     pos=[0, 0], height=0.08, wrapWidth=1.5,
@@ -468,9 +411,9 @@ stimulus2_box_A = visual.TextStim(win=win, ori=0, name='stimulus2_box_A',
     color='white', colorSpace='rgb', opacity=1,
     depth=-4.0)
 left_box_A = visual.TextStim(win=win, ori=0, name='left_box_A',
-    text='default text',    font=u'Arial',
+    text='default text',    font='Arial',
     pos=[0,0], height=0.1, wrapWidth=None,
-    color=u'white', colorSpace='rgb', opacity=1,
+    color='white', colorSpace='rgb', opacity=1,
     depth=-7.0)
 right_box_A = visual.TextStim(win=win, ori=0, name='right_box_A',
     text='default text',    font='Arial',
@@ -584,48 +527,9 @@ press_box_B = visual.TextStim(win=win, ori=0, name='press_box_B',
 
 # Initialize components for Routine "preblock_A"
 preblock_AClock = core.Clock()
-# Dependencies
-import itertools  # for flattening lists of lists into lists
-import random
-
-#msg variable just needs some value at start
+# msg variable just needs some value at start
 accuracyFeedback=''
 
-# To convert the moving_response_options String to a boolean:
-def string_to_booleanl(v):
-  return v.lower() in ("yes", "true", "TRUE", "True", "t", "T", "1")  # Take any likely input from the blocks.xlsx file and convert to a boolean. This helps to idiot-proof the excel files.
-
-"""
-Create sufficiently long lists of stimuli
-
-This allows us to keep the stimuli in an excel file across multiple lines, and to present them based on the categories 
-set by the 'layout.xlsx' file. This allows for shuffled (counterbalanced pseudorandom) presentation of the stimuli examplars 
-as well as the categories. 
-
-The method to do this below is to first declare a dictionary to be populated from the exemplars conditions, but not in the usual way. 
-Usually, psychopy would read across columns. If the stimuli were entered as a list within the excel file (e.g., ['male', 'female']) 
-rather on seperate rows as they are now all we would have to do is multiply the length of the list to get enough exemplars. However, 
-I wanted the stimuli file to be as use friendly as possible, so instead the below code allows you to enter the exemplars on seperate
-rows, and then populates the dict vertically from the rows. 
-"""
-
-# Import stimuli exemplars
-exemplars_filename = 'stimuli.xlsx'
-exemplars = data.importConditions(exemplars_filename)# Import stimuli exemplars
-
-# Determine nReps of trials loop based on number of exemplars
-reptitions = len(exemplars)
-
-# Trial generation function
-def generate_trials(trial_type_column, multiplier):
-    """Generate a shuffled list of stimuli exemplars from a column in an excel stimuli file""" 
-    a = dict()  # declare a dict to be populated
-    for i in range(len(exemplars)):
-        a[i] = [exemplars[i][trial_type_column]] * multiplier  # populate the dict from vertical reads of the conditions
-    a = a.values()  # extract only values (and not keys) from the list of dicts
-    a = list(itertools.chain(*a))  # flatten the list of dicts into a list
-    random.shuffle(a)  # shuffle this list, so that it can be drawn from by the trials
-    return a
 rule_box_A = visual.TextStim(win=win, ori=0, name='rule_box_A',
     text='default text',    font='Arial',
     pos=[0, 0], height=0.08, wrapWidth=1.5,
@@ -658,9 +562,9 @@ stimulus2_box_A = visual.TextStim(win=win, ori=0, name='stimulus2_box_A',
     color='white', colorSpace='rgb', opacity=1,
     depth=-4.0)
 left_box_A = visual.TextStim(win=win, ori=0, name='left_box_A',
-    text='default text',    font=u'Arial',
+    text='default text',    font='Arial',
     pos=[0,0], height=0.1, wrapWidth=None,
-    color=u'white', colorSpace='rgb', opacity=1,
+    color='white', colorSpace='rgb', opacity=1,
     depth=-7.0)
 right_box_A = visual.TextStim(win=win, ori=0, name='right_box_A',
     text='default text',    font='Arial',
@@ -733,14 +637,14 @@ for thisTask in task:
     instructionsClock.reset()  # clock 
     frameN = -1
     # update component parameters for each repeat
-    intro_box.setText(intro_message)
-    intro_resp = event.BuilderKeyResponse()  # create an object of type KeyResponse
-    intro_resp.status = NOT_STARTED
     # Option to simulates using ResponseEmulator:
     if Monkey:
         simulated_responses = [(1.1, 'e'), (1.1, 'i')]  # simulated responses take the form (onsetTime, responseKey). You can simulate more than one.
         responder = ResponseEmulator(simulated_responses)
         responder.start()
+    intro_box.setText(intro_message)
+    intro_resp = event.BuilderKeyResponse()  # create an object of type KeyResponse
+    intro_resp.status = NOT_STARTED
     # keep track of which components have finished
     instructionsComponents = []
     instructionsComponents.append(intro_box)
@@ -756,6 +660,7 @@ for thisTask in task:
         t = instructionsClock.getTime()
         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
         # update/draw components on each frame
+        
         
         # *intro_box* updates
         if t >= 0.4 and intro_box.status == NOT_STARTED:
@@ -781,7 +686,6 @@ for thisTask in task:
             if len(theseKeys) > 0:  # at least one key was pressed
                 # a response ends the routine
                 continueRoutine = False
-        
         
         # check if all components have finished
         if not continueRoutine:  # a component has requested a forced-end of Routine
@@ -858,14 +762,14 @@ for thisTask in task:
                 responder.start()
             
             # Generate list of stimuli for the block
-            stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2)  # function and variable determined at begin exp.
-            stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2)
-            stim2_catA_stimuli_many = generate_trials('targetA_stimuli', 2)
-            stim2_catB_stimuli_many = generate_trials('targetB_stimuli', 2)
-            img_stim1_catA_stimuli_many = generate_trials('labelA_image_stimuli', 2)
-            img_stim1_catB_stimuli_many = generate_trials('labelB_image_stimuli', 2)
-            img_stim2_catA_stimuli_many = generate_trials('targetA_image_stimuli', 2)
-            img_stim2_catB_stimuli_many = generate_trials('targetB_image_stimuli', 2)
+            stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2, True)  # function and variable determined at begin exp.
+            stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2, True)
+            stim2_catA_stimuli_many = generate_trials('targetA_stimuli', 2, True)
+            stim2_catB_stimuli_many = generate_trials('targetB_stimuli', 2, True)
+            img_stim1_catA_stimuli_many = generate_trials('labelA_image_stimuli', 2, True)
+            img_stim1_catB_stimuli_many = generate_trials('labelB_image_stimuli', 2, True)
+            img_stim2_catA_stimuli_many = generate_trials('targetA_image_stimuli', 2, True)
+            img_stim2_catB_stimuli_many = generate_trials('targetB_image_stimuli', 2, True)
             rule_box_A.setText(rule_A)
             preblock_response_A = event.BuilderKeyResponse()  # create an object of type KeyResponse
             preblock_response_A.status = NOT_STARTED
@@ -1406,14 +1310,14 @@ for thisTask in task:
             responder.start()
         
         # Generate list of stimuli for the block
-        stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2)  # function and variable determined at begin exp.
-        stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2)
-        stim2_catA_stimuli_many = generate_trials('targetA_stimuli', 2)
-        stim2_catB_stimuli_many = generate_trials('targetB_stimuli', 2)
-        img_stim1_catA_stimuli_many = generate_trials('labelA_image_stimuli', 2)
-        img_stim1_catB_stimuli_many = generate_trials('labelB_image_stimuli', 2)
-        img_stim2_catA_stimuli_many = generate_trials('targetA_image_stimuli', 2)
-        img_stim2_catB_stimuli_many = generate_trials('targetB_image_stimuli', 2)
+        stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2, True)  # function and variable determined at begin exp.
+        stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2, True)
+        stim2_catA_stimuli_many = generate_trials('targetA_stimuli', 2, True)
+        stim2_catB_stimuli_many = generate_trials('targetB_stimuli', 2, True)
+        img_stim1_catA_stimuli_many = generate_trials('labelA_image_stimuli', 2, True)
+        img_stim1_catB_stimuli_many = generate_trials('labelB_image_stimuli', 2, True)
+        img_stim2_catA_stimuli_many = generate_trials('targetA_image_stimuli', 2, True)
+        img_stim2_catB_stimuli_many = generate_trials('targetB_image_stimuli', 2, True)
         rule_box_B.setText(rule_B)
         preblock_response_B = event.BuilderKeyResponse()  # create an object of type KeyResponse
         preblock_response_B.status = NOT_STARTED
@@ -1958,14 +1862,14 @@ for thisTask in task:
                 responder.start()
             
             # Generate list of stimuli for the block
-            stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2)  # function and variable determined at begin exp.
-            stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2)
-            stim2_catA_stimuli_many = generate_trials('targetA_stimuli', 2)
-            stim2_catB_stimuli_many = generate_trials('targetB_stimuli', 2)
-            img_stim1_catA_stimuli_many = generate_trials('labelA_image_stimuli', 2)
-            img_stim1_catB_stimuli_many = generate_trials('labelB_image_stimuli', 2)
-            img_stim2_catA_stimuli_many = generate_trials('targetA_image_stimuli', 2)
-            img_stim2_catB_stimuli_many = generate_trials('targetB_image_stimuli', 2)
+            stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2, True)  # function and variable determined at begin exp.
+            stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2, True)
+            stim2_catA_stimuli_many = generate_trials('targetA_stimuli', 2, True)
+            stim2_catB_stimuli_many = generate_trials('targetB_stimuli', 2, True)
+            img_stim1_catA_stimuli_many = generate_trials('labelA_image_stimuli', 2, True)
+            img_stim1_catB_stimuli_many = generate_trials('labelB_image_stimuli', 2, True)
+            img_stim2_catA_stimuli_many = generate_trials('targetA_image_stimuli', 2, True)
+            img_stim2_catB_stimuli_many = generate_trials('targetB_image_stimuli', 2, True)
             rule_box_A.setText(rule_A)
             preblock_response_A = event.BuilderKeyResponse()  # create an object of type KeyResponse
             preblock_response_A.status = NOT_STARTED
@@ -2595,14 +2499,14 @@ for thisTask in task:
                 responder.start()
             
             # Generate list of stimuli for the block
-            stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2)  # function and variable determined at begin exp.
-            stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2)
-            stim2_catA_stimuli_many = generate_trials('targetA_stimuli', 2)
-            stim2_catB_stimuli_many = generate_trials('targetB_stimuli', 2)
-            img_stim1_catA_stimuli_many = generate_trials('labelA_image_stimuli', 2)
-            img_stim1_catB_stimuli_many = generate_trials('labelB_image_stimuli', 2)
-            img_stim2_catA_stimuli_many = generate_trials('targetA_image_stimuli', 2)
-            img_stim2_catB_stimuli_many = generate_trials('targetB_image_stimuli', 2)
+            stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2, True)  # function and variable determined at begin exp.
+            stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2, True)
+            stim2_catA_stimuli_many = generate_trials('targetA_stimuli', 2, True)
+            stim2_catB_stimuli_many = generate_trials('targetB_stimuli', 2, True)
+            img_stim1_catA_stimuli_many = generate_trials('labelA_image_stimuli', 2, True)
+            img_stim1_catB_stimuli_many = generate_trials('labelB_image_stimuli', 2, True)
+            img_stim2_catA_stimuli_many = generate_trials('targetA_image_stimuli', 2, True)
+            img_stim2_catB_stimuli_many = generate_trials('targetB_image_stimuli', 2, True)
             rule_box_A.setText(rule_A)
             preblock_response_A = event.BuilderKeyResponse()  # create an object of type KeyResponse
             preblock_response_A.status = NOT_STARTED
@@ -3143,14 +3047,14 @@ for thisTask in task:
             responder.start()
         
         # Generate list of stimuli for the block
-        stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2)  # function and variable determined at begin exp.
-        stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2)
-        stim2_catA_stimuli_many = generate_trials('targetA_stimuli', 2)
-        stim2_catB_stimuli_many = generate_trials('targetB_stimuli', 2)
-        img_stim1_catA_stimuli_many = generate_trials('labelA_image_stimuli', 2)
-        img_stim1_catB_stimuli_many = generate_trials('labelB_image_stimuli', 2)
-        img_stim2_catA_stimuli_many = generate_trials('targetA_image_stimuli', 2)
-        img_stim2_catB_stimuli_many = generate_trials('targetB_image_stimuli', 2)
+        stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2, True)  # function and variable determined at begin exp.
+        stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2, True)
+        stim2_catA_stimuli_many = generate_trials('targetA_stimuli', 2, True)
+        stim2_catB_stimuli_many = generate_trials('targetB_stimuli', 2, True)
+        img_stim1_catA_stimuli_many = generate_trials('labelA_image_stimuli', 2, True)
+        img_stim1_catB_stimuli_many = generate_trials('labelB_image_stimuli', 2, True)
+        img_stim2_catA_stimuli_many = generate_trials('targetA_image_stimuli', 2, True)
+        img_stim2_catB_stimuli_many = generate_trials('targetB_image_stimuli', 2, True)
         rule_box_B.setText(rule_B)
         preblock_response_B = event.BuilderKeyResponse()  # create an object of type KeyResponse
         preblock_response_B.status = NOT_STARTED
@@ -3695,14 +3599,14 @@ for thisTask in task:
                 responder.start()
             
             # Generate list of stimuli for the block
-            stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2)  # function and variable determined at begin exp.
-            stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2)
-            stim2_catA_stimuli_many = generate_trials('targetA_stimuli', 2)
-            stim2_catB_stimuli_many = generate_trials('targetB_stimuli', 2)
-            img_stim1_catA_stimuli_many = generate_trials('labelA_image_stimuli', 2)
-            img_stim1_catB_stimuli_many = generate_trials('labelB_image_stimuli', 2)
-            img_stim2_catA_stimuli_many = generate_trials('targetA_image_stimuli', 2)
-            img_stim2_catB_stimuli_many = generate_trials('targetB_image_stimuli', 2)
+            stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2, True)  # function and variable determined at begin exp.
+            stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2, True)
+            stim2_catA_stimuli_many = generate_trials('targetA_stimuli', 2, True)
+            stim2_catB_stimuli_many = generate_trials('targetB_stimuli', 2, True)
+            img_stim1_catA_stimuli_many = generate_trials('labelA_image_stimuli', 2, True)
+            img_stim1_catB_stimuli_many = generate_trials('labelB_image_stimuli', 2, True)
+            img_stim2_catA_stimuli_many = generate_trials('targetA_image_stimuli', 2, True)
+            img_stim2_catB_stimuli_many = generate_trials('targetB_image_stimuli', 2, True)
             rule_box_A.setText(rule_A)
             preblock_response_A = event.BuilderKeyResponse()  # create an object of type KeyResponse
             preblock_response_A.status = NOT_STARTED
