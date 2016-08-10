@@ -49,6 +49,10 @@ You can run either the `Open Source IRAP.psyexp` file or the `Open Source IRAP.p
 - The return key ends the task properly once you reach the end of "task screen". 
 - The escape key quits the task at any time.
 
+If you run the `Open Source IRAP.psyexp` file, a `Open Source IRAP_lastrun.py` will be created. This can be ignored. 
+
+If you run the `Open Source IRAP.py` file, a `Open Source IRAP.pyc` file will be created. This can also be ignored.
+
 ### 2. Localisation and customisation
 All stimuli and instructions within the task are set via the `stimuli.xlsx` and `task.xlsx` files.
 
