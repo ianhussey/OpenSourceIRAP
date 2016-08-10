@@ -27,7 +27,7 @@ This implementation of the IRAP has very high fidelity to the procedure describe
 - Inter trial interval is set to 400 ms.
 - Participants complete pairs of blocks of trials in which the response contingencies alternate (e.g., flowers-positive-similar vs. flowers-positive-different). Each block is preceded by a customisable responding rule (Rule A and Rule B, e.g., "Respond AS IF flowers are positive and insects are negative"), and followed by feedback about the median latency and % accuracy in the block.
 - Participant complete practice block pairs (e.g., max 4) until they meet mastery criteria on both blocks in a pair (e.g., median latency <= 2000ms and accuracy >= 80%), and then a fixed number of test block pairs (e.g., 3). If mastery criteria are not bet within the max the task skips the test blocks and goes to the end screen.
-- Typically, reaction time differences between the two block then are quantified (e.g., using the *D*1 effect size score, below) in order to produce a measure of "implicit attitudes" (although see [De Houwer, 2006](http://users.ugent.be/~jdhouwer/why.pdf)). ## Notes
+- Typically, reaction time differences between the two block then are quantified (e.g., using the *D*1 effect size score, below) in order to produce a measure of "implicit attitudes" (although see [De Houwer, 2006](http://users.ugent.be/~jdhouwer/why.pdf)). 
 
 NB If you notice any unwanted divergences from other implementations of the IRAP, or there are additional features or refinements you would like to see in the Open Source IRAP, please feel free to contribute to the project yourself (by branching, editing, and submitting a pull request on Github) or email me (ian.hussey@ugent.be). 
 
