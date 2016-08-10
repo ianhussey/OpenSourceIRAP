@@ -14,8 +14,7 @@
 # See README for notes.
 
 # To do:
-# 1. quantify participants who fail prac blocks. currently they appear as 
-# participants with N prac blocks = (max) and with no test block data.
+# None.
 
 ########################################################################
 # Clean workspace
@@ -93,7 +92,11 @@ cleaned_df <-
                 test_block_pair = test_block_pair + 1,
                 rt = sum(rt_a, rt_b, na.rm=TRUE),  # get all rts in one column 
                 accuracy = sum(accuracy_a, accuracy_b, na.rm=TRUE),  # get all accuracies in one column. only one block will be present per row.
-                trial_order = sum(trial_order_a_first, trial_order_a_second, trial_order_b, na.rm = TRUE)) %>%  # get all trial_order in one column. only one block will be present per row.
+                trial_order = sum(trial_order_a_first, trial_order_a_second, trial_order_b, na.rm = TRUE),  # get all trial_order in one column. only one block will be present per row.
+                auto_response_monkey = ifelse(auto_response_monkey == "y", 
+                                              TRUE, 
+                                              ifelse(auto_response_monkey == "n", 
+                                                     FALSE, NA))) %>%  # convert y/n to TRUE/FALSE
   ungroup() %>%  # removes rowwise
   select(IRAP_name,
          participant,
@@ -180,7 +183,7 @@ D1_df <-
                    rt_sd = sd(rt),
                    rt_block_A_median = median(rt_a, na.rm = TRUE),
                    rt_block_B_median = median(rt_b, na.rm = TRUE)) %>%
-  dplyr::mutate(diff = rt_b_mean - rt_a_mean,
+  dplyr::mutate(diff = rt_b_mean - rt_a_mean, # this is effectively a rowwise() calculation as we have group_by() participant and then summarize()'d. rowwise() not included for brevity.
                 D1 = round(diff / rt_sd, 2),
                 rt_mean = round(rt_mean, 3),  # rounding for output simplicity is done only after D1 score calculation
                 rt_sd = round(rt_sd, 3),
@@ -264,7 +267,7 @@ percentage_accuracy_and_fast_trials_df <-
          exclude_based_on_fast_trials)
 
 ########################################################################
-# Join data frames
+# Join data frames & quantify participants who failed the practice blocks
 output_df <- 
   join_all(list(demographics_df,
                 n_pairs_practice_blocks_df,
@@ -274,7 +277,9 @@ output_df <-
                 D1_even_df,
                 percentage_accuracy_and_fast_trials_df),
            by = "participant",
-           type = "full")
+           type = "full") %>%
+  rowwise() %>%
+  mutate(passed_practice_blocks = ifelse(!is.na(D1), TRUE, FALSE))
 
 ########################################################################
 # Write to file
