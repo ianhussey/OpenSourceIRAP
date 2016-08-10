@@ -13,6 +13,13 @@
 # output directory [the line containing write.csv()] and run script.
 # See README for notes.
 
+# NB all groupings  are done by a variable called "unique_identifier". 
+# This is a concation of participant, stimulus_file and date. As such, 
+# even if you are delivering the task to multiple participants
+# simultaneously (via multiple computers), and/or duplicate participant
+# codes are entered by accident, this unique identifier should 
+# seperate participants' data appropriately.
+
 # To do:
 # None.
 
@@ -85,15 +92,9 @@ cleaned_df <-
                 labelB_image_stimuli_exemplars = labelB_image_stimuli_for_output,
                 targetA_image_stimuli_exemplars = targetA_image_stimuli_for_output,
                 targetB_image_stimuli_exemplars = targetB_image_stimuli_for_output) %>%
-  # If participants complete multiple IRAPs within one task/output file, you should note that this script
-  # currently does not differentiate between the IRAPs but treats them all as one. To differentiate the IRAPs,
-  # uncomment the next line with filter() and replace "self_others_stimuli.xlsx" with the name of IRAP stimulus 
-  # file you want to produce data for. You might want to change the name of the output file on the very last line 
-  # too, before running the script. Then change the stimulus_file (and output name) to the next IRAP's stimulus 
-  # file. Then run the script again. 
-  #filter(stimulus_file == "self_others_stimuli.xlsx") %>%  
   rowwise() %>%  # needed for the row-wise mutate() for rt and accuracy below 
-  dplyr::mutate(accuracy_a = abs(accuracy_a - 1),  # recitfies the direction of accuracy so that 0 = error and 1 = correct.
+  dplyr::mutate(unique_identifier = paste(participant, stimulus_file, date, sep = '_'),
+                accuracy_a = abs(accuracy_a - 1),  # recitfies the direction of accuracy so that 0 = error and 1 = correct.
                 accuracy_b = abs(accuracy_b - 1),
                 practice_block_pair = practice_block_pair + 1,  # recifies block to start at 1
                 test_block_pair = test_block_pair + 1,
@@ -105,7 +106,8 @@ cleaned_df <-
                                               ifelse(auto_response_monkey == "n", 
                                                      FALSE, NA))) %>%  # convert y/n to TRUE/FALSE
   ungroup() %>%  # removes rowwise
-  select(stimulus_file,
+  select(unique_identifier,
+         stimulus_file,
          participant,
          starting_block,
          practice_block_pair,
@@ -142,8 +144,12 @@ cleaned_df <-
 
 ########################################################################
 # demographics and test parameters 
+
+# other routines use a group_by() at the top, but this throws an error in full_join() for some reason. 
+# Rather than bugtest, I've employed the workaround of a distinct() call at the end of the routine instead.
 demographics_df <-
   select(cleaned_df,
+         unique_identifier,
          stimulus_file,
          participant,
          gender,
@@ -168,11 +174,11 @@ demographics_df <-
          labelB_image_stimuli_exemplars,
          targetA_image_stimuli_exemplars,
          targetB_image_stimuli_exemplars) %>%
-  distinct(date, .keep_all = TRUE)  
+  distinct(unique_identifier, .keep_all = TRUE)  
 
 n_pairs_practice_blocks_df <-
   group_by(cleaned_df, 
-           date) %>%
+           unique_identifier) %>%
   dplyr::summarize(n_pairs_practice_blocks = max(practice_block_pair, na.rm = TRUE))
 
 ########################################################################
@@ -181,7 +187,7 @@ n_pairs_practice_blocks_df <-
 # D1 calculated from all test block rts
 D1_df <-  
   group_by(cleaned_df, 
-           date) %>%
+           unique_identifier) %>%
   filter(rt <= 10000 &
            !is.na(test_block_pair)) %>%  # test blocks only
   dplyr::summarize(rt_a_mean = mean(rt_a, na.rm = TRUE),
@@ -196,7 +202,7 @@ D1_df <-
                 rt_sd = round(rt_sd, 3),
                 rt_block_A_median = round(rt_block_A_median, 3),
                 rt_block_B_median = round(rt_block_B_median, 3)) %>% 
-  select(date, 
+  select(unique_identifier, 
          rt_mean,
          rt_sd,
          rt_block_A_median,
@@ -206,7 +212,7 @@ D1_df <-
 # D1 calculated for each of the four trial-types from all test block rts
 D1_by_tt_df <-  
   group_by(cleaned_df, 
-           date,
+           unique_identifier,
            trial_type) %>%
   filter(rt <= 10000 &
            !is.na(test_block_pair)) %>%  # test blocks only
@@ -215,7 +221,7 @@ D1_by_tt_df <-
                    rt_sd = sd(rt)) %>%
   dplyr::mutate(diff = rt_b_mean - rt_a_mean,
                 D1_by_tt = round(diff / rt_sd, 2)) %>%
-  select(date, 
+  select(unique_identifier, 
          trial_type,
          D1_by_tt) %>%
   spread(trial_type, D1_by_tt) %>%
@@ -227,7 +233,7 @@ D1_by_tt_df <-
 # D1 for ODD trials by order of presentation (for split half reliability) calculated from all test block rts
 D1_odd_df <-  
   group_by(cleaned_df, 
-           date) %>%
+           unique_identifier) %>%
   filter(rt <= 10000 &
            !is.na(test_block_pair) &  # test blocks only
            trial_order %% 2 == 0) %>%  # odd trials only, nb count starts at 0
@@ -236,13 +242,13 @@ D1_odd_df <-
                    rt_sd = sd(rt)) %>%
   dplyr::mutate(diff = rt_b_mean - rt_a_mean,
                 D1_odd = round(diff / rt_sd, 2)) %>%
-  select(date, 
+  select(unique_identifier, 
          D1_odd)
 
 # D1 for EVEN trials by order of presentation (for split half reliability) calculated from all test block rts
 D1_even_df <-  
   group_by(cleaned_df, 
-           date) %>%
+           unique_identifier) %>%
   filter(rt <= 10000 &
            !is.na(test_block_pair) &  # test blocks only
            trial_order %% 2 == 1) %>%  # odd trials only, nb count starts at 0
@@ -251,7 +257,7 @@ D1_even_df <-
                    rt_sd = sd(rt)) %>%
   dplyr::mutate(diff = rt_b_mean - rt_a_mean,
                 D1_even = round(diff / rt_sd, 2)) %>%
-  select(date, 
+  select(unique_identifier, 
          D1_even)
 
 ########################################################################
@@ -264,12 +270,12 @@ cleaned_df$too_fast_trial <- ifelse(cleaned_df$rt < .3, 1, 0)
 # calculate % acc and % fast trials from test block data
 percentage_accuracy_and_fast_trials_df <- 
   group_by(cleaned_df, 
-           date) %>%
+           unique_identifier) %>%
   filter(!is.na(test_block_pair)) %>%  # test blocks only
   dplyr::summarize(percentage_accuracy = round(sum(accuracy)/n(), 2),
                    percent_fast_trials = sum(too_fast_trial)/n()) %>%  # arbitrary number of test block trials
   dplyr::mutate(exclude_based_on_fast_trials = ifelse(percent_fast_trials>=0.1, TRUE, FALSE)) %>%  
-  select(date,
+  select(unique_identifier,
          percentage_accuracy,
          exclude_based_on_fast_trials)
 
@@ -283,7 +289,7 @@ output_df <-
                 D1_odd_df,
                 D1_even_df,
                 percentage_accuracy_and_fast_trials_df),
-           by = "date",
+           by = "unique_identifier",
            type = "full") %>%
   rowwise() %>%
   mutate(passed_practice_blocks = ifelse(!is.na(D1), TRUE, FALSE))

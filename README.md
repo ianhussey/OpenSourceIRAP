@@ -122,8 +122,6 @@ To do this, simply include additional rows in the `task.xlsx` file which specify
 
 The order of delivery of the IRAPs follows the sequence of the rows in the `task.xlsx` file. To make this random rather than sequential, change appropriate variable in `Open Source IRAP.psyexp` (i.e., task loop, loopType = random).
 
-- NB delivering multiple IRAPs has implications for how the `data processing.r` script is used. See the appropriate section below.
-
 ### 6. Auto-response "monkey" for piloting the task
 When you run the task, an auto-response 'monkey' can be invoked by setting "UseMonkey" in the dialogue box to "y" or "yes". This will simulate key presses throughout the task to that you can test your script without you having to hit E and I interminably. The monkey simply simulates the I key and then the E key, in that order, on every trial. As such, the simulated accuracy should be c.50%. For the task to run through fully including test blocks, you must to lower the accuracy criterion to below 50% (e.g., just put it to 0).
 
@@ -147,14 +145,10 @@ Very little familiarity with R/RStudio is needed to use this script.
 
 The script produces a `processed_IRAP_data.csv` file with the following variables for analysis:
 	
+	unique_identifier  # concate of participant, stimulus_file, and date
 	stimulus_file	participant	gender	age	date	starting_block  # a or b	max_pairs_practice_blocks	n_pairs_test_blocks	latency_criterion  # in seconds, not ms	accuracy_criterion  # out of 100%, not 1.0 (e.g., 80)	moving_response_options  # TRUE or FALSE	auto_response_monkey  # TRUE or FALSE	rule_A	rule_B	response_option_A	response_option_B	labelA_text_stimuli_exemplars  # list of unicode exemplars	labelB_text_stimuli_exemplars	targetA_text_stimuli_exemplars	targetB_text_stimuli_exemplars	labelA_image_stimuli_exemplars	labelB_image_stimuli_exemplars	targetA_image_stimuli_exemplars	targetB_image_stimuli_exemplars	n_pairs_practice_blocks	rt_mean	rt_sd	rt_block_A_median	rt_block_B_median	D1	D1_trial_type_1	D1_trial_type_2	D1_trial_type_3	D1_trial_type_4	D1_odd	D1_even	percentage_accuracy	exclude_based_on_fast_trials  # TRUE or FALSE	passed_practice_blocks  # TRUE or FALSE
 
 Note that while this file includes contains all the necessary info to replicate an IRAP in the absense of having access to the PsychoPy `.psyexp`/`.py file`, `stimuli.xlsx` file and `task.xlsx file`. Only the screen locations and initial instructions are not saved here. This also allows one to easily determine what experiment an output file was produced by, e.g., if it were misplaced.
-
-##### Multiple IRAPs per data file
-If you deliver multiple sequential IRAPs per participant within the same task (i.e., one data file contains multiple IRAPs), the `data processing.r` script must be altered to process each IRAP seperately. 
-
-The currently commented-out `filter()` call (around line 94) should be uncommented, and the `stimulus_file` variable set to the IRAP stimulus file of choice. Run the script for each stimulus file, taking care to change the output file name each time too. 
 	
 #### a. *D*1 scoring method
 *D* scores are (Greenwald et al., 2003) are a variant of Cohen's *d* effect size, and are used to quantify the effect size difference between two response patterns (e.g., rts on block As vs. block Bs in an IRAP). They differ from Cohen's *d* in how standard deviations are calculated, sub variants differ in their exclusion criteria and the presence/absence of an error penalty. *D*1 scores are have been employed in the majority of published IRAP research to date (although see next heading). The generic steps in calculating *D*1 scores are as follows: 
@@ -219,8 +213,7 @@ If you're looking for higher accuracy (e.g., for EEG/fMRI work) you'll want to c
 2. Changed `inst_code` from loading stimuli from a hard coded `stimuli.xlsx` to a soft coded `stimulus_file` variable, which was added to `task.xlsx`. This allows the researcher to deliver multiple different sequential IRAPs within the one script while still producing a single output file for each participant.
 3. Changed `data processing.r` (now 0.7.2) to add a single filter() line to select only the data from the IRAP of interest. This line is commented out but contains a note on its use. 
 4. Added additional example stimuli files to demonstrate how multiple IRAPs may be delivered in sequence. 
-5. Updated documentation appropriately.
-6. `data processing.r` (now 0.7.2) also groups data by date (which is minute accurate) rather than participant code, which often contains duplicates (which would be treated as single data files).
+5. `data processing.r` (now 0.7.2) also groups data by unique_identifer (a concate of participant, stimulus_file, and date) rather than participant code. This avoids inappropriately treating duplicate participant codes as a single participant. This also allows the script to process multiple IRAPs in the same data file at once. 
 
 ### 0.9.7
 1. Changes to the stimuli selection and shuffling function. All functions now in the first routine. All stimulus exemplars are now saved to the output file (first row only).
