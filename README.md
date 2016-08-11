@@ -1,4 +1,4 @@
-![IRAP icon](https://github.com/ianhussey/OpenSourceIRAP/blob/master/screenshots/icon_256x256.png?raw=true style="text-align:center")
+![IRAP icon](https://github.com/ianhussey/OpenSourceIRAP/blob/master/screenshots/icon_256x256.png?raw=true)
 
 # Open Source IRAP
 
@@ -24,17 +24,28 @@ R processing script: 0.7.2
 ## Description & purpose
 The IRAP is an indirect measure of implicit attitudes. 
 
+This implementation is designed for use by experimental and experimental-clincial psychologists. 
+
 This implementation of the IRAP has very high fidelity to the procedure described in Barnes-Holmes et al. (2010: a sketch of the IRAP and REC model), and to other implementations of the IRAP (e.g., the IRAP "2010" and variants, written in Visual Basic 6). Most task parameters are soft coded and can be changed via the `task.xlsx` file (see task parameters section below).
 
-- Each trial presents a "label" stimulus at the top of the screen, a "target" stimulus in the middle of the screen, and two response option labels at the bottom left and right of the screen. See screenshots folder. 
+- Each trial presents a "label" stimulus at the top of the screen, a "target" stimulus in the middle of the screen, and two response option labels at the bottom left and right of the screen. 
 - There are two label stimuli categories and two target stimuli categories, which when combined create four "trial types".
 - Incorrect responses result in a red X being presented on screen. Progression to the next trial is contingent on a correct response.
+
+![trial screen](https://github.com/ianhussey/OpenSourceIRAP/blob/master/screenshots/trial%20screen%20with%20accuracy%20feedback.png?raw=true)
+
 - Inter trial interval is set to 400 ms.
-- Participants complete pairs of blocks of trials in which the response contingencies alternate (e.g., flowers-positive-similar vs. flowers-positive-different). Each block is preceded by a customisable responding rule (Rule A and Rule B, e.g., "Respond AS IF flowers are positive and insects are negative"), and followed by feedback about the median latency and % accuracy in the block.
+- Participants complete pairs of blocks of trials in which the response contingencies alternate (e.g., flowers-positive-similar vs. flowers-positive-different). 
+- Each block is preceded by a customisable responding rule (Rule A and Rule B, e.g., "Respond AS IF flowers are positive and insects are negative").
+
+![pre block screen](https://github.com/ianhussey/OpenSourceIRAP/blob/master/screenshots/pre%20block%20rule%20screen.png?raw=true)
+ 
+- Each block is also followed by feedback about the median latency and % accuracy in the block.
+
+![post block screen](https://github.com/ianhussey/OpenSourceIRAP/blob/master/screenshots/post%20block%20feedback%20screen.png?raw=true)
+
 - Participant complete practice block pairs (e.g., max 4) until they meet mastery criteria on both blocks in a pair (e.g., median latency <= 2000ms and accuracy >= 80%), and then a fixed number of test block pairs (e.g., 3). If mastery criteria are not bet within the max the task skips the test blocks and goes to the end screen.
 - Typically, reaction time differences between the two block then are quantified (e.g., using the *D*1 effect size score, below) in order to produce a measure of "implicit attitudes" (although see [De Houwer, 2006](http://users.ugent.be/~jdhouwer/why.pdf)). 
-
-NB If you notice any unwanted divergences from other implementations of the IRAP, or there are additional features or refinements you would like to see in the Open Source IRAP, please feel free to contribute to the project yourself (by branching, editing, and submitting a pull request on Github) or email me (ian.hussey@ugent.be). 
 
 ## Requirements
 - [PsychoPy - v1.82](https://github.com/psychopy/psychopy/releases/tag/r1.82.02)
@@ -145,7 +156,7 @@ Very little familiarity with R/RStudio is needed to use this script.
 
 The script produces a `processed_IRAP_data.csv` file with the following variables for analysis:
 	
-	unique_identifier  # concate of participant, stimulus_file, and date
+	unique_identifier  # participant+stimulus_file+date
 	stimulus_file	participant	gender	age	date	starting_block  # a or b	max_pairs_practice_blocks	n_pairs_test_blocks	latency_criterion  # in seconds, not ms	accuracy_criterion  # out of 100%, not 1.0 (e.g., 80)	moving_response_options  # TRUE or FALSE	auto_response_monkey  # TRUE or FALSE	rule_A	rule_B	response_option_A	response_option_B	labelA_text_stimuli_exemplars  # list of unicode exemplars	labelB_text_stimuli_exemplars	targetA_text_stimuli_exemplars	targetB_text_stimuli_exemplars	labelA_image_stimuli_exemplars	labelB_image_stimuli_exemplars	targetA_image_stimuli_exemplars	targetB_image_stimuli_exemplars	n_pairs_practice_blocks	rt_mean	rt_sd	rt_block_A_median	rt_block_B_median	D1	D1_trial_type_1	D1_trial_type_2	D1_trial_type_3	D1_trial_type_4	D1_odd	D1_even	percentage_accuracy	exclude_based_on_fast_trials  # TRUE or FALSE	passed_practice_blocks  # TRUE or FALSE
 
 Note that while this file includes contains all the necessary info to replicate an IRAP in the absense of having access to the PsychoPy `.psyexp`/`.py file`, `stimuli.xlsx` file and `task.xlsx file`. Only the screen locations and initial instructions are not saved here. This also allows one to easily determine what experiment an output file was produced by, e.g., if it were misplaced.
@@ -201,7 +212,12 @@ If you're looking for higher accuracy (e.g., for EEG/fMRI work) you'll want to c
 
 - NB no assessment of jitter has been conducted for the current implementation.
 
-## Known issues 
+## Issues 
+If you have any issues, find bugs, or observe any unwanted divergences from other implementations of the IRAP, please report them [using GitHub's issue reporting system](https://github.com/ianhussey/OpenSourceIRAP/issues). Doing it online rather than by emailing me allows other people to benefit from your experience. 
+
+If there are additional features or refinements you would like to see please feel free to contribute to the project yourself by branching, editing, and submitting a pull request on Github. You can also email me at [ian.hussey@ugent.be](mailto:ian.hussey@ugent.be). 
+
+### Known issues
 1. If a participant gets 100% of trials correct throughout the task then the incorrect response RT column will not be created for that participant. This is a) extremely unlikely, and b) not a problem if you process data files based on column header matching (e.g., most R methods, including the bundled script). However, it can be problematic if your data processing workflow relies on column order rather than column header name (e.g., a SPSS script using a GET command).
 
 ## To do list
