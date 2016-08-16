@@ -27,6 +27,8 @@ This implementation is designed for use by experimental and experimental-clincia
 
 This implementation of the IRAP has very high fidelity to the procedure described in Barnes-Holmes et al. (2010: a sketch of the IRAP and REC model), and to other implementations of the IRAP (e.g., the IRAP "2010" and variants, written in Visual Basic 6). Most task parameters are soft coded and can be changed via the `task.xlsx` file (see task parameters section below).
 
+![task structure](https://github.com/ianhussey/OpenSourceIRAP/blob/master/screenshots/task_structure.png?raw=true)
+
 - Each trial presents a "label" stimulus at the top of the screen, a "target" stimulus in the middle of the screen, and two response option labels at the bottom left and right of the screen. 
 - There are two label stimuli categories and two target stimuli categories, which when combined create four "trial types".
 - Incorrect responses result in a red X being presented on screen. Progression to the next trial is contingent on a correct response.
