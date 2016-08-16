@@ -2,7 +2,7 @@
 
 # Open Source IRAP
 
-###### Implicit Relational Assessment Procedure</center>
+###### Implicit Relational Assessment Procedure
 
 <div style="page-break-after: always;"></div>
 
@@ -22,8 +22,7 @@ R processing script: 0.7.2
 *NB This code is still in beta - it hasn't been used it in a published article yet.*
 
 ## Description & purpose
-The IRAP is an indirect measure of implicit attitudes. 
-
+The Implicit Relational Assessment Procedure (IRAP: [Barnes-Holmes et al., 2010](http://opensiuc.lib.siu.edu/tpr/vol60/iss3/10/)) was designed by Relational Frame Theory researchers to capture the relative strength of relational responding, but it has frequently been used as a measure of implicit attitudes more generally. See [Vahey et al., 2015](http://www.sciencedirect.com/science/article/pii/S0005791615000051) for a meta analysis of clinically relevant IRAP studies.
 This implementation is designed for use by experimental and experimental-clincial psychologists. 
 
 This implementation of the IRAP has very high fidelity to the procedure described in Barnes-Holmes et al. (2010: a sketch of the IRAP and REC model), and to other implementations of the IRAP (e.g., the IRAP "2010" and variants, written in Visual Basic 6). Most task parameters are soft coded and can be changed via the `task.xlsx` file (see task parameters section below).
@@ -35,7 +34,7 @@ This implementation of the IRAP has very high fidelity to the procedure describe
 ![trial screen](https://github.com/ianhussey/OpenSourceIRAP/blob/master/screenshots/trial%20screen%20with%20accuracy%20feedback.png?raw=true)
 
 - Inter trial interval is set to 400 ms.
-- Participants complete pairs of blocks of trials in which the response contingencies alternate (e.g., flowers-positive-similar vs. flowers-positive-different). 
+- Participants complete pairs of blocks of trials in which the response contingencies alternate (e.g., flowers-positive-similar vs. flowers-positive-different).
 - Each block is preceded by a customisable responding rule (Rule A and Rule B, e.g., "Respond AS IF flowers are positive and insects are negative").
 
 ![pre block screen](https://github.com/ianhussey/OpenSourceIRAP/blob/master/screenshots/pre%20block%20rule%20screen.png?raw=true)
@@ -45,11 +44,11 @@ This implementation of the IRAP has very high fidelity to the procedure describe
 ![post block screen](https://github.com/ianhussey/OpenSourceIRAP/blob/master/screenshots/post%20block%20feedback%20screen.png?raw=true)
 
 - Participant complete practice block pairs (e.g., max 4) until they meet mastery criteria on both blocks in a pair (e.g., median latency <= 2000ms and accuracy >= 80%), and then a fixed number of test block pairs (e.g., 3). If mastery criteria are not bet within the max the task skips the test blocks and goes to the end screen.
-- Typically, reaction time differences between the two block then are quantified (e.g., using the *D*1 effect size score, below) in order to produce a measure of "implicit attitudes" (although see [De Houwer, 2006](http://users.ugent.be/~jdhouwer/why.pdf)). 
+- Typically, reaction time differences between the two block then are quantified (e.g., using the *D*1 effect size score, below) in order to produce a measure of "implicit attitudes" (although see [De Houwer, 2006](http://users.ugent.be/~jdhouwer/why.pdf)).
 
 ## Requirements
 - [PsychoPy - v1.82](https://github.com/psychopy/psychopy/releases/tag/r1.82.02)
-	- A free and open source program for delivering psychology experiments written in Python. See [here for documentation](http://www.psychopy.org/documentation.html). 
+	- A free and open source program for delivering psychology experiments written in Python. See [here for documentation](http://www.psychopy.org/documentation.html).
 	- PsychoPy runs locally on Windows, Mac, and Linux. It's not possible to run PsychoPy scripts online.
 	- You might be able to use more recent versions, but will probably need to run the `Open Source IRAP.py` file rather than the `Open Source IRAP.psyexp` file.
 	
@@ -69,14 +68,17 @@ If you run the `Open Source IRAP.psyexp` file, a `Open Source IRAP_lastrun.py` w
 
 If you run the `Open Source IRAP.py` file, a `Open Source IRAP.pyc` file will be created. This can also be ignored.
 
-### 2. Localisation and customisation
+### 2. Delivery
+In order to minimise attrition rates (e.g., <c.10%), the majority of published IRAP work has been delivered one-to-one by a trained researcher. Additionally, many published studies have employed some form of standardised experimenter script. See the `experimenter script` folder. 
+
+### 3. Localisation and customisation
 All stimuli and instructions within the task are set via the `stimuli.xlsx` and `task.xlsx` files.
 
 PsychoPy has Unicode support, so translating the task into other languages (Spanish, Polish, Japanese, etc.) only requires changes to these excel files.
 
 - NB a poorly documented bug is that if you zip and unzip excel files using archive utility on Mac OS X, Unicode characters are no longer correctly displayed and will throw an ASCII error in PsychoPy. Make new excel files to correct the issue.
 
-### 3. Stimuli
+### 4. Stimuli
 Label and target stimuli can be either text or image stimuli. The default `stimulus.xslx` file employs text stimuli for both labels and targets. The alternative file in the `alternative stimuli files>picture and word stimuli` folder file employs images as labels and text stimuli as targets. Simply move these file to the same folder as the `Open Source IRAP.psyexp`/`Open Source IRAP.py` to run. Although, you can mix and match as you like; you can even make some rows text stimuli and some rows image stimuli.
 
 The file that will be used is that which is placed in the same folder as the `Open Source IRAP.psyexp`/`Open Source IRAP.py` that is run. All image stimuli should be placed in the same folder. Remember to reduce your image files to as small as possible so as to minimise load and rendering time. 
@@ -95,7 +97,7 @@ The pre block rules are also specified in the `task.xlsx` file. These can be gen
 
 - NB insert return characters/line breaks inside excel files using alt-⏎ (Windows) / ⌃⌥⏎ (Mac). This can be useful for instructions.
 	
-### 4. Task parameters
+### 5. Task parameters
 The number of trials per block is equal to (the number of rows in the `stimuli.xlsx` file) \* (4 [the number of trial types]). 
 
 - For example, IRAPs frequently employ four exemplars per stimulus category, and 32 trials per block. The default stimulus file accomplishes this by including the four exemplars twice each (on separate rows) in the `stimuli.xlsx` file. 8 rows(4 exemplars \*2 rows each)\*4(trial types) = 32 trials per block.
@@ -126,14 +128,14 @@ The values provided in the included file are representative of commonly used tas
 
 One key parameter that is not set in the `task.xlsx` file is the order of presentation of the blocks (i.e., block order). Instead, this is set for each participant in the dialogue box that appears after you run the task. This was implimented this was as it's the only variable that sometimes differs between participants within a study. The default is "a" (rule A first). Set this to "b" for rule B first. I.e., if you wish to counterbalance block order, the researcher must set the block order for each participant using the dialogue box when the participant number is entered.
 
-### 5. Sequential IRAPs
+### 6. Sequential IRAPs
 Many study designs specify that participants complete multiple IRAPs in a row. The current implimentation can deliver multiple tasks inside one instance of the script being run. That is, the researcher only hits the run button once, and only one data file is produced, but the participant completes two (or more) IRAPs in sequence. The instructions can easily be altered to instruct the participant to take a rest or contact the experimenter between IRAPs. 
 
 To do this, simply include additional rows in the `task.xlsx` file which specify the parameters of the next IRAP. It's likely that the rules will differ, as will the `stimulus_file` that is to be drawn from for that IRAP. Working examples can be found in the `alternative stimulus files>multiple IRAPs in a row` folder. Simply move these file to the same folder as the `Open Source IRAP.psyexp`/`Open Source IRAP.py` to run.
 
 The order of delivery of the IRAPs follows the sequence of the rows in the `task.xlsx` file. To make this random rather than sequential, change appropriate variable in `Open Source IRAP.psyexp` (i.e., task loop, loopType = random).
 
-### 6. Auto-response "monkey" for piloting the task
+### 7. Auto-response "monkey" for piloting the task
 When you run the task, an auto-response 'monkey' can be invoked by setting "UseMonkey" in the dialogue box to "y" or "yes". This will simulate key presses throughout the task to that you can test your script without you having to hit E and I interminably. The monkey simply simulates the I key and then the E key, in that order, on every trial. As such, the simulated accuracy should be c.50%. For the task to run through fully including test blocks, you must to lower the accuracy criterion to below 50% (e.g., just put it to 0).
 
 ## Output
