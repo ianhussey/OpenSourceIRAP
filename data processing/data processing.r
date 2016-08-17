@@ -41,11 +41,23 @@ library(data.table)
 
 ########################################################################
 # Data acquisition and cleaning
-setwd("~/git/Open Source IRAP/data")
-files <- list.files(pattern = "\\.csv$")
+
+## Set the working directory, where the IRAP data output files are located.
+# NB R usersfront slashes ("/") for folders and doubl backslashes ("\\") to allow characters such as spaces
+# e.g. for Mac:
+setwd("/Users/Ian/git/Open Source IRAP/data")
+# e.g. for Windows:
+#setwd("c:/mydocuments/Open\\ Source\\ IRAP/data")
+# e.g. for Linux:
+#setwd("/usr/Ian/Open Source IRAP/data")
+
+# Create a list of all files in this folder that use the extension ".csv"
+files <- list.files(pattern = "\\.csv$")  
+
+# Read these files sequentially into a single data frame
 input_df <- tbl_df(rbind.fill(lapply(files, fread, header=TRUE)))  # tbl_df() requires dplyr, rbind.fill() requires plyr, fread requires data.table
 
-# One of two columns that are later needed are created depending on the block order condition.
+# NB One of two columns that are later needed are created depending on the block order condition.
 # Check if each exists, and create them if not and set to NA.  
 if("trials_Afirst.thisTrialN" %in% colnames(input_df)){
   # column already exists: do nothing.
@@ -59,7 +71,7 @@ if("trials_Asecond.thisTrialN" %in% colnames(input_df)){
   input_df[,"trials_Asecond.thisTrialN"] <- NA
 }
 
-# If participants fail the practice blocks, this column will also be absent. 
+# NB If participants fail the practice blocks, the "trials_B.thisTrialN" column will also be absent. 
 # Create it so that n who failed prac blocks can be quantified.  
 if("trials_B.thisTrialN" %in% colnames(input_df)){
   # column already exists: do nothing.
@@ -145,8 +157,7 @@ cleaned_df <-
 ########################################################################
 # demographics and test parameters 
 
-# other routines use a group_by() at the top, but this throws an error in full_join() for some reason. 
-# Rather than bugtest, I've employed the workaround of a distinct() call at the end of the routine instead.
+# Select variables of interest
 demographics_df <-
   select(cleaned_df,
          unique_identifier,
@@ -175,7 +186,10 @@ demographics_df <-
          targetA_image_stimuli_exemplars,
          targetB_image_stimuli_exemplars) %>%
   distinct(unique_identifier, .keep_all = TRUE)  
+  # NB other routines use a group_by() at the top, but this throws an error in full_join() for some reason. 
+  # Rather than bugtest, I've employed the workaround of a distinct() call at the end of the routine instead.
 
+# Calculate total number of practice block pairs completed per participant
 n_pairs_practice_blocks_df <-
   group_by(cleaned_df, 
            unique_identifier) %>%
@@ -231,6 +245,7 @@ D1_by_tt_df <-
                 D1_trial_type_4 = `4`)
          
 # D1 for ODD trials by order of presentation (for split half reliability) calculated from all test block rts
+# NB internal consistency can be calculated by a spearman brown correlation or cronbach's alpha between odd and even D1 scores. Pearson's R is less appropriate.
 D1_odd_df <-  
   group_by(cleaned_df, 
            unique_identifier) %>%
@@ -296,4 +311,11 @@ output_df <-
 
 ########################################################################
 # Write to file
-write.csv(output_df, file = "~/git/Open Source IRAP/data processing/processed_IRAP_data.csv", row.names=FALSE)
+
+# NB R usersfront slashes ("/") for folders and doubl backslashes ("\\") to allow characters such as spaces
+# e.g. for Mac:
+write.csv(output_df, file = "Users/Ian/git/Open Source IRAP/data processing/processed_IRAP_data.csv", row.names=FALSE)
+# e.g. for Windows:
+#write.csv(output_df, file = "c:/mydocuments/Open\\ Source\\ IRAP/data processing/processed_IRAP_data.csv", row.names=FALSE)  
+# e.g. for Linux:
+#write.csv(output_df, file = "/usr/Ian/Open Source IRAP/data processing/processed_IRAP_data.csv", row.names=FALSE)
