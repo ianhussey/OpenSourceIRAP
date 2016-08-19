@@ -314,7 +314,7 @@ output_df <-
 
 # NB R usersfront slashes ("/") for folders and doubl backslashes ("\\") to allow characters such as spaces
 # e.g. for Mac:
-write.csv(output_df, file = "Users/Ian/git/Open Source IRAP/data processing/processed_IRAP_data.csv", row.names=FALSE)
+write.csv(output_df, file = "/Users/Ian/git/Open Source IRAP/data processing/processed_IRAP_data.csv", row.names=FALSE)
 # e.g. for Windows:
 #write.csv(output_df, file = "c:/mydocuments/Open\\ Source\\ IRAP/data processing/processed_IRAP_data.csv", row.names=FALSE)  
 # e.g. for Linux:
