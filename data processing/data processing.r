@@ -29,6 +29,17 @@ rm(list=ls())
 
 ########################################################################
 # Dependencies
+
+# check for all dependencies and install missing ones. 
+# solution from https://gist.github.com/stevenworthington/3178163
+auto_install_dependencies <- function(pkg){
+  new.pkg <- pkg[!(pkg %in% installed.packages()[, "Package"])]
+  if (length(new.pkg)) 
+    install.packages(new.pkg, dependencies = TRUE)
+}
+packages <- c("plyr", "dplyr", "tidyr", "data.table")
+auto_install_dependencies(packages)
+
 library(plyr)
 library(dplyr)
 library(tidyr)
