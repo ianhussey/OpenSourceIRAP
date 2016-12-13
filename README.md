@@ -2,9 +2,13 @@
 
 # Open Source IRAP
 
-###### Implicit Relational Assessment Procedure
+Implicit Relational Assessment Procedure
 
 <div style="page-break-after: always;"></div>
+
+
+
+[TOC]
 
 ## License
 Copyright (c) Ian Hussey 2015 (ian.hussey@ugent.be)
@@ -14,7 +18,7 @@ Released under the GPLv3+ open source license.
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or any later version.
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-## Version
+## Version
 Open Source IRAP: 0.9.8
 
 R processing script: 0.7.2
@@ -40,7 +44,7 @@ This implementation of the IRAP has very high fidelity to the procedure describe
 - Each block is preceded by a customisable responding rule (Rule A and Rule B, e.g., "Respond AS IF flowers are positive and insects are negative").
 
 ![pre block screen](https://github.com/ianhussey/OpenSourceIRAP/blob/master/screenshots/pre%20block%20rule%20screen.png?raw=true)
- 
+
 - Each block is also followed by feedback about the median latency and % accuracy in the block.
 
 ![post block screen](https://github.com/ianhussey/OpenSourceIRAP/blob/master/screenshots/post%20block%20feedback%20screen.png?raw=true)
@@ -50,12 +54,12 @@ This implementation of the IRAP has very high fidelity to the procedure describe
 
 ## Requirements
 - [PsychoPy - v1.82](https://github.com/psychopy/psychopy/releases/tag/r1.82.02)
-	- A free and open source program for delivering psychology experiments written in Python. See [here for documentation](http://www.psychopy.org/documentation.html).
-	- PsychoPy runs locally on Windows, Mac, and Linux. It's not possible to run PsychoPy scripts online.
-	- You might be able to use more recent versions, but will probably need to run the `Open Source IRAP.py` file rather than the `Open Source IRAP.psyexp` file.
-	
+  - A free and open source program for delivering psychology experiments written in Python. See [here for documentation](http://www.psychopy.org/documentation.html).
+  - PsychoPy runs locally on Windows, Mac, and Linux. It's not possible to run PsychoPy scripts online.
+  - You might be able to use more recent versions, but will probably need to run the `Open Source IRAP.py` file rather than the `Open Source IRAP.psyexp` file.
+
 - [R - v3.3.1](https://www.r-project.org/) or later
-	- The included data processing script is written in R. I reccomend you run it in [RStudio](https://www.rstudio.com/), a very user friendly interface for R.
+  - The included data processing script is written in R. I reccomend you run it in [RStudio](https://www.rstudio.com/), a very user friendly interface for R.
 
 ## Usage
 ### 1. Running
@@ -98,7 +102,7 @@ The response options (i.e., "similar" and "different") are specified in the `tas
 The pre block rules are also specified in the `task.xlsx` file. These can be generic for both blocks (e.g., "learn to respond correctly based on the feedback") or specific to each and the stimulus set (e.g., "respond AS IF flowers are positive and insects are negative").
 
 - NB insert return characters/line breaks inside excel files using alt-⏎ (Windows) / ⌃⌥⏎ (Mac). This can be useful for instructions.
-	
+
 ### 5. Task parameters
 The number of trials per block is equal to (the number of rows in the `stimuli.xlsx` file) \* (4 [the number of trial types]). 
 
@@ -110,15 +114,15 @@ The `task.xlsx` file also specifies:
 
 - `stimulus_file`, a variable for specifying where the task should look for its stimuli. The default is `stimuli.xlsx`.
 - practice block mastery accuracy criterion
-	- This is specified out of 100% (e.g., 80), not 1 (e.g., .8)
+  - This is specified out of 100% (e.g., 80), not 1 (e.g., .8)
 - practice block median latency criteria 
-	- This is specified in *seconds*, not milliseconds.
+  - This is specified in *seconds*, not milliseconds.
 - maximum number of practice block pairs
 - number of test block pairs
 - location of the response options (left vs. right)
-	- Response options locations can be either fixed or moving randomly. Default is "False" (fixed), set this to "True" for moving.
+  - Response options locations can be either fixed or moving randomly. Default is "False" (fixed), set this to "True" for moving.
 - the screen location of all stimuli
-	- All screen locations are specified in PsychoPy's [normalised units](http://www.psychopy.org/general/units.html#normalised-units).
+  - All screen locations are specified in PsychoPy's [normalised units](http://www.psychopy.org/general/units.html#normalised-units).
 
 The values provided in the included file are representative of commonly used task parameter values among published studies. E.g.:
 
@@ -150,21 +154,21 @@ The included `data processing.r` R script produces accuracy and latency summary 
 Very little familiarity with R/RStudio is needed to use this script. 
 
 1. Change the set working directory line to the location of your data
-	- i.e., the line containing[the line containing `setwd()`
-	- e.g. `setwd("~/git/Open Source IRAP/data`
-	- NB you must have at least one output file that has test block data for the script to run. 
+   - i.e., the line containing[the line containing `setwd()`
+   - e.g. `setwd("~/git/Open Source IRAP/data`
+   - NB you must have at least one output file that has test block data for the script to run. 
 2. Change the save output line to your chosen directory 
-	- i.e., the line containing `write.csv()`
-	- e.g., `write.csv(all_tasks_df, file = '~/git/Open Source IRAP/data processing/processed_IRAP_data.csv', row.names=FALSE)`)
+   - i.e., the line containing `write.csv()`
+   - e.g., `write.csv(all_tasks_df, file = '~/git/Open Source IRAP/data processing/processed_IRAP_data.csv', row.names=FALSE)`)
 3. Run the script (e.g., in RStudio on mac: ⌘-a to select all lines and ⌘-⏎ to run; windows: ctrl-a to select all lines and ctrl-⏎ to run).
 
 The script produces a `processed_IRAP_data.csv` file with the following variables for analysis:
-	
+​	
 	unique_identifier  # participant+stimulus_file+date
-	stimulus_file	participant	gender	age	date	starting_block  # a or b	max_pairs_practice_blocks	n_pairs_test_blocks	latency_criterion  # in seconds, not ms	accuracy_criterion  # out of 100%, not 1.0 (e.g., 80)	moving_response_options  # TRUE or FALSE	auto_response_monkey  # TRUE or FALSE	rule_A	rule_B	response_option_A	response_option_B	labelA_text_stimuli_exemplars  # list of unicode exemplars	labelB_text_stimuli_exemplars	targetA_text_stimuli_exemplars	targetB_text_stimuli_exemplars	labelA_image_stimuli_exemplars	labelB_image_stimuli_exemplars	targetA_image_stimuli_exemplars	targetB_image_stimuli_exemplars	n_pairs_practice_blocks	rt_mean	rt_sd	rt_block_A_median	rt_block_B_median	D1	D1_trial_type_1	D1_trial_type_2	D1_trial_type_3	D1_trial_type_4	D1_odd	D1_even	percentage_accuracy	exclude_based_on_fast_trials  # TRUE or FALSE	passed_practice_blocks  # TRUE or FALSE
+	stimulus_file	participant	gender	age	date	starting_block  # a or b	max_pairs_practice_blocks	n_pairs_test_blocks	latency_criterion  # in seconds, not ms	accuracy_criterion  # out of 100%, not 1.0 (e.g., 80)	moving_response_options  # TRUE or FALSE	auto_response_monkey  # TRUE or FALSE	rule_A	rule_B	response_option_A	response_option_B	labelA_text_stimuli_exemplars  # list of unicode exemplars	labelB_text_stimuli_exemplars	targetA_text_stimuli_exemplars	targetB_text_stimuli_exemplars	labelA_image_stimuli_exemplars	labelB_image_stimuli_exemplars	targetA_image_stimuli_exemplars	targetB_image_stimuli_exemplars	n_pairs_practice_blocks	rt_mean	rt_sd	rt_block_A_median	rt_block_B_median	D1	D1_trial_type_1	D1_trial_type_2	D1_trial_type_3	D1_trial_type_4	D1_odd	D1_even	percentage_accuracy	exclude_based_on_fast_trials  # TRUE or FALSE	passed_practice_blocks  # TRUE or FALSE
 
 Note that while this file includes contains all the necessary info to replicate an IRAP in the absense of having access to the PsychoPy `.psyexp`/`.py file`, `stimuli.xlsx` file and `task.xlsx file`. Only the screen locations and initial instructions are not saved here. This also allows one to easily determine what experiment an output file was produced by, e.g., if it were misplaced.
-	
+​	
 #### a. *D*1 scoring method
 *D* scores are (Greenwald et al., 2003) are a variant of Cohen's *d* effect size, and are used to quantify the effect size difference between two response patterns (e.g., rts on block As vs. block Bs in an IRAP). They differ from Cohen's *d* in how standard deviations are calculated, sub variants differ in their exclusion criteria and the presence/absence of an error penalty. *D*1 scores are have been employed in the majority of published IRAP research to date (although see next heading). The generic steps in calculating *D*1 scores are as follows: 
 
@@ -178,11 +182,11 @@ As noted above, one key step in calculating *D*1 scores is excluding participant
 In brief, a positive *D*1 score (overall only, not by trial type) indicates an automatic preferences for resopnding in block A over block B. That is for responding to label A (e.g., flowers) and target A (e.g., positive) faster with response option A (e.g., similar) than with response option B (e.g., different). 
 
 - Positive *D*1 scores can be referred to using the formula:
-	- `labelA-targetA/labelB-targetB|responseOptionA/responseOptionB`
-	- e.g., a flowers-positive/insects-negative|similar/different effect
+  - `labelA-targetA/labelB-targetB|responseOptionA/responseOptionB`
+  - e.g., a flowers-positive/insects-negative|similar/different effect
 - Negative *D*1 scores can be referred to using the formula: 
-	- `labelA-targetB/labelB-targetA|responseOptionA/responseOptionB`
-	- e.g., a flowers-negative/insects-positive|similar/different effect
+  - `labelA-targetB/labelB-targetA|responseOptionA/responseOptionB`
+  - e.g., a flowers-negative/insects-positive|similar/different effect
 
 NB The columns in which you enter stimuli into the `stimuli.xlsx` and `task.xlsx` files will therefore influence the direction of your effects and how they should be interpreted (e.g., placing the "flowers" stimuli in the labelA or labelB column, or "similar" in the responseOptionA or responseOptionB column). 
 
@@ -201,7 +205,7 @@ An alternative "whole task" method is employed here to calculated *D*1 scores in
 I've compared *D*1 scores produced by the two methods from a real dataset of typical size (n = 61), and correlations between the two methods are extremely high (r > .99), and means and SDs are equivalent. Additionally, difference scores between the two are not correlated with *D*1 score or absolute values of *D*1 scores. 
 
 The *take home point* here is that the two methods are generally comparable, so choice of method should not affect publication etc. However, the "whole task" method employed here is:
-	
+​	
 a. Arguably more statistically appropriate.
 b. Requires fewer steps and is therefore easier to explain in a manuscript, e.g., " *D*1 scores (Greenwald et al., 2003) were calculated from the test block data"
 c. As such, it is therefore also easier to interpret.

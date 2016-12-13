@@ -1,12 +1,8 @@
-########################################################################
 # Calculate D1 scores, accuracy and latency summary statistics for the 
 # Open Source IRAP (Implicit Relational Assessment Procedure)
-########################################################################
-# Author: 
-# Ian Hussey (ian.hussey@ugent.be)
 
-# Version:
-# 0.7.1
+# author: Ian Hussey (ian.hussey@ugent.be)
+# license: GPLv3+
 
 # Usage:
 # Simply set the input directory [the line containing setwd()] and 
@@ -23,12 +19,9 @@
 # To do:
 # None.
 
-########################################################################
-# Clean workspace
-rm(list=ls())
 
-########################################################################
-# Dependencies
+# dependencies ------------------------------------------------------------
+
 
 # check for all dependencies and install missing ones. 
 # solution from https://gist.github.com/stevenworthington/3178163
@@ -50,8 +43,9 @@ library(data.table)
 # library's function is to be called. Usually, loading plyr before dplyr 
 # (as done above) prevents any issues, but this method is safer.
 
-########################################################################
-# Data acquisition and cleaning
+
+# data acquisition and cleaning -------------------------------------------
+
 
 ## Set the working directory, where the IRAP data output files are located.
 # NB R usersfront slashes ("/") for folders and doubl backslashes ("\\") to allow characters such as spaces
@@ -165,8 +159,9 @@ cleaned_df <-
          targetA_image_stimuli_exemplars,
          targetB_image_stimuli_exemplars)
 
-########################################################################
-# demographics and test parameters 
+
+# demographics and test parameters  ---------------------------------------
+
 
 # Select variables of interest
 demographics_df <-
@@ -206,8 +201,9 @@ n_pairs_practice_blocks_df <-
            unique_identifier) %>%
   dplyr::summarize(n_pairs_practice_blocks = max(practice_block_pair, na.rm = TRUE))
 
-########################################################################
-# D1 scores (following Greenwald et al., 2003) and mean latency
+
+ # D1 scores and mean latency ----------------------------------------------
+
 
 # D1 calculated from all test block rts
 D1_df <-  
@@ -286,8 +282,10 @@ D1_even_df <-
   select(unique_identifier, 
          D1_even)
 
-########################################################################
-# Percentage accuracy and percentage fast trials 
+
+# Percentage accuracy and percentage fast trials --------------------------
+
+
 ## exclusions based on fast trials (>10% trials <300ms) is part of the D1 algorithm
 
 # add new column that records if RT < 300ms.
@@ -305,8 +303,10 @@ percentage_accuracy_and_fast_trials_df <-
          percentage_accuracy,
          exclude_based_on_fast_trials)
 
-########################################################################
-# Join data frames & quantify participants who failed the practice blocks
+
+# Join data frames & quantify failed practice blocks ----------------------
+
+
 output_df <- 
   join_all(list(demographics_df,
                 n_pairs_practice_blocks_df,
@@ -319,9 +319,10 @@ output_df <-
            type = "full") %>%
   rowwise() %>%
   mutate(passed_practice_blocks = ifelse(!is.na(D1), TRUE, FALSE))
+ 
 
-########################################################################
-# Write to file
+# write to disk -----------------------------------------------------------
+
 
 # NB R usersfront slashes ("/") for folders and doubl backslashes ("\\") to allow characters such as spaces
 # e.g. for Mac:
@@ -330,3 +331,4 @@ write.csv(output_df, file = "/Users/Ian/git/Open Source IRAP/data processing/pro
 #write.csv(output_df, file = "c:/mydocuments/Open\\ Source\\ IRAP/data processing/processed_IRAP_data.csv", row.names=FALSE)  
 # e.g. for Linux:
 #write.csv(output_df, file = "/usr/Ian/Open Source IRAP/data processing/processed_IRAP_data.csv", row.names=FALSE)
+
