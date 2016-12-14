@@ -19,7 +19,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 ## Version
-0.9.8.1
+0.9.9.1
 
 *NB This code is still in beta - it hasn't been used it in a published article yet.*
 
@@ -256,10 +256,14 @@ If there are additional features or refinements you would like to see please fee
 1. Update the `Open Source IRAP.psyexp` file to work in PsychoPy v1.84+ once it's released.
 
 ## Changelog
-### 0.9.8.1
+### 0.9.9.1
 
 1. processing script updated to calculate D1 scores for each block pair and then average them. This is not necessarially statistically more appropriate than simply binning all con blocks versus all incon blocks, but it is consistent with published IRAP work. 
 2. Readme updated appropriately, and images fixed.
+
+### 0.9.9
+
+1. Auto-install dependencies for R script.
 
 ### 0.9.8
 
