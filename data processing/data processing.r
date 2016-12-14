@@ -86,8 +86,8 @@ if("trials_B.thisTrialN" %in% colnames(input_df)){
 
 # Make some variable names more transparent, plus rectify the the accuracy variable
 cleaned_df <- 
-  dplyr::rename(input_df,
-                trial_type = trialType,
+  input_df %>%
+  dplyr::rename(trial_type = trialType,
                 practice_block_pair = practice_blocks.thisRepN,
                 test_block_pair = test_blocks.thisRepN,
                 trial_order_a_first = trials_Afirst.thisTrialN,
@@ -165,8 +165,8 @@ cleaned_df <-
 
 # Select variables of interest
 demographics_df <-
-  select(cleaned_df,
-         unique_identifier,
+  cleaned_df %>%
+  select(unique_identifier,
          stimulus_file,
          participant,
          gender,
@@ -197,43 +197,49 @@ demographics_df <-
 
 # Calculate total number of practice block pairs completed per participant
 n_pairs_practice_blocks_df <-
-  group_by(cleaned_df, 
-           unique_identifier) %>%
+  cleaned_df %>%
+  group_by(unique_identifier) %>%
   dplyr::summarize(n_pairs_practice_blocks = max(practice_block_pair, na.rm = TRUE))
 
 
  # D1 scores and mean latency ----------------------------------------------
 
 
+# mean rt
+mean_rt_df <-  
+  cleaned_df %>%
+  group_by(unique_identifier) %>%
+  filter(rt <= 10000 &
+           !is.na(test_block_pair)) %>%  # test blocks only
+  dplyr::summarize(rt_mean = round(mean(rt, na.rm = TRUE), 3)*1000) %>%
+  select(unique_identifier, 
+         rt_mean) %>%
+  ungroup()
+
 # D1 calculated from all test block rts
 D1_df <-  
-  group_by(cleaned_df, 
-           unique_identifier) %>%
+  cleaned_df %>%
+  group_by(unique_identifier,
+           test_block_pair) %>%
   filter(rt <= 10000 &
            !is.na(test_block_pair)) %>%  # test blocks only
   dplyr::summarize(rt_a_mean = mean(rt_a, na.rm = TRUE),
                    rt_b_mean = mean(rt_b, na.rm = TRUE),
-                   rt_mean = mean(rt),
-                   rt_sd = sd(rt),
-                   rt_block_A_median = median(rt_a, na.rm = TRUE),
-                   rt_block_B_median = median(rt_b, na.rm = TRUE)) %>%
+                   rt_sd = sd(rt)) %>%
   dplyr::mutate(diff = rt_b_mean - rt_a_mean, # this is effectively a rowwise() calculation as we have group_by() participant and then summarize()'d. rowwise() not included for brevity.
-                D1 = round(diff / rt_sd, 2),
-                rt_mean = round(rt_mean, 3),  # rounding for output simplicity is done only after D1 score calculation
-                rt_sd = round(rt_sd, 3),
-                rt_block_A_median = round(rt_block_A_median, 3),
-                rt_block_B_median = round(rt_block_B_median, 3)) %>% 
+                D1 = round(diff / rt_sd, 3)) %>% 
+  ungroup() %>%
+  group_by(unique_identifier) %>%
+  dplyr::summarize(D1 = round(mean(D1), 3)) %>%
   select(unique_identifier, 
-         rt_mean,
-         rt_sd,
-         rt_block_A_median,
-         rt_block_B_median,
-         D1)
+         D1) %>%
+  ungroup()
 
 # D1 calculated for each of the four trial-types from all test block rts
 D1_by_tt_df <-  
-  group_by(cleaned_df, 
-           unique_identifier,
+  cleaned_df %>%
+  group_by(unique_identifier,
+           test_block_pair,
            trial_type) %>%
   filter(rt <= 10000 &
            !is.na(test_block_pair)) %>%  # test blocks only
@@ -241,10 +247,14 @@ D1_by_tt_df <-
                    rt_b_mean = mean(rt_b, na.rm = TRUE),
                    rt_sd = sd(rt)) %>%
   dplyr::mutate(diff = rt_b_mean - rt_a_mean,
-                D1_by_tt = round(diff / rt_sd, 2)) %>%
+                D1_by_tt = round(diff / rt_sd, 3)) %>%
+  ungroup() %>%
+  group_by(unique_identifier,
+           trial_type) %>%
   select(unique_identifier, 
          trial_type,
          D1_by_tt) %>%
+  dplyr::summarize(D1_by_tt = round(mean(D1_by_tt), 3)) %>%
   spread(trial_type, D1_by_tt) %>%
   dplyr::rename(D1_trial_type_1 = `1`,
                 D1_trial_type_2 = `2`,
@@ -254,49 +264,58 @@ D1_by_tt_df <-
 # D1 for ODD trials by order of presentation (for split half reliability) calculated from all test block rts
 # NB internal consistency can be calculated by a spearman brown correlation or cronbach's alpha between odd and even D1 scores. Pearson's R is less appropriate.
 D1_odd_df <-  
-  group_by(cleaned_df, 
-           unique_identifier) %>%
+  cleaned_df %>%
+  group_by(unique_identifier,
+           test_block_pair) %>%
   filter(rt <= 10000 &
-           !is.na(test_block_pair) &  # test blocks only
+           !is.na(test_block_pair) &
            trial_order %% 2 == 0) %>%  # odd trials only, nb count starts at 0
   dplyr::summarize(rt_a_mean = mean(rt_a, na.rm = TRUE),
                    rt_b_mean = mean(rt_b, na.rm = TRUE),
                    rt_sd = sd(rt)) %>%
-  dplyr::mutate(diff = rt_b_mean - rt_a_mean,
-                D1_odd = round(diff / rt_sd, 2)) %>%
+  dplyr::mutate(diff = rt_b_mean - rt_a_mean, # this is effectively a rowwise() calculation as we have group_by() participant and then summarize()'d. rowwise() not included for brevity.
+                D1_odd = round(diff / rt_sd, 3)) %>% 
+  ungroup() %>%
+  group_by(unique_identifier) %>%
+  dplyr::summarize(D1_odd = round(mean(D1_odd), 3)) %>%
   select(unique_identifier, 
-         D1_odd)
+         D1_odd) %>%
+  ungroup()
 
 # D1 for EVEN trials by order of presentation (for split half reliability) calculated from all test block rts
 D1_even_df <-  
-  group_by(cleaned_df, 
-           unique_identifier) %>%
+  cleaned_df %>%
+  group_by(unique_identifier,
+           test_block_pair) %>%
   filter(rt <= 10000 &
-           !is.na(test_block_pair) &  # test blocks only
-           trial_order %% 2 == 1) %>%  # odd trials only, nb count starts at 0
+           !is.na(test_block_pair) &
+           trial_order %% 2 == 1) %>%  # even trials only, nb count starts at 0
   dplyr::summarize(rt_a_mean = mean(rt_a, na.rm = TRUE),
                    rt_b_mean = mean(rt_b, na.rm = TRUE),
                    rt_sd = sd(rt)) %>%
-  dplyr::mutate(diff = rt_b_mean - rt_a_mean,
-                D1_even = round(diff / rt_sd, 2)) %>%
+  dplyr::mutate(diff = rt_b_mean - rt_a_mean, # this is effectively a rowwise() calculation as we have group_by() participant and then summarize()'d. rowwise() not included for brevity.
+                D1_even = round(diff / rt_sd, 3)) %>% 
+  ungroup() %>%
+  group_by(unique_identifier) %>%
+  dplyr::summarize(D1_even = round(mean(D1_even), 3)) %>%
   select(unique_identifier, 
-         D1_even)
+         D1_even) %>%
+  ungroup()
 
 
-# Percentage accuracy and percentage fast trials --------------------------
+# percentage accuracy and percentage fast trials --------------------------
 
-
-## exclusions based on fast trials (>10% trials <300ms) is part of the D1 algorithm
 
 # add new column that records if RT < 300ms.
+# exclusions based on fast trials (>10% trials <300ms) is part of the D1 algorithm
 cleaned_df$too_fast_trial <- ifelse(cleaned_df$rt < .3, 1, 0) 
 
 # calculate % acc and % fast trials from test block data
 percentage_accuracy_and_fast_trials_df <- 
-  group_by(cleaned_df, 
-           unique_identifier) %>%
+  cleaned_df %>%
+  group_by(unique_identifier) %>%
   filter(!is.na(test_block_pair)) %>%  # test blocks only
-  dplyr::summarize(percentage_accuracy = round(sum(accuracy)/n(), 2),
+  dplyr::summarize(percentage_accuracy = round(sum(accuracy)/n(), 3),
                    percent_fast_trials = sum(too_fast_trial)/n()) %>%  # arbitrary number of test block trials
   dplyr::mutate(exclude_based_on_fast_trials = ifelse(percent_fast_trials>=0.1, TRUE, FALSE)) %>%  
   select(unique_identifier,
@@ -304,7 +323,7 @@ percentage_accuracy_and_fast_trials_df <-
          exclude_based_on_fast_trials)
 
 
-# Join data frames & quantify failed practice blocks ----------------------
+# join data frames & quantify failed practice blocks ----------------------
 
 
 output_df <- 
@@ -314,6 +333,7 @@ output_df <-
                 D1_by_tt_df,
                 D1_odd_df,
                 D1_even_df,
+                mean_rt_df,
                 percentage_accuracy_and_fast_trials_df),
            by = "unique_identifier",
            type = "full") %>%

@@ -1,4 +1,4 @@
-![IRAP icon](https://github.com/ianhussey/OpenSourceIRAP/blob/master/screenshots/icon_256x256.png?raw=true)
+![IRAP icon](screenshots/icon_256x256.png)
 
 # Open Source IRAP
 
@@ -19,9 +19,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 ## Version
-Open Source IRAP: 0.9.8
-
-R processing script: 0.7.2
+0.9.8.1
 
 *NB This code is still in beta - it hasn't been used it in a published article yet.*
 
@@ -31,23 +29,23 @@ This implementation is designed for use by experimental and experimental-clincia
 
 This implementation of the IRAP has very high fidelity to the procedure described in Barnes-Holmes et al. (2010: a sketch of the IRAP and REC model), and to other implementations of the IRAP (e.g., the IRAP "2010" and variants, written in Visual Basic 6). Most task parameters are soft coded and can be changed via the `task.xlsx` file (see task parameters section below).
 
-![task structure](https://github.com/ianhussey/OpenSourceIRAP/blob/master/screenshots/task_structure.png?raw=true)
+![task structure](screenshots/task_structure.png?raw=true)
 
 - Each trial presents a "label" stimulus at the top of the screen, a "target" stimulus in the middle of the screen, and two response option labels at the bottom left and right of the screen. 
 - There are two label stimuli categories and two target stimuli categories, which when combined create four "trial types".
 - Incorrect responses result in a red X being presented on screen. Progression to the next trial is contingent on a correct response.
 
-![trial screen](https://github.com/ianhussey/OpenSourceIRAP/blob/master/screenshots/trial%20screen%20with%20accuracy%20feedback.png?raw=true)
+![derp](screenshots/trial_screen_with_accuracy_feedback.png)
 
 - Inter trial interval is set to 400 ms.
 - Participants complete pairs of blocks of trials in which the response contingencies alternate (e.g., flowers-positive-similar vs. flowers-positive-different).
 - Each block is preceded by a customisable responding rule (Rule A and Rule B, e.g., "Respond AS IF flowers are positive and insects are negative").
 
-![pre block screen](https://github.com/ianhussey/OpenSourceIRAP/blob/master/screenshots/pre%20block%20rule%20screen.png?raw=true)
+![pre block screen](screenshots/pre_block_rule_screen.png)
 
 - Each block is also followed by feedback about the median latency and % accuracy in the block.
 
-![post block screen](https://github.com/ianhussey/OpenSourceIRAP/blob/master/screenshots/post%20block%20feedback%20screen.png?raw=true)
+![post block screen](screenshots/post_block_feedback_screen.png)
 
 - Participant complete practice block pairs (e.g., max 4) until they meet mastery criteria on both blocks in a pair (e.g., median latency <= 2000ms and accuracy >= 80%), and then a fixed number of test block pairs (e.g., 3). If mastery criteria are not bet within the max the task skips the test blocks and goes to the end screen.
 - Typically, reaction time differences between the two block then are quantified (e.g., using the *D*1 effect size score, below) in order to produce a measure of "implicit attitudes" (although see [De Houwer, 2006](http://users.ugent.be/~jdhouwer/why.pdf)).
@@ -165,7 +163,41 @@ Very little familiarity with R/RStudio is needed to use this script.
 The script produces a `processed_IRAP_data.csv` file with the following variables for analysis:
 ​	
 	unique_identifier  # participant+stimulus_file+date
-	stimulus_file	participant	gender	age	date	starting_block  # a or b	max_pairs_practice_blocks	n_pairs_test_blocks	latency_criterion  # in seconds, not ms	accuracy_criterion  # out of 100%, not 1.0 (e.g., 80)	moving_response_options  # TRUE or FALSE	auto_response_monkey  # TRUE or FALSE	rule_A	rule_B	response_option_A	response_option_B	labelA_text_stimuli_exemplars  # list of unicode exemplars	labelB_text_stimuli_exemplars	targetA_text_stimuli_exemplars	targetB_text_stimuli_exemplars	labelA_image_stimuli_exemplars	labelB_image_stimuli_exemplars	targetA_image_stimuli_exemplars	targetB_image_stimuli_exemplars	n_pairs_practice_blocks	rt_mean	rt_sd	rt_block_A_median	rt_block_B_median	D1	D1_trial_type_1	D1_trial_type_2	D1_trial_type_3	D1_trial_type_4	D1_odd	D1_even	percentage_accuracy	exclude_based_on_fast_trials  # TRUE or FALSE	passed_practice_blocks  # TRUE or FALSE
+	stimulus_file	
+	participant	gender	
+	age	
+	date	
+	starting_block  # a or b	
+	max_pairs_practice_blocks	
+	n_pairs_test_blocks	
+	latency_criterion  # in seconds, not ms	
+	accuracy_criterion  # out of 100%, not 1.0 (e.g., 80)	
+	moving_response_options  # TRUE or FALSE	
+	auto_response_monkey  # TRUE or FALSE	
+	rule_A	
+	rule_B	
+	response_option_A	
+	response_option_B	
+	labelA_text_stimuli_exemplars  # list of unicode exemplars	
+	labelB_text_stimuli_exemplars	
+	targetA_text_stimuli_exemplars	
+	targetB_text_stimuli_exemplars	
+	labelA_image_stimuli_exemplars	
+	labelB_image_stimuli_exemplars	
+	targetA_image_stimuli_exemplars	
+	targetB_image_stimuli_exemplars	
+	n_pairs_practice_blocks	
+	D1	
+	D1_trial_type_1	
+	D1_trial_type_2	
+	D1_trial_type_3	
+	D1_trial_type_4	
+	D1_odd	
+	D1_even	
+	rt_mean
+	percentage_accuracy	
+	exclude_based_on_fast_trials  # TRUE or FALSE	
+	passed_practice_blocks  # TRUE or FALSE
 
 Note that while this file includes contains all the necessary info to replicate an IRAP in the absense of having access to the PsychoPy `.psyexp`/`.py file`, `stimuli.xlsx` file and `task.xlsx file`. Only the screen locations and initial instructions are not saved here. This also allows one to easily determine what experiment an output file was produced by, e.g., if it were misplaced.
 ​	
@@ -177,6 +209,8 @@ Note that while this file includes contains all the necessary info to replicate 
 3. *D*1 = (mean rt block B - mean rt block A) / SD of all trials in blocks A and B.
 
 As noted above, one key step in calculating *D*1 scores is excluding participants who produce >10% rts < 300ms. The current R script outputs the variable `exclude_based_on_fast_trials` which indicates that a participant should be excluded if `TRUE`. These exclusions must be done by the researcher, and are not automatically done by the script. This is in order to allow the auto response monkey functions correctly and quickly, and due to the fact that the majority of IRAP research to date has not explicitly included this step, given that some other implimentations of the task do not output this specific information.
+
+The method employed to calculate *D*1 scores here and in much of the published research to date is as follows: that four *D*1 scores are calculated for each test block pair, one for each trial type. Given that most IRAP studies deliver three pairs of test blocks, 12 *D*1 scores are therefore usually calculated. These are then averaged across the three block pairs to leave four trial-type *D*1 scores. One "overall" *D*1 score is then often calculated by averaging these four trial- type *D*1 scores (see Barnes-Holmes, Barnes-Holmes, Stewart & Boles, 2010). 
 
 #### b. Interpretation
 In brief, a positive *D*1 score (overall only, not by trial type) indicates an automatic preferences for resopnding in block A over block B. That is for responding to label A (e.g., flowers) and target A (e.g., positive) faster with response option A (e.g., similar) than with response option B (e.g., different). 
@@ -192,24 +226,14 @@ NB The columns in which you enter stimuli into the `stimuli.xlsx` and `task.xlsx
 
 See Hussey, Thompson, McEnteggart, Barnes-Holmes & Barnes-Holmes (2015) and Greenwald, Nosek & Banaji (2003) for paper length discussions of the *D*1 score, its interpretation generally, and its application and interpretation within the IRAP. 
 
-NB other scoring algorithms are available, such as the *G* score (adjusted gaussian fractional rank score: Sriram et al., unpublished) and the Probabilistic Index (PI: De Schryver, 2013; Thas, De Neve, Clement & Ottoy, 2012) but have not seen much use, despite their apparant conceptual and statistical advantages.
+NB other scoring algorithms are available, such as the *G* score (adjusted gaussian fractional rank score: Sriram et al., unpublished) and the Probabilistic Index (PI: De Schryver, 2013; Thas, De Neve, Clement & Ottoy, 2012; De Schryver, Hussey, Thas, Cartwright, & Barnes-Holmes, under review) but have not seen much use, despite their apparant conceptual and statistical advantages.
 
 #### c. *D*-IRAP vs *D*1 nomenclature
 Many published articles refer to the "*D*-IRAP" score rather than the " *D*1" score, as it was originally referred to by Greenwald et al. (2003). This was on the rationale that there are differences between the two, e.g., when applied to the IRAP scores are often calculated for each trial type rather than one overall score. However, *D*1 refers only to the general strategy of [difference between means/SD of all items, with some exclusion criteria]. Indeed, even when applied to the IAT, "pure" *D*1s are not typically calculated; rather, one is typically calculated for blocks 3&6 and a second for 4&7 and the two are then averaged. As such, to separate the generic effect size scoring method from the specific analytic strategy employed in a given experiment (e.g., overall D scores, trial-type D scores, etc.), this script refers to *D*1 scores throughout. 
 
-#### d. Block-pair *D*1 scores vs. All-task *D*1 scores
-Some background is required to provide the rationale to this design decision. The method employed to calculate *D*1 scores in much of the published research to date notes that four *D*1 scores are calculated for each test block pair, one for each trial type. Given that most IRAP studies deliver three pairs of test blocks, 12 *D*1 scores are therefore usually calculated. These are then averaged across the three block pairs to leave four trial-type *D*1 scores. One "overall" *D*1 score is then often calculated by averaging these four trial- type *D*1 scores (see Barnes-Holmes, Barnes-Holmes, Stewart & Boles, 2010). As such, this method involves the calculation of a large number of point estimation effect sizes and then averaging them together.
+#### d. Exclusions of test block data 
 
-An alternative "whole task" method is employed here to calculated *D*1 scores in the `data processing.r` script, whereby the number of point estimation effect sizes that are calculated is purposefully minimised. Instead, a smaller number of effect sizes are calculated using the maximum number of data points each. Specifically, an "overall" *D*1 score (simply called *D*1) is calculated from all the test block reaction times at once. These are split only by which half of a block pair they occurred in. Next, trial type *D*1 scores are calculated by splitting the reaction times up into trial types and recalculating *D*1 scores, but again pooling across all test blocks. This is arguably statistically more appropriate. 
-
-I've compared *D*1 scores produced by the two methods from a real dataset of typical size (n = 61), and correlations between the two methods are extremely high (r > .99), and means and SDs are equivalent. Additionally, difference scores between the two are not correlated with *D*1 score or absolute values of *D*1 scores. 
-
-The *take home point* here is that the two methods are generally comparable, so choice of method should not affect publication etc. However, the "whole task" method employed here is:
-​	
-a. Arguably more statistically appropriate.
-b. Requires fewer steps and is therefore easier to explain in a manuscript, e.g., " *D*1 scores (Greenwald et al., 2003) were calculated from the test block data"
-c. As such, it is therefore also easier to interpret.
-d. Finally, by calculating all-task *D*1 scores, this method constrains the degrees of experimenter freedom regarding how to conduct exclusions of test block data (see Hussey, Thompson et al., 2015). While several articles to date have employed the method used by Nicholson & Barnes-Holmes (2012), which exclude *D*1 scores from single test block pairs and averages the remaining ones, De Schryver, Hughes, De Houwer & Rosseel (in prep: "On the Interpretation of Reliability in the Context of Implicit Cognition") make a persuasive argument for treating the data produced by a given instance of a measure as a single analytic unit. Test block exclusions can then be applied to data (e.g., median rt < 2000ms, mean rt < mean + 2.5 SD, etc.).
+While several articles to date have employed the method used by Nicholson & Barnes-Holmes (2012; see Hussey, Thompson, et al., 2015 for disussion), who excluded *D*1 scores from single test block pairs and averages the remaining ones, De Schryver, Hughes, De Houwer & Rosseel (in prep: "On the Interpretation of Reliability in the Context of Implicit Cognition") make a persuasive argument for treating the data produced by a given instance of a measure as a single analytic unit. That is, rather than excluding individual test block pairs where the participant fails to maintain the test block criteria, De Schryver et al argue that exclusions should be done based on overall task performance. As such, the processing script here produces on overall test block accuracy score and one mean test block reaction time score. Test block exclusions can then be applied to these (e.g., outliers defined as absolute deviation from mean rt > 2.5 SD).
 
 ## Timing accuracy
 PsychoPy is technically capable of millosecond timing, depending on design choices by the researcher (see Garaizar & Vadillo, 2014). 
@@ -232,7 +256,13 @@ If there are additional features or refinements you would like to see please fee
 1. Update the `Open Source IRAP.psyexp` file to work in PsychoPy v1.84+ once it's released.
 
 ## Changelog
+### 0.9.8.1
+
+1. processing script updated to calculate D1 scores for each block pair and then average them. This is not necessarially statistically more appropriate than simply binning all con blocks versus all incon blocks, but it is consistent with published IRAP work. 
+2. Readme updated appropriately, and images fixed.
+
 ### 0.9.8
+
 1. Tidied up the `inst_code` code component so that dependencies and functions run at Begin Experiment and only necessary code runs at Begin routine.
 2. Changed `inst_code` from loading stimuli from a hard coded `stimuli.xlsx` to a soft coded `stimulus_file` variable, which was added to `task.xlsx`. This allows the researcher to deliver multiple different sequential IRAPs within the one script while still producing a single output file for each participant.
 3. Changed `data processing.r` (now 0.7.2) to add a single filter() line to select only the data from the IRAP of interest. This line is commented out but contains a note on its use. 
