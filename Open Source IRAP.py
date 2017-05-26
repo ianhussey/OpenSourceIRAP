@@ -73,7 +73,7 @@ def string_to_booleanl(v):
 
 # Trial generation function
 def generate_trials(trial_type_column, multiplier, shuffle_list):
-    """Generate a shuffled list of stimuli exemplars from a column in an excel stimuli file""" 
+    """Generate a shuffled list of stimuli exemplars from a column in an excel stimuli file"""
     a = dict()  # declare a dict to be populated
     for i in range(len(exemplars)):
         a[i] = [exemplars[i][trial_type_column]] * multiplier  # populate the dict from vertical reads of the conditions
@@ -577,10 +577,10 @@ end_box = visual.TextStim(win=win, ori=0, name='end_box',
 
 # Create some handy timers
 globalClock = core.Clock()  # to track the time since experiment started
-routineTimer = core.CountdownTimer()  # to track time remaining of each (non-slip) routine 
+routineTimer = core.CountdownTimer()  # to track time remaining of each (non-slip) routine
 
 # set up handler to look after randomisation of conditions etc
-task = data.TrialHandler(nReps=1, method='sequential', 
+task = data.TrialHandler(nReps=1, method='sequential',
     extraInfo=expInfo, originPath=None,
     trialList=data.importConditions('task.xlsx'),
     seed=None, name='task')
@@ -597,10 +597,10 @@ for thisTask in task:
     if thisTask != None:
         for paramName in thisTask.keys():
             exec(paramName + '= thisTask.' + paramName)
-    
+
     #------Prepare to start Routine "instructions"-------
     t = 0
-    instructionsClock.reset()  # clock 
+    instructionsClock.reset()  # clock
     frameN = -1
     # update component parameters for each repeat
     # ResponseEmulator
@@ -608,28 +608,28 @@ for thisTask in task:
         simulated_responses = [(1.1, 'e'), (1.1, 'i')]  # simulated responses take the form (onsetTime, responseKey). You can simulate more than one.
         responder = ResponseEmulator(simulated_responses)
         responder.start()
-    
+
     # Create sufficiently long lists of stimuli
     """
-    This allows us to keep the stimuli in an excel file across multiple lines, and to present them based on the categories 
-    set by the 'layout.xlsx' file. This allows for shuffled (counterbalanced pseudorandom) presentation of the stimuli examplars 
-    as well as the categories. 
-    
-    The method to do this below is to first declare a dictionary to be populated from the exemplars conditions, but not in the usual way. 
-    Usually, psychopy would read across columns. If the stimuli were entered as a list within the excel file (e.g., ['male', 'female']) 
-    rather on seperate rows as they are now all we would have to do is multiply the length of the list to get enough exemplars. However, 
+    This allows us to keep the stimuli in an excel file across multiple lines, and to present them based on the categories
+    set by the 'layout.xlsx' file. This allows for shuffled (counterbalanced pseudorandom) presentation of the stimuli examplars
+    as well as the categories.
+
+    The method to do this below is to first declare a dictionary to be populated from the exemplars conditions, but not in the usual way.
+    Usually, psychopy would read across columns. If the stimuli were entered as a list within the excel file (e.g., ['male', 'female'])
+    rather on seperate rows as they are now all we would have to do is multiply the length of the list to get enough exemplars. However,
     I wanted the stimuli file to be as use friendly as possible, so instead the below code allows you to enter the exemplars on seperate
-    rows, and then populates the dict vertically from the rows. 
+    rows, and then populates the dict vertically from the rows.
     """
     # Import stimuli exemplars
     exemplars = data.importConditions(stimulus_file)  # Import stimuli exemplars. stimulus_file is defined in task.xlsx
-    
+
     # Determine nReps of trials loop based on number of exemplars
     reptitions = len(exemplars)
-    
-    
+
+
     # Generate a first, unshuffled list of the stimuli exemplars for saving to output file
-    
+
     # 1. generate: no shuffling, multiplier = 1.
     labelA_stimuli_for_output = generate_trials('labelA_stimuli', 1, False)  # function and variable determined at begin exp.
     labelB_stimuli_for_output = generate_trials('labelB_stimuli', 1, False)
@@ -639,7 +639,7 @@ for thisTask in task:
     labelB_image_stimuli_for_output = generate_trials('labelB_image_stimuli', 1, False)
     targetA_image_stimuli_for_output = generate_trials('targetA_image_stimuli', 1, False)
     targetB_image_stimuli_for_output = generate_trials('targetB_image_stimuli', 1, False)
-    
+
     # 2. save these lists to the trial handler to be written to csv
     thisExp.addData('labelA_stimuli_for_output', labelA_stimuli_for_output)
     thisExp.addData('labelB_stimuli_for_output', labelB_stimuli_for_output)
@@ -659,7 +659,7 @@ for thisTask in task:
     for thisComponent in instructionsComponents:
         if hasattr(thisComponent, 'status'):
             thisComponent.status = NOT_STARTED
-    
+
     #-------Start Routine "instructions"-------
     continueRoutine = True
     while continueRoutine:
@@ -667,15 +667,15 @@ for thisTask in task:
         t = instructionsClock.getTime()
         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
         # update/draw components on each frame
-        
-        
+
+
         # *intro_box* updates
         if t >= 0.4 and intro_box.status == NOT_STARTED:
             # keep track of start time/frame for later
             intro_box.tStart = t  # underestimates by a little under one frame
             intro_box.frameNStart = frameN  # exact frame index
             intro_box.setAutoDraw(True)
-        
+
         # *intro_resp* updates
         if t >= 1 and intro_resp.status == NOT_STARTED:
             # keep track of start time/frame for later
@@ -686,14 +686,14 @@ for thisTask in task:
             event.clearEvents(eventType='keyboard')
         if intro_resp.status == STARTED:
             theseKeys = event.getKeys(keyList=['e', 'i'])
-            
+
             # check for quit:
             if "escape" in theseKeys:
                 endExpNow = True
             if len(theseKeys) > 0:  # at least one key was pressed
                 # a response ends the routine
                 continueRoutine = False
-        
+
         # check if all components have finished
         if not continueRoutine:  # a component has requested a forced-end of Routine
             break
@@ -702,25 +702,25 @@ for thisTask in task:
             if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                 continueRoutine = True
                 break  # at least one component has not yet finished
-        
+
         # check for quit (the Esc key)
         if endExpNow or event.getKeys(keyList=["escape"]):
             core.quit()
-        
+
         # refresh the screen
         if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
             win.flip()
-    
+
     #-------Ending Routine "instructions"-------
     for thisComponent in instructionsComponents:
         if hasattr(thisComponent, "setAutoDraw"):
             thisComponent.setAutoDraw(False)
-    
+
     # the Routine "instructions" was not non-slip safe, so reset the non-slip timer
     routineTimer.reset()
-    
+
     # set up handler to look after randomisation of conditions etc
-    practice_blocks = data.TrialHandler(nReps=max_pairs_practice_blocks, method='sequential', 
+    practice_blocks = data.TrialHandler(nReps=max_pairs_practice_blocks, method='sequential',
         extraInfo=expInfo, originPath=None,
         trialList=[None],
         seed=None, name='practice_blocks')
@@ -730,16 +730,16 @@ for thisTask in task:
     if thisPractice_block != None:
         for paramName in thisPractice_block.keys():
             exec(paramName + '= thisPractice_block.' + paramName)
-    
+
     for thisPractice_block in practice_blocks:
         currentLoop = practice_blocks
         # abbreviate parameter names if possible (e.g. rgb = thisPractice_block.rgb)
         if thisPractice_block != None:
             for paramName in thisPractice_block.keys():
                 exec(paramName + '= thisPractice_block.' + paramName)
-        
+
         # set up handler to look after randomisation of conditions etc
-        practice_Afirst = data.TrialHandler(nReps=Afirst_nReps, method='sequential', 
+        practice_Afirst = data.TrialHandler(nReps=Afirst_nReps, method='sequential',
             extraInfo=expInfo, originPath=None,
             trialList=[None],
             seed=None, name='practice_Afirst')
@@ -749,17 +749,17 @@ for thisTask in task:
         if thisPractice_Afirst != None:
             for paramName in thisPractice_Afirst.keys():
                 exec(paramName + '= thisPractice_Afirst.' + paramName)
-        
+
         for thisPractice_Afirst in practice_Afirst:
             currentLoop = practice_Afirst
             # abbreviate parameter names if possible (e.g. rgb = thisPractice_Afirst.rgb)
             if thisPractice_Afirst != None:
                 for paramName in thisPractice_Afirst.keys():
                     exec(paramName + '= thisPractice_Afirst.' + paramName)
-            
+
             #------Prepare to start Routine "preblock_A"-------
             t = 0
-            preblock_AClock.reset()  # clock 
+            preblock_AClock.reset()  # clock
             frameN = -1
             # update component parameters for each repeat
             # Option to simulates using ResponseEmulator:
@@ -767,7 +767,7 @@ for thisTask in task:
                 simulated_responses = [(1.1, 'e'), (1.1, 'i')]  # simulated responses take the form (onsetTime, responseKey). You can simulate more than one.
                 responder = ResponseEmulator(simulated_responses)
                 responder.start()
-            
+
             # Generate list of stimuli for the block
             stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2, True)  # function and variable determined at begin exp.
             stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2, True)
@@ -787,7 +787,7 @@ for thisTask in task:
             for thisComponent in preblock_AComponents:
                 if hasattr(thisComponent, 'status'):
                     thisComponent.status = NOT_STARTED
-            
+
             #-------Start Routine "preblock_A"-------
             continueRoutine = True
             while continueRoutine:
@@ -795,15 +795,15 @@ for thisTask in task:
                 t = preblock_AClock.getTime()
                 frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                 # update/draw components on each frame
-                
-                
+
+
                 # *rule_box_A* updates
                 if t >= 0.4 and rule_box_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     rule_box_A.tStart = t  # underestimates by a little under one frame
                     rule_box_A.frameNStart = frameN  # exact frame index
                     rule_box_A.setAutoDraw(True)
-                
+
                 # *preblock_response_A* updates
                 if t >= 1 and preblock_response_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
@@ -814,14 +814,14 @@ for thisTask in task:
                     event.clearEvents(eventType='keyboard')
                 if preblock_response_A.status == STARTED:
                     theseKeys = event.getKeys(keyList=['e', 'i'])
-                    
+
                     # check for quit:
                     if "escape" in theseKeys:
                         endExpNow = True
                     if len(theseKeys) > 0:  # at least one key was pressed
                         # a response ends the routine
                         continueRoutine = False
-                
+
                 # check if all components have finished
                 if not continueRoutine:  # a component has requested a forced-end of Routine
                     break
@@ -830,25 +830,25 @@ for thisTask in task:
                     if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                         continueRoutine = True
                         break  # at least one component has not yet finished
-                
+
                 # check for quit (the Esc key)
                 if endExpNow or event.getKeys(keyList=["escape"]):
                     core.quit()
-                
+
                 # refresh the screen
                 if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                     win.flip()
-            
+
             #-------Ending Routine "preblock_A"-------
             for thisComponent in preblock_AComponents:
                 if hasattr(thisComponent, "setAutoDraw"):
                     thisComponent.setAutoDraw(False)
-            
+
             # the Routine "preblock_A" was not non-slip safe, so reset the non-slip timer
             routineTimer.reset()
-            
+
             # set up handler to look after randomisation of conditions etc
-            practice_trials_Afirst = data.TrialHandler(nReps=reptitions, method='random', 
+            practice_trials_Afirst = data.TrialHandler(nReps=reptitions, method='random',
                 extraInfo=expInfo, originPath=None,
                 trialList=data.importConditions('block_layout.xlsx'),
                 seed=None, name='practice_trials_Afirst')
@@ -858,17 +858,17 @@ for thisTask in task:
             if thisPractice_trials_Afirst != None:
                 for paramName in thisPractice_trials_Afirst.keys():
                     exec(paramName + '= thisPractice_trials_Afirst.' + paramName)
-            
+
             for thisPractice_trials_Afirst in practice_trials_Afirst:
                 currentLoop = practice_trials_Afirst
                 # abbreviate parameter names if possible (e.g. rgb = thisPractice_trials_Afirst.rgb)
                 if thisPractice_trials_Afirst != None:
                     for paramName in thisPractice_trials_Afirst.keys():
                         exec(paramName + '= thisPractice_trials_Afirst.' + paramName)
-                
+
                 #------Prepare to start Routine "trial_A"-------
                 t = 0
-                trial_AClock.reset()  # clock 
+                trial_AClock.reset()  # clock
                 frameN = -1
                 # update component parameters for each repeat
                 # Option to simulates using ResponseEmulator:
@@ -876,32 +876,32 @@ for thisTask in task:
                     simulated_responses = [(0.5, 'e'), (0.5, 'i')]  # simulated responses take the form (onsetTime, responseKey). You can simulate more than one.
                     responder = ResponseEmulator(simulated_responses)
                     responder.start()
-                
+
                 # For each stimlulus, choose a random exemplar from the appropriate list
                 # word stimulus 1
                 if stimulus1_category == 'a':
                     stimulus1 = stim1_catA_stimuli_many.pop()
                 elif stimulus1_category == 'b':
                     stimulus1 = stim1_catB_stimuli_many.pop()
-                
+
                 # word stimulus 2
                 if stimulus2_category == 'c':
                     stimulus2 = stim2_catA_stimuli_many.pop()
                 elif stimulus2_category == 'd':
                     stimulus2 = stim2_catB_stimuli_many.pop()
-                
+
                 # image stimulus 1
                 if stimulus1_category == 'a':
                     img_stimulus1 = img_stim1_catA_stimuli_many.pop()
                 elif stimulus1_category == 'b':
                     img_stimulus1 = img_stim1_catB_stimuli_many.pop()
-                
+
                 # image stimulus 2
                 if stimulus2_category == 'c':
                     img_stimulus2 = img_stim2_catA_stimuli_many.pop()
                 elif stimulus2_category == 'd':
                     img_stimulus2 = img_stim2_catB_stimuli_many.pop()
-                
+
                 # set correct and incorrect responses
                 if string_to_booleanl(moving_response_options) == False:
                     response_option_left = response_option_B  # i.e., the focal trial type is the right hand one, for hand dominance
@@ -977,7 +977,7 @@ for thisTask in task:
                 for thisComponent in trial_AComponents:
                     if hasattr(thisComponent, 'status'):
                         thisComponent.status = NOT_STARTED
-                
+
                 #-------Start Routine "trial_A"-------
                 continueRoutine = True
                 while continueRoutine:
@@ -990,35 +990,35 @@ for thisTask in task:
                         accuracyFeedback=""
                     else:
                         accuracyFeedback="X"
-                    
+
                     # *image_stimulus1_box_A* updates
                     if t >= 0.4 and image_stimulus1_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         image_stimulus1_box_A.tStart = t  # underestimates by a little under one frame
                         image_stimulus1_box_A.frameNStart = frameN  # exact frame index
                         image_stimulus1_box_A.setAutoDraw(True)
-                    
+
                     # *image_stimulus2_box_A* updates
                     if t >= 0.4 and image_stimulus2_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         image_stimulus2_box_A.tStart = t  # underestimates by a little under one frame
                         image_stimulus2_box_A.frameNStart = frameN  # exact frame index
                         image_stimulus2_box_A.setAutoDraw(True)
-                    
+
                     # *stimulus1_box_A* updates
                     if t >= 0.4 and stimulus1_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         stimulus1_box_A.tStart = t  # underestimates by a little under one frame
                         stimulus1_box_A.frameNStart = frameN  # exact frame index
                         stimulus1_box_A.setAutoDraw(True)
-                    
+
                     # *stimulus2_box_A* updates
                     if t >= 0.4 and stimulus2_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         stimulus2_box_A.tStart = t  # underestimates by a little under one frame
                         stimulus2_box_A.frameNStart = frameN  # exact frame index
                         stimulus2_box_A.setAutoDraw(True)
-                    
+
                     # *required_response_A* updates
                     if t >= 0.4 and required_response_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
@@ -1040,7 +1040,7 @@ for thisTask in task:
                         event.clearEvents(eventType='keyboard')
                     if required_response_A.status == STARTED:
                         theseKeys = event.getKeys(keyList=list(required_allowed))
-                        
+
                         # check for quit:
                         if "escape" in theseKeys:
                             endExpNow = True
@@ -1055,7 +1055,7 @@ for thisTask in task:
                                     required_response_A.corr = 0
                                 # a response ends the routine
                                 continueRoutine = False
-                    
+
                     # *feedback_response_A* updates
                     if t >= 0.4 and feedback_response_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
@@ -1077,7 +1077,7 @@ for thisTask in task:
                         event.clearEvents(eventType='keyboard')
                     if feedback_response_A.status == STARTED:
                         theseKeys = event.getKeys(keyList=list(feedback_allowed))
-                        
+
                         # check for quit:
                         if "escape" in theseKeys:
                             endExpNow = True
@@ -1090,21 +1090,21 @@ for thisTask in task:
                                     feedback_response_A.corr = 1
                                 else:
                                     feedback_response_A.corr = 0
-                    
+
                     # *left_box_A* updates
                     if t >= response_option_onset and left_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         left_box_A.tStart = t  # underestimates by a little under one frame
                         left_box_A.frameNStart = frameN  # exact frame index
                         left_box_A.setAutoDraw(True)
-                    
+
                     # *right_box_A* updates
                     if t >= response_option_onset and right_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         right_box_A.tStart = t  # underestimates by a little under one frame
                         right_box_A.frameNStart = frameN  # exact frame index
                         right_box_A.setAutoDraw(True)
-                    
+
                     # *accuracy_feedback_box_A* updates
                     if t >= 0.4 and accuracy_feedback_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
@@ -1113,7 +1113,7 @@ for thisTask in task:
                         accuracy_feedback_box_A.setAutoDraw(True)
                     if accuracy_feedback_box_A.status == STARTED:  # only update if being drawn
                         accuracy_feedback_box_A.setText(accuracyFeedback, log=False)
-                    
+
                     # check if all components have finished
                     if not continueRoutine:  # a component has requested a forced-end of Routine
                         break
@@ -1122,15 +1122,15 @@ for thisTask in task:
                         if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                             continueRoutine = True
                             break  # at least one component has not yet finished
-                    
+
                     # check for quit (the Esc key)
                     if endExpNow or event.getKeys(keyList=["escape"]):
                         core.quit()
-                    
+
                     # refresh the screen
                     if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                         win.flip()
-                
+
                 #-------Ending Routine "trial_A"-------
                 for thisComponent in trial_AComponents:
                     if hasattr(thisComponent, "setAutoDraw"):
@@ -1167,13 +1167,13 @@ for thisTask in task:
                 # the Routine "trial_A" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
                 thisExp.nextEntry()
-                
+
             # completed reptitions repeats of 'practice_trials_Afirst'
-            
-            
+
+
             #------Prepare to start Routine "practice_postblock_A"-------
             t = 0
-            practice_postblock_AClock.reset()  # clock 
+            practice_postblock_AClock.reset()  # clock
             frameN = -1
             # update component parameters for each repeat
             # Option to simulates using ResponseEmulator:
@@ -1181,28 +1181,28 @@ for thisTask in task:
                 simulated_responses = [(1.1, 'e'), (1.1, 'i')]  # simulated responses take the form (onsetTime, responseKey). You can simulate more than one.
                 responder = ResponseEmulator(simulated_responses)
                 responder.start()
-            
+
             # calculate summary stats
             try:  # first check which block was run by seeing if the object exists
                 practice_trials_Afirst.data
             except NameError:
                 pass
             else:  # if it does exist, calculate block summary data
-                prac_block_A_percentage_accuracy = (float(practice_trials_Afirst.data['required_response_A.corr'].count()) - float(practice_trials_Afirst.data['feedback_response_A.corr'].sum())) /  float(practice_trials_Afirst.data['required_response_A.corr'].count()) * 100 
+                prac_block_A_percentage_accuracy = (float(practice_trials_Afirst.data['required_response_A.corr'].count()) - float(practice_trials_Afirst.data['feedback_response_A.corr'].sum())) /  float(practice_trials_Afirst.data['required_response_A.corr'].count()) * 100
                 prac_block_A_median_latency = np.median(practice_trials_Afirst.data['required_response_A.rt'])
-            
-            try: 
+
+            try:
                 practice_trials_Asecond.data
             except NameError:
                 pass
             else:  # if it does exist, calculate block summary data
-                prac_block_A_percentage_accuracy = (float(practice_trials_Asecond.data['required_response_A.corr'].count()) - float(practice_trials_Asecond.data['feedback_response_A.corr'].sum())) /  float(practice_trials_Asecond.data['required_response_A.corr'].count()) * 100 
+                prac_block_A_percentage_accuracy = (float(practice_trials_Asecond.data['required_response_A.corr'].count()) - float(practice_trials_Asecond.data['feedback_response_A.corr'].sum())) /  float(practice_trials_Asecond.data['required_response_A.corr'].count()) * 100
                 prac_block_A_median_latency = np.median(practice_trials_Asecond.data['required_response_A.rt'])
-            
+
             # set messages
-            msg_accuracy = "%s %i %s" %(accuracy, prac_block_A_percentage_accuracy, percentCorrect) 
+            msg_accuracy = "%s %i %s" %(accuracy, prac_block_A_percentage_accuracy, percentCorrect)
             msg_latency = "%s %.2f %s" %(speed, prac_block_A_median_latency, seconds)
-            
+
             ### save summary stats to experiment handler so they're written to the csv file
             ##thisExp.addData('prac_block_A_percentage_accuracy', prac_block_A_percentage_accuracy)
             ##thisExp.addData('prac_block_A_median_latency', prac_block_A_median_latency)
@@ -1222,7 +1222,7 @@ for thisTask in task:
             for thisComponent in practice_postblock_AComponents:
                 if hasattr(thisComponent, 'status'):
                     thisComponent.status = NOT_STARTED
-            
+
             #-------Start Routine "practice_postblock_A"-------
             continueRoutine = True
             while continueRoutine:
@@ -1230,36 +1230,36 @@ for thisTask in task:
                 t = practice_postblock_AClock.getTime()
                 frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                 # update/draw components on each frame
-                
-                
+
+
                 # *practice_aim_box_A* updates
                 if t >= 0.4 and practice_aim_box_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     practice_aim_box_A.tStart = t  # underestimates by a little under one frame
                     practice_aim_box_A.frameNStart = frameN  # exact frame index
                     practice_aim_box_A.setAutoDraw(True)
-                
+
                 # *practice_accuracy_box_A* updates
                 if t >= 0.4 and practice_accuracy_box_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     practice_accuracy_box_A.tStart = t  # underestimates by a little under one frame
                     practice_accuracy_box_A.frameNStart = frameN  # exact frame index
                     practice_accuracy_box_A.setAutoDraw(True)
-                
+
                 # *practice_latency_box_A* updates
                 if t >= 0.4 and practice_latency_box_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     practice_latency_box_A.tStart = t  # underestimates by a little under one frame
                     practice_latency_box_A.frameNStart = frameN  # exact frame index
                     practice_latency_box_A.setAutoDraw(True)
-                
+
                 # *press_box_prac_A* updates
                 if t >= 0.4 and press_box_prac_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     press_box_prac_A.tStart = t  # underestimates by a little under one frame
                     press_box_prac_A.frameNStart = frameN  # exact frame index
                     press_box_prac_A.setAutoDraw(True)
-                
+
                 # *practice_postblock_response_A* updates
                 if t >= 1 and practice_postblock_response_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
@@ -1270,14 +1270,14 @@ for thisTask in task:
                     event.clearEvents(eventType='keyboard')
                 if practice_postblock_response_A.status == STARTED:
                     theseKeys = event.getKeys(keyList=['e', 'i'])
-                    
+
                     # check for quit:
                     if "escape" in theseKeys:
                         endExpNow = True
                     if len(theseKeys) > 0:  # at least one key was pressed
                         # a response ends the routine
                         continueRoutine = False
-                
+
                 # check if all components have finished
                 if not continueRoutine:  # a component has requested a forced-end of Routine
                     break
@@ -1286,28 +1286,28 @@ for thisTask in task:
                     if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                         continueRoutine = True
                         break  # at least one component has not yet finished
-                
+
                 # check for quit (the Esc key)
                 if endExpNow or event.getKeys(keyList=["escape"]):
                     core.quit()
-                
+
                 # refresh the screen
                 if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                     win.flip()
-            
+
             #-------Ending Routine "practice_postblock_A"-------
             for thisComponent in practice_postblock_AComponents:
                 if hasattr(thisComponent, "setAutoDraw"):
                     thisComponent.setAutoDraw(False)
-            
+
             # the Routine "practice_postblock_A" was not non-slip safe, so reset the non-slip timer
             routineTimer.reset()
         # completed Afirst_nReps repeats of 'practice_Afirst'
-        
-        
+
+
         #------Prepare to start Routine "preblock_B"-------
         t = 0
-        preblock_BClock.reset()  # clock 
+        preblock_BClock.reset()  # clock
         frameN = -1
         # update component parameters for each repeat
         # Option to simulates using ResponseEmulator:
@@ -1315,7 +1315,7 @@ for thisTask in task:
             simulated_responses = [(1.1, 'e'), (1.1, 'i')]  # simulated responses take the form (onsetTime, responseKey). You can simulate more than one.
             responder = ResponseEmulator(simulated_responses)
             responder.start()
-        
+
         # Generate list of stimuli for the block
         stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2, True)  # function and variable determined at begin exp.
         stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2, True)
@@ -1335,7 +1335,7 @@ for thisTask in task:
         for thisComponent in preblock_BComponents:
             if hasattr(thisComponent, 'status'):
                 thisComponent.status = NOT_STARTED
-        
+
         #-------Start Routine "preblock_B"-------
         continueRoutine = True
         while continueRoutine:
@@ -1343,15 +1343,15 @@ for thisTask in task:
             t = preblock_BClock.getTime()
             frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
             # update/draw components on each frame
-            
-            
+
+
             # *rule_box_B* updates
             if t >= 0.4 and rule_box_B.status == NOT_STARTED:
                 # keep track of start time/frame for later
                 rule_box_B.tStart = t  # underestimates by a little under one frame
                 rule_box_B.frameNStart = frameN  # exact frame index
                 rule_box_B.setAutoDraw(True)
-            
+
             # *preblock_response_B* updates
             if t >= 1 and preblock_response_B.status == NOT_STARTED:
                 # keep track of start time/frame for later
@@ -1362,14 +1362,14 @@ for thisTask in task:
                 event.clearEvents(eventType='keyboard')
             if preblock_response_B.status == STARTED:
                 theseKeys = event.getKeys(keyList=['e', 'i'])
-                
+
                 # check for quit:
                 if "escape" in theseKeys:
                     endExpNow = True
                 if len(theseKeys) > 0:  # at least one key was pressed
                     # a response ends the routine
                     continueRoutine = False
-            
+
             # check if all components have finished
             if not continueRoutine:  # a component has requested a forced-end of Routine
                 break
@@ -1378,25 +1378,25 @@ for thisTask in task:
                 if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                     continueRoutine = True
                     break  # at least one component has not yet finished
-            
+
             # check for quit (the Esc key)
             if endExpNow or event.getKeys(keyList=["escape"]):
                 core.quit()
-            
+
             # refresh the screen
             if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                 win.flip()
-        
+
         #-------Ending Routine "preblock_B"-------
         for thisComponent in preblock_BComponents:
             if hasattr(thisComponent, "setAutoDraw"):
                 thisComponent.setAutoDraw(False)
-        
+
         # the Routine "preblock_B" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
-        
+
         # set up handler to look after randomisation of conditions etc
-        practice_trials_B = data.TrialHandler(nReps=reptitions, method='random', 
+        practice_trials_B = data.TrialHandler(nReps=reptitions, method='random',
             extraInfo=expInfo, originPath=None,
             trialList=data.importConditions('block_layout.xlsx'),
             seed=None, name='practice_trials_B')
@@ -1406,17 +1406,17 @@ for thisTask in task:
         if thisPractice_trials_B != None:
             for paramName in thisPractice_trials_B.keys():
                 exec(paramName + '= thisPractice_trials_B.' + paramName)
-        
+
         for thisPractice_trials_B in practice_trials_B:
             currentLoop = practice_trials_B
             # abbreviate parameter names if possible (e.g. rgb = thisPractice_trials_B.rgb)
             if thisPractice_trials_B != None:
                 for paramName in thisPractice_trials_B.keys():
                     exec(paramName + '= thisPractice_trials_B.' + paramName)
-            
+
             #------Prepare to start Routine "trial_B"-------
             t = 0
-            trial_BClock.reset()  # clock 
+            trial_BClock.reset()  # clock
             frameN = -1
             # update component parameters for each repeat
             # Option to simulates using ResponseEmulator:
@@ -1424,32 +1424,32 @@ for thisTask in task:
                 simulated_responses = [(0.5, 'e'), (0.5, 'i')]  # simulated responses take the form (onsetTime, responseKey). You can simulate more than one.
                 responder = ResponseEmulator(simulated_responses)
                 responder.start()
-            
+
             # For each stimlulus, choose a random exemplar from the appropriate list
             # word stimulus 1
             if stimulus1_category == 'a':
                 stimulus1 = stim1_catA_stimuli_many.pop()
             elif stimulus1_category == 'b':
                 stimulus1 = stim1_catB_stimuli_many.pop()
-            
+
             # word stimulus 2
             if stimulus2_category == 'c':
                 stimulus2 = stim2_catA_stimuli_many.pop()
             elif stimulus2_category == 'd':
                 stimulus2 = stim2_catB_stimuli_many.pop()
-            
+
             # image stimulus 1
             if stimulus1_category == 'a':
                 img_stimulus1 = img_stim1_catA_stimuli_many.pop()
             elif stimulus1_category == 'b':
                 img_stimulus1 = img_stim1_catB_stimuli_many.pop()
-            
+
             # image stimulus 2
             if stimulus2_category == 'c':
                 img_stimulus2 = img_stim2_catA_stimuli_many.pop()
             elif stimulus2_category == 'd':
                 img_stimulus2 = img_stim2_catB_stimuli_many.pop()
-            
+
             # set correct and incorrect responses
             if string_to_booleanl(moving_response_options) == False:
                 response_option_left = response_option_B  # i.e., the focal trial type is the right hand one, for hand dominance
@@ -1525,7 +1525,7 @@ for thisTask in task:
             for thisComponent in trial_BComponents:
                 if hasattr(thisComponent, 'status'):
                     thisComponent.status = NOT_STARTED
-            
+
             #-------Start Routine "trial_B"-------
             continueRoutine = True
             while continueRoutine:
@@ -1538,35 +1538,35 @@ for thisTask in task:
                     accuracyFeedback=""
                 else:
                     accuracyFeedback="X"
-                
+
                 # *image_stimulus1_box_B* updates
                 if t >= 0.4 and image_stimulus1_box_B.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     image_stimulus1_box_B.tStart = t  # underestimates by a little under one frame
                     image_stimulus1_box_B.frameNStart = frameN  # exact frame index
                     image_stimulus1_box_B.setAutoDraw(True)
-                
+
                 # *image_stimulus2_box_B* updates
                 if t >= 0.4 and image_stimulus2_box_B.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     image_stimulus2_box_B.tStart = t  # underestimates by a little under one frame
                     image_stimulus2_box_B.frameNStart = frameN  # exact frame index
                     image_stimulus2_box_B.setAutoDraw(True)
-                
+
                 # *stimulus1_box_B* updates
                 if t >= 0.4 and stimulus1_box_B.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     stimulus1_box_B.tStart = t  # underestimates by a little under one frame
                     stimulus1_box_B.frameNStart = frameN  # exact frame index
                     stimulus1_box_B.setAutoDraw(True)
-                
+
                 # *stimulus2_box_B* updates
                 if t >= 0.4 and stimulus2_box_B.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     stimulus2_box_B.tStart = t  # underestimates by a little under one frame
                     stimulus2_box_B.frameNStart = frameN  # exact frame index
                     stimulus2_box_B.setAutoDraw(True)
-                
+
                 # *required_response_B* updates
                 if t >= 0.4 and required_response_B.status == NOT_STARTED:
                     # keep track of start time/frame for later
@@ -1588,7 +1588,7 @@ for thisTask in task:
                     event.clearEvents(eventType='keyboard')
                 if required_response_B.status == STARTED:
                     theseKeys = event.getKeys(keyList=list(required_allowed))
-                    
+
                     # check for quit:
                     if "escape" in theseKeys:
                         endExpNow = True
@@ -1603,7 +1603,7 @@ for thisTask in task:
                                 required_response_B.corr = 0
                             # a response ends the routine
                             continueRoutine = False
-                
+
                 # *feedback_response_B* updates
                 if t >= 0.4 and feedback_response_B.status == NOT_STARTED:
                     # keep track of start time/frame for later
@@ -1625,7 +1625,7 @@ for thisTask in task:
                     event.clearEvents(eventType='keyboard')
                 if feedback_response_B.status == STARTED:
                     theseKeys = event.getKeys(keyList=list(feedback_allowed))
-                    
+
                     # check for quit:
                     if "escape" in theseKeys:
                         endExpNow = True
@@ -1638,21 +1638,21 @@ for thisTask in task:
                                 feedback_response_B.corr = 1
                             else:
                                 feedback_response_B.corr = 0
-                
+
                 # *left_box_B* updates
                 if t >= response_option_onset and left_box_B.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     left_box_B.tStart = t  # underestimates by a little under one frame
                     left_box_B.frameNStart = frameN  # exact frame index
                     left_box_B.setAutoDraw(True)
-                
+
                 # *right_box_B* updates
                 if t >= response_option_onset and right_box_B.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     right_box_B.tStart = t  # underestimates by a little under one frame
                     right_box_B.frameNStart = frameN  # exact frame index
                     right_box_B.setAutoDraw(True)
-                
+
                 # *accuracy_feedback_box_B* updates
                 if t >= 0.4 and accuracy_feedback_box_B.status == NOT_STARTED:
                     # keep track of start time/frame for later
@@ -1661,7 +1661,7 @@ for thisTask in task:
                     accuracy_feedback_box_B.setAutoDraw(True)
                 if accuracy_feedback_box_B.status == STARTED:  # only update if being drawn
                     accuracy_feedback_box_B.setText(accuracyFeedback, log=False)
-                
+
                 # check if all components have finished
                 if not continueRoutine:  # a component has requested a forced-end of Routine
                     break
@@ -1670,15 +1670,15 @@ for thisTask in task:
                     if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                         continueRoutine = True
                         break  # at least one component has not yet finished
-                
+
                 # check for quit (the Esc key)
                 if endExpNow or event.getKeys(keyList=["escape"]):
                     core.quit()
-                
+
                 # refresh the screen
                 if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                     win.flip()
-            
+
             #-------Ending Routine "trial_B"-------
             for thisComponent in trial_BComponents:
                 if hasattr(thisComponent, "setAutoDraw"):
@@ -1715,13 +1715,13 @@ for thisTask in task:
             # the Routine "trial_B" was not non-slip safe, so reset the non-slip timer
             routineTimer.reset()
             thisExp.nextEntry()
-            
+
         # completed reptitions repeats of 'practice_trials_B'
-        
-        
+
+
         #------Prepare to start Routine "practice_postblock_B"-------
         t = 0
-        practice_postblock_BClock.reset()  # clock 
+        practice_postblock_BClock.reset()  # clock
         frameN = -1
         # update component parameters for each repeat
         # Option to simulates using ResponseEmulator:
@@ -1729,15 +1729,15 @@ for thisTask in task:
             simulated_responses = [(1.1, 'e'), (1.1, 'i')]  # simulated responses take the form (onsetTime, responseKey). You can simulate more than one.
             responder = ResponseEmulator(simulated_responses)
             responder.start()
-        
+
         # calculate summary stats
-        prac_block_B_percentage_accuracy = (float(practice_trials_B.data['required_response_B.corr'].count()) - float(practice_trials_B.data['feedback_response_B.corr'].sum())) /  float(practice_trials_B.data['required_response_B.corr'].count()) * 100 
+        prac_block_B_percentage_accuracy = (float(practice_trials_B.data['required_response_B.corr'].count()) - float(practice_trials_B.data['feedback_response_B.corr'].sum())) /  float(practice_trials_B.data['required_response_B.corr'].count()) * 100
         prac_block_B_median_latency = np.median(practice_trials_B.data['required_response_B.rt'])
-        
+
         # set messages
-        msg_accuracy = "%s %i %s" %(accuracy, prac_block_B_percentage_accuracy, percentCorrect) 
+        msg_accuracy = "%s %i %s" %(accuracy, prac_block_B_percentage_accuracy, percentCorrect)
         msg_latency = "%s %.2f %s" %(speed, prac_block_B_median_latency, seconds)
-        
+
         ### save summary stats to experiment handler so they're written to the csv file
         ##thisExp.addData('prac_block_B_percentage_accuracy', prac_block_B_percentage_accuracy)
         ##thisExp.addData('prac_block_B_median_latency', prac_block_B_median_latency)
@@ -1757,7 +1757,7 @@ for thisTask in task:
         for thisComponent in practice_postblock_BComponents:
             if hasattr(thisComponent, 'status'):
                 thisComponent.status = NOT_STARTED
-        
+
         #-------Start Routine "practice_postblock_B"-------
         continueRoutine = True
         while continueRoutine:
@@ -1765,36 +1765,36 @@ for thisTask in task:
             t = practice_postblock_BClock.getTime()
             frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
             # update/draw components on each frame
-            
-            
+
+
             # *practice_aim_box_B* updates
             if t >= 0.4 and practice_aim_box_B.status == NOT_STARTED:
                 # keep track of start time/frame for later
                 practice_aim_box_B.tStart = t  # underestimates by a little under one frame
                 practice_aim_box_B.frameNStart = frameN  # exact frame index
                 practice_aim_box_B.setAutoDraw(True)
-            
+
             # *practice_accuracy_box_B* updates
             if t >= 0.4 and practice_accuracy_box_B.status == NOT_STARTED:
                 # keep track of start time/frame for later
                 practice_accuracy_box_B.tStart = t  # underestimates by a little under one frame
                 practice_accuracy_box_B.frameNStart = frameN  # exact frame index
                 practice_accuracy_box_B.setAutoDraw(True)
-            
+
             # *practice_latency_box_B* updates
             if t >= 0.4 and practice_latency_box_B.status == NOT_STARTED:
                 # keep track of start time/frame for later
                 practice_latency_box_B.tStart = t  # underestimates by a little under one frame
                 practice_latency_box_B.frameNStart = frameN  # exact frame index
                 practice_latency_box_B.setAutoDraw(True)
-            
+
             # *press_box_prac_B* updates
             if t >= 0.4 and press_box_prac_B.status == NOT_STARTED:
                 # keep track of start time/frame for later
                 press_box_prac_B.tStart = t  # underestimates by a little under one frame
                 press_box_prac_B.frameNStart = frameN  # exact frame index
                 press_box_prac_B.setAutoDraw(True)
-            
+
             # *practice_postblock_response_B* updates
             if t >= 1 and practice_postblock_response_B.status == NOT_STARTED:
                 # keep track of start time/frame for later
@@ -1805,14 +1805,14 @@ for thisTask in task:
                 event.clearEvents(eventType='keyboard')
             if practice_postblock_response_B.status == STARTED:
                 theseKeys = event.getKeys(keyList=['e', 'i'])
-                
+
                 # check for quit:
                 if "escape" in theseKeys:
                     endExpNow = True
                 if len(theseKeys) > 0:  # at least one key was pressed
                     # a response ends the routine
                     continueRoutine = False
-            
+
             # check if all components have finished
             if not continueRoutine:  # a component has requested a forced-end of Routine
                 break
@@ -1821,25 +1821,25 @@ for thisTask in task:
                 if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                     continueRoutine = True
                     break  # at least one component has not yet finished
-            
+
             # check for quit (the Esc key)
             if endExpNow or event.getKeys(keyList=["escape"]):
                 core.quit()
-            
+
             # refresh the screen
             if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                 win.flip()
-        
+
         #-------Ending Routine "practice_postblock_B"-------
         for thisComponent in practice_postblock_BComponents:
             if hasattr(thisComponent, "setAutoDraw"):
                 thisComponent.setAutoDraw(False)
-        
+
         # the Routine "practice_postblock_B" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
-        
+
         # set up handler to look after randomisation of conditions etc
-        practice_Asecond = data.TrialHandler(nReps=Asecond_nReps, method='sequential', 
+        practice_Asecond = data.TrialHandler(nReps=Asecond_nReps, method='sequential',
             extraInfo=expInfo, originPath=None,
             trialList=[None],
             seed=None, name='practice_Asecond')
@@ -1849,17 +1849,17 @@ for thisTask in task:
         if thisPractice_Asecond != None:
             for paramName in thisPractice_Asecond.keys():
                 exec(paramName + '= thisPractice_Asecond.' + paramName)
-        
+
         for thisPractice_Asecond in practice_Asecond:
             currentLoop = practice_Asecond
             # abbreviate parameter names if possible (e.g. rgb = thisPractice_Asecond.rgb)
             if thisPractice_Asecond != None:
                 for paramName in thisPractice_Asecond.keys():
                     exec(paramName + '= thisPractice_Asecond.' + paramName)
-            
+
             #------Prepare to start Routine "preblock_A"-------
             t = 0
-            preblock_AClock.reset()  # clock 
+            preblock_AClock.reset()  # clock
             frameN = -1
             # update component parameters for each repeat
             # Option to simulates using ResponseEmulator:
@@ -1867,7 +1867,7 @@ for thisTask in task:
                 simulated_responses = [(1.1, 'e'), (1.1, 'i')]  # simulated responses take the form (onsetTime, responseKey). You can simulate more than one.
                 responder = ResponseEmulator(simulated_responses)
                 responder.start()
-            
+
             # Generate list of stimuli for the block
             stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2, True)  # function and variable determined at begin exp.
             stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2, True)
@@ -1887,7 +1887,7 @@ for thisTask in task:
             for thisComponent in preblock_AComponents:
                 if hasattr(thisComponent, 'status'):
                     thisComponent.status = NOT_STARTED
-            
+
             #-------Start Routine "preblock_A"-------
             continueRoutine = True
             while continueRoutine:
@@ -1895,15 +1895,15 @@ for thisTask in task:
                 t = preblock_AClock.getTime()
                 frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                 # update/draw components on each frame
-                
-                
+
+
                 # *rule_box_A* updates
                 if t >= 0.4 and rule_box_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     rule_box_A.tStart = t  # underestimates by a little under one frame
                     rule_box_A.frameNStart = frameN  # exact frame index
                     rule_box_A.setAutoDraw(True)
-                
+
                 # *preblock_response_A* updates
                 if t >= 1 and preblock_response_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
@@ -1914,14 +1914,14 @@ for thisTask in task:
                     event.clearEvents(eventType='keyboard')
                 if preblock_response_A.status == STARTED:
                     theseKeys = event.getKeys(keyList=['e', 'i'])
-                    
+
                     # check for quit:
                     if "escape" in theseKeys:
                         endExpNow = True
                     if len(theseKeys) > 0:  # at least one key was pressed
                         # a response ends the routine
                         continueRoutine = False
-                
+
                 # check if all components have finished
                 if not continueRoutine:  # a component has requested a forced-end of Routine
                     break
@@ -1930,25 +1930,25 @@ for thisTask in task:
                     if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                         continueRoutine = True
                         break  # at least one component has not yet finished
-                
+
                 # check for quit (the Esc key)
                 if endExpNow or event.getKeys(keyList=["escape"]):
                     core.quit()
-                
+
                 # refresh the screen
                 if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                     win.flip()
-            
+
             #-------Ending Routine "preblock_A"-------
             for thisComponent in preblock_AComponents:
                 if hasattr(thisComponent, "setAutoDraw"):
                     thisComponent.setAutoDraw(False)
-            
+
             # the Routine "preblock_A" was not non-slip safe, so reset the non-slip timer
             routineTimer.reset()
-            
+
             # set up handler to look after randomisation of conditions etc
-            practice_trials_Asecond = data.TrialHandler(nReps=reptitions, method='random', 
+            practice_trials_Asecond = data.TrialHandler(nReps=reptitions, method='random',
                 extraInfo=expInfo, originPath=None,
                 trialList=data.importConditions('block_layout.xlsx'),
                 seed=None, name='practice_trials_Asecond')
@@ -1958,17 +1958,17 @@ for thisTask in task:
             if thisPractice_trials_Asecond != None:
                 for paramName in thisPractice_trials_Asecond.keys():
                     exec(paramName + '= thisPractice_trials_Asecond.' + paramName)
-            
+
             for thisPractice_trials_Asecond in practice_trials_Asecond:
                 currentLoop = practice_trials_Asecond
                 # abbreviate parameter names if possible (e.g. rgb = thisPractice_trials_Asecond.rgb)
                 if thisPractice_trials_Asecond != None:
                     for paramName in thisPractice_trials_Asecond.keys():
                         exec(paramName + '= thisPractice_trials_Asecond.' + paramName)
-                
+
                 #------Prepare to start Routine "trial_A"-------
                 t = 0
-                trial_AClock.reset()  # clock 
+                trial_AClock.reset()  # clock
                 frameN = -1
                 # update component parameters for each repeat
                 # Option to simulates using ResponseEmulator:
@@ -1976,32 +1976,32 @@ for thisTask in task:
                     simulated_responses = [(0.5, 'e'), (0.5, 'i')]  # simulated responses take the form (onsetTime, responseKey). You can simulate more than one.
                     responder = ResponseEmulator(simulated_responses)
                     responder.start()
-                
+
                 # For each stimlulus, choose a random exemplar from the appropriate list
                 # word stimulus 1
                 if stimulus1_category == 'a':
                     stimulus1 = stim1_catA_stimuli_many.pop()
                 elif stimulus1_category == 'b':
                     stimulus1 = stim1_catB_stimuli_many.pop()
-                
+
                 # word stimulus 2
                 if stimulus2_category == 'c':
                     stimulus2 = stim2_catA_stimuli_many.pop()
                 elif stimulus2_category == 'd':
                     stimulus2 = stim2_catB_stimuli_many.pop()
-                
+
                 # image stimulus 1
                 if stimulus1_category == 'a':
                     img_stimulus1 = img_stim1_catA_stimuli_many.pop()
                 elif stimulus1_category == 'b':
                     img_stimulus1 = img_stim1_catB_stimuli_many.pop()
-                
+
                 # image stimulus 2
                 if stimulus2_category == 'c':
                     img_stimulus2 = img_stim2_catA_stimuli_many.pop()
                 elif stimulus2_category == 'd':
                     img_stimulus2 = img_stim2_catB_stimuli_many.pop()
-                
+
                 # set correct and incorrect responses
                 if string_to_booleanl(moving_response_options) == False:
                     response_option_left = response_option_B  # i.e., the focal trial type is the right hand one, for hand dominance
@@ -2077,7 +2077,7 @@ for thisTask in task:
                 for thisComponent in trial_AComponents:
                     if hasattr(thisComponent, 'status'):
                         thisComponent.status = NOT_STARTED
-                
+
                 #-------Start Routine "trial_A"-------
                 continueRoutine = True
                 while continueRoutine:
@@ -2090,35 +2090,35 @@ for thisTask in task:
                         accuracyFeedback=""
                     else:
                         accuracyFeedback="X"
-                    
+
                     # *image_stimulus1_box_A* updates
                     if t >= 0.4 and image_stimulus1_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         image_stimulus1_box_A.tStart = t  # underestimates by a little under one frame
                         image_stimulus1_box_A.frameNStart = frameN  # exact frame index
                         image_stimulus1_box_A.setAutoDraw(True)
-                    
+
                     # *image_stimulus2_box_A* updates
                     if t >= 0.4 and image_stimulus2_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         image_stimulus2_box_A.tStart = t  # underestimates by a little under one frame
                         image_stimulus2_box_A.frameNStart = frameN  # exact frame index
                         image_stimulus2_box_A.setAutoDraw(True)
-                    
+
                     # *stimulus1_box_A* updates
                     if t >= 0.4 and stimulus1_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         stimulus1_box_A.tStart = t  # underestimates by a little under one frame
                         stimulus1_box_A.frameNStart = frameN  # exact frame index
                         stimulus1_box_A.setAutoDraw(True)
-                    
+
                     # *stimulus2_box_A* updates
                     if t >= 0.4 and stimulus2_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         stimulus2_box_A.tStart = t  # underestimates by a little under one frame
                         stimulus2_box_A.frameNStart = frameN  # exact frame index
                         stimulus2_box_A.setAutoDraw(True)
-                    
+
                     # *required_response_A* updates
                     if t >= 0.4 and required_response_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
@@ -2140,7 +2140,7 @@ for thisTask in task:
                         event.clearEvents(eventType='keyboard')
                     if required_response_A.status == STARTED:
                         theseKeys = event.getKeys(keyList=list(required_allowed))
-                        
+
                         # check for quit:
                         if "escape" in theseKeys:
                             endExpNow = True
@@ -2155,7 +2155,7 @@ for thisTask in task:
                                     required_response_A.corr = 0
                                 # a response ends the routine
                                 continueRoutine = False
-                    
+
                     # *feedback_response_A* updates
                     if t >= 0.4 and feedback_response_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
@@ -2177,7 +2177,7 @@ for thisTask in task:
                         event.clearEvents(eventType='keyboard')
                     if feedback_response_A.status == STARTED:
                         theseKeys = event.getKeys(keyList=list(feedback_allowed))
-                        
+
                         # check for quit:
                         if "escape" in theseKeys:
                             endExpNow = True
@@ -2190,21 +2190,21 @@ for thisTask in task:
                                     feedback_response_A.corr = 1
                                 else:
                                     feedback_response_A.corr = 0
-                    
+
                     # *left_box_A* updates
                     if t >= response_option_onset and left_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         left_box_A.tStart = t  # underestimates by a little under one frame
                         left_box_A.frameNStart = frameN  # exact frame index
                         left_box_A.setAutoDraw(True)
-                    
+
                     # *right_box_A* updates
                     if t >= response_option_onset and right_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         right_box_A.tStart = t  # underestimates by a little under one frame
                         right_box_A.frameNStart = frameN  # exact frame index
                         right_box_A.setAutoDraw(True)
-                    
+
                     # *accuracy_feedback_box_A* updates
                     if t >= 0.4 and accuracy_feedback_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
@@ -2213,7 +2213,7 @@ for thisTask in task:
                         accuracy_feedback_box_A.setAutoDraw(True)
                     if accuracy_feedback_box_A.status == STARTED:  # only update if being drawn
                         accuracy_feedback_box_A.setText(accuracyFeedback, log=False)
-                    
+
                     # check if all components have finished
                     if not continueRoutine:  # a component has requested a forced-end of Routine
                         break
@@ -2222,15 +2222,15 @@ for thisTask in task:
                         if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                             continueRoutine = True
                             break  # at least one component has not yet finished
-                    
+
                     # check for quit (the Esc key)
                     if endExpNow or event.getKeys(keyList=["escape"]):
                         core.quit()
-                    
+
                     # refresh the screen
                     if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                         win.flip()
-                
+
                 #-------Ending Routine "trial_A"-------
                 for thisComponent in trial_AComponents:
                     if hasattr(thisComponent, "setAutoDraw"):
@@ -2267,13 +2267,13 @@ for thisTask in task:
                 # the Routine "trial_A" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
                 thisExp.nextEntry()
-                
+
             # completed reptitions repeats of 'practice_trials_Asecond'
-            
-            
+
+
             #------Prepare to start Routine "practice_postblock_A"-------
             t = 0
-            practice_postblock_AClock.reset()  # clock 
+            practice_postblock_AClock.reset()  # clock
             frameN = -1
             # update component parameters for each repeat
             # Option to simulates using ResponseEmulator:
@@ -2281,28 +2281,28 @@ for thisTask in task:
                 simulated_responses = [(1.1, 'e'), (1.1, 'i')]  # simulated responses take the form (onsetTime, responseKey). You can simulate more than one.
                 responder = ResponseEmulator(simulated_responses)
                 responder.start()
-            
+
             # calculate summary stats
             try:  # first check which block was run by seeing if the object exists
                 practice_trials_Afirst.data
             except NameError:
                 pass
             else:  # if it does exist, calculate block summary data
-                prac_block_A_percentage_accuracy = (float(practice_trials_Afirst.data['required_response_A.corr'].count()) - float(practice_trials_Afirst.data['feedback_response_A.corr'].sum())) /  float(practice_trials_Afirst.data['required_response_A.corr'].count()) * 100 
+                prac_block_A_percentage_accuracy = (float(practice_trials_Afirst.data['required_response_A.corr'].count()) - float(practice_trials_Afirst.data['feedback_response_A.corr'].sum())) /  float(practice_trials_Afirst.data['required_response_A.corr'].count()) * 100
                 prac_block_A_median_latency = np.median(practice_trials_Afirst.data['required_response_A.rt'])
-            
-            try: 
+
+            try:
                 practice_trials_Asecond.data
             except NameError:
                 pass
             else:  # if it does exist, calculate block summary data
-                prac_block_A_percentage_accuracy = (float(practice_trials_Asecond.data['required_response_A.corr'].count()) - float(practice_trials_Asecond.data['feedback_response_A.corr'].sum())) /  float(practice_trials_Asecond.data['required_response_A.corr'].count()) * 100 
+                prac_block_A_percentage_accuracy = (float(practice_trials_Asecond.data['required_response_A.corr'].count()) - float(practice_trials_Asecond.data['feedback_response_A.corr'].sum())) /  float(practice_trials_Asecond.data['required_response_A.corr'].count()) * 100
                 prac_block_A_median_latency = np.median(practice_trials_Asecond.data['required_response_A.rt'])
-            
+
             # set messages
-            msg_accuracy = "%s %i %s" %(accuracy, prac_block_A_percentage_accuracy, percentCorrect) 
+            msg_accuracy = "%s %i %s" %(accuracy, prac_block_A_percentage_accuracy, percentCorrect)
             msg_latency = "%s %.2f %s" %(speed, prac_block_A_median_latency, seconds)
-            
+
             ### save summary stats to experiment handler so they're written to the csv file
             ##thisExp.addData('prac_block_A_percentage_accuracy', prac_block_A_percentage_accuracy)
             ##thisExp.addData('prac_block_A_median_latency', prac_block_A_median_latency)
@@ -2322,7 +2322,7 @@ for thisTask in task:
             for thisComponent in practice_postblock_AComponents:
                 if hasattr(thisComponent, 'status'):
                     thisComponent.status = NOT_STARTED
-            
+
             #-------Start Routine "practice_postblock_A"-------
             continueRoutine = True
             while continueRoutine:
@@ -2330,36 +2330,36 @@ for thisTask in task:
                 t = practice_postblock_AClock.getTime()
                 frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                 # update/draw components on each frame
-                
-                
+
+
                 # *practice_aim_box_A* updates
                 if t >= 0.4 and practice_aim_box_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     practice_aim_box_A.tStart = t  # underestimates by a little under one frame
                     practice_aim_box_A.frameNStart = frameN  # exact frame index
                     practice_aim_box_A.setAutoDraw(True)
-                
+
                 # *practice_accuracy_box_A* updates
                 if t >= 0.4 and practice_accuracy_box_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     practice_accuracy_box_A.tStart = t  # underestimates by a little under one frame
                     practice_accuracy_box_A.frameNStart = frameN  # exact frame index
                     practice_accuracy_box_A.setAutoDraw(True)
-                
+
                 # *practice_latency_box_A* updates
                 if t >= 0.4 and practice_latency_box_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     practice_latency_box_A.tStart = t  # underestimates by a little under one frame
                     practice_latency_box_A.frameNStart = frameN  # exact frame index
                     practice_latency_box_A.setAutoDraw(True)
-                
+
                 # *press_box_prac_A* updates
                 if t >= 0.4 and press_box_prac_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     press_box_prac_A.tStart = t  # underestimates by a little under one frame
                     press_box_prac_A.frameNStart = frameN  # exact frame index
                     press_box_prac_A.setAutoDraw(True)
-                
+
                 # *practice_postblock_response_A* updates
                 if t >= 1 and practice_postblock_response_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
@@ -2370,14 +2370,14 @@ for thisTask in task:
                     event.clearEvents(eventType='keyboard')
                 if practice_postblock_response_A.status == STARTED:
                     theseKeys = event.getKeys(keyList=['e', 'i'])
-                    
+
                     # check for quit:
                     if "escape" in theseKeys:
                         endExpNow = True
                     if len(theseKeys) > 0:  # at least one key was pressed
                         # a response ends the routine
                         continueRoutine = False
-                
+
                 # check if all components have finished
                 if not continueRoutine:  # a component has requested a forced-end of Routine
                     break
@@ -2386,28 +2386,28 @@ for thisTask in task:
                     if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                         continueRoutine = True
                         break  # at least one component has not yet finished
-                
+
                 # check for quit (the Esc key)
                 if endExpNow or event.getKeys(keyList=["escape"]):
                     core.quit()
-                
+
                 # refresh the screen
                 if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                     win.flip()
-            
+
             #-------Ending Routine "practice_postblock_A"-------
             for thisComponent in practice_postblock_AComponents:
                 if hasattr(thisComponent, "setAutoDraw"):
                     thisComponent.setAutoDraw(False)
-            
+
             # the Routine "practice_postblock_A" was not non-slip safe, so reset the non-slip timer
             routineTimer.reset()
         # completed Asecond_nReps repeats of 'practice_Asecond'
-        
-        
+
+
         #------Prepare to start Routine "end_practice_blocks"-------
         t = 0
-        end_practice_blocksClock.reset()  # clock 
+        end_practice_blocksClock.reset()  # clock
         frameN = -1
         # update component parameters for each repeat
         # Assess if acc and latency mastery criteria were met
@@ -2419,7 +2419,7 @@ for thisTask in task:
         for thisComponent in end_practice_blocksComponents:
             if hasattr(thisComponent, 'status'):
                 thisComponent.status = NOT_STARTED
-        
+
         #-------Start Routine "end_practice_blocks"-------
         continueRoutine = True
         while continueRoutine:
@@ -2427,8 +2427,8 @@ for thisTask in task:
             t = end_practice_blocksClock.getTime()
             frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
             # update/draw components on each frame
-            
-            
+
+
             # check if all components have finished
             if not continueRoutine:  # a component has requested a forced-end of Routine
                 break
@@ -2437,27 +2437,27 @@ for thisTask in task:
                 if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                     continueRoutine = True
                     break  # at least one component has not yet finished
-            
+
             # check for quit (the Esc key)
             if endExpNow or event.getKeys(keyList=["escape"]):
                 core.quit()
-            
+
             # refresh the screen
             if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                 win.flip()
-        
+
         #-------Ending Routine "end_practice_blocks"-------
         for thisComponent in end_practice_blocksComponents:
             if hasattr(thisComponent, "setAutoDraw"):
                 thisComponent.setAutoDraw(False)
-        
+
         # the Routine "end_practice_blocks" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
     # completed max_pairs_practice_blocks repeats of 'practice_blocks'
-    
-    
+
+
     # set up handler to look after randomisation of conditions etc
-    test_blocks = data.TrialHandler(nReps=complete_test_blocks, method='sequential', 
+    test_blocks = data.TrialHandler(nReps=complete_test_blocks, method='sequential',
         extraInfo=expInfo, originPath=None,
         trialList=[None],
         seed=None, name='test_blocks')
@@ -2467,16 +2467,16 @@ for thisTask in task:
     if thisTest_block != None:
         for paramName in thisTest_block.keys():
             exec(paramName + '= thisTest_block.' + paramName)
-    
+
     for thisTest_block in test_blocks:
         currentLoop = test_blocks
         # abbreviate parameter names if possible (e.g. rgb = thisTest_block.rgb)
         if thisTest_block != None:
             for paramName in thisTest_block.keys():
                 exec(paramName + '= thisTest_block.' + paramName)
-        
+
         # set up handler to look after randomisation of conditions etc
-        Afirst = data.TrialHandler(nReps=Afirst_nReps, method='sequential', 
+        Afirst = data.TrialHandler(nReps=Afirst_nReps, method='sequential',
             extraInfo=expInfo, originPath=None,
             trialList=[None],
             seed=None, name='Afirst')
@@ -2486,17 +2486,17 @@ for thisTask in task:
         if thisAfirst != None:
             for paramName in thisAfirst.keys():
                 exec(paramName + '= thisAfirst.' + paramName)
-        
+
         for thisAfirst in Afirst:
             currentLoop = Afirst
             # abbreviate parameter names if possible (e.g. rgb = thisAfirst.rgb)
             if thisAfirst != None:
                 for paramName in thisAfirst.keys():
                     exec(paramName + '= thisAfirst.' + paramName)
-            
+
             #------Prepare to start Routine "preblock_A"-------
             t = 0
-            preblock_AClock.reset()  # clock 
+            preblock_AClock.reset()  # clock
             frameN = -1
             # update component parameters for each repeat
             # Option to simulates using ResponseEmulator:
@@ -2504,7 +2504,7 @@ for thisTask in task:
                 simulated_responses = [(1.1, 'e'), (1.1, 'i')]  # simulated responses take the form (onsetTime, responseKey). You can simulate more than one.
                 responder = ResponseEmulator(simulated_responses)
                 responder.start()
-            
+
             # Generate list of stimuli for the block
             stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2, True)  # function and variable determined at begin exp.
             stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2, True)
@@ -2524,7 +2524,7 @@ for thisTask in task:
             for thisComponent in preblock_AComponents:
                 if hasattr(thisComponent, 'status'):
                     thisComponent.status = NOT_STARTED
-            
+
             #-------Start Routine "preblock_A"-------
             continueRoutine = True
             while continueRoutine:
@@ -2532,15 +2532,15 @@ for thisTask in task:
                 t = preblock_AClock.getTime()
                 frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                 # update/draw components on each frame
-                
-                
+
+
                 # *rule_box_A* updates
                 if t >= 0.4 and rule_box_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     rule_box_A.tStart = t  # underestimates by a little under one frame
                     rule_box_A.frameNStart = frameN  # exact frame index
                     rule_box_A.setAutoDraw(True)
-                
+
                 # *preblock_response_A* updates
                 if t >= 1 and preblock_response_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
@@ -2551,14 +2551,14 @@ for thisTask in task:
                     event.clearEvents(eventType='keyboard')
                 if preblock_response_A.status == STARTED:
                     theseKeys = event.getKeys(keyList=['e', 'i'])
-                    
+
                     # check for quit:
                     if "escape" in theseKeys:
                         endExpNow = True
                     if len(theseKeys) > 0:  # at least one key was pressed
                         # a response ends the routine
                         continueRoutine = False
-                
+
                 # check if all components have finished
                 if not continueRoutine:  # a component has requested a forced-end of Routine
                     break
@@ -2567,25 +2567,25 @@ for thisTask in task:
                     if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                         continueRoutine = True
                         break  # at least one component has not yet finished
-                
+
                 # check for quit (the Esc key)
                 if endExpNow or event.getKeys(keyList=["escape"]):
                     core.quit()
-                
+
                 # refresh the screen
                 if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                     win.flip()
-            
+
             #-------Ending Routine "preblock_A"-------
             for thisComponent in preblock_AComponents:
                 if hasattr(thisComponent, "setAutoDraw"):
                     thisComponent.setAutoDraw(False)
-            
+
             # the Routine "preblock_A" was not non-slip safe, so reset the non-slip timer
             routineTimer.reset()
-            
+
             # set up handler to look after randomisation of conditions etc
-            trials_Afirst = data.TrialHandler(nReps=reptitions, method='random', 
+            trials_Afirst = data.TrialHandler(nReps=reptitions, method='random',
                 extraInfo=expInfo, originPath=None,
                 trialList=data.importConditions('block_layout.xlsx'),
                 seed=None, name='trials_Afirst')
@@ -2595,17 +2595,17 @@ for thisTask in task:
             if thisTrials_Afirst != None:
                 for paramName in thisTrials_Afirst.keys():
                     exec(paramName + '= thisTrials_Afirst.' + paramName)
-            
+
             for thisTrials_Afirst in trials_Afirst:
                 currentLoop = trials_Afirst
                 # abbreviate parameter names if possible (e.g. rgb = thisTrials_Afirst.rgb)
                 if thisTrials_Afirst != None:
                     for paramName in thisTrials_Afirst.keys():
                         exec(paramName + '= thisTrials_Afirst.' + paramName)
-                
+
                 #------Prepare to start Routine "trial_A"-------
                 t = 0
-                trial_AClock.reset()  # clock 
+                trial_AClock.reset()  # clock
                 frameN = -1
                 # update component parameters for each repeat
                 # Option to simulates using ResponseEmulator:
@@ -2613,32 +2613,32 @@ for thisTask in task:
                     simulated_responses = [(0.5, 'e'), (0.5, 'i')]  # simulated responses take the form (onsetTime, responseKey). You can simulate more than one.
                     responder = ResponseEmulator(simulated_responses)
                     responder.start()
-                
+
                 # For each stimlulus, choose a random exemplar from the appropriate list
                 # word stimulus 1
                 if stimulus1_category == 'a':
                     stimulus1 = stim1_catA_stimuli_many.pop()
                 elif stimulus1_category == 'b':
                     stimulus1 = stim1_catB_stimuli_many.pop()
-                
+
                 # word stimulus 2
                 if stimulus2_category == 'c':
                     stimulus2 = stim2_catA_stimuli_many.pop()
                 elif stimulus2_category == 'd':
                     stimulus2 = stim2_catB_stimuli_many.pop()
-                
+
                 # image stimulus 1
                 if stimulus1_category == 'a':
                     img_stimulus1 = img_stim1_catA_stimuli_many.pop()
                 elif stimulus1_category == 'b':
                     img_stimulus1 = img_stim1_catB_stimuli_many.pop()
-                
+
                 # image stimulus 2
                 if stimulus2_category == 'c':
                     img_stimulus2 = img_stim2_catA_stimuli_many.pop()
                 elif stimulus2_category == 'd':
                     img_stimulus2 = img_stim2_catB_stimuli_many.pop()
-                
+
                 # set correct and incorrect responses
                 if string_to_booleanl(moving_response_options) == False:
                     response_option_left = response_option_B  # i.e., the focal trial type is the right hand one, for hand dominance
@@ -2714,7 +2714,7 @@ for thisTask in task:
                 for thisComponent in trial_AComponents:
                     if hasattr(thisComponent, 'status'):
                         thisComponent.status = NOT_STARTED
-                
+
                 #-------Start Routine "trial_A"-------
                 continueRoutine = True
                 while continueRoutine:
@@ -2727,35 +2727,35 @@ for thisTask in task:
                         accuracyFeedback=""
                     else:
                         accuracyFeedback="X"
-                    
+
                     # *image_stimulus1_box_A* updates
                     if t >= 0.4 and image_stimulus1_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         image_stimulus1_box_A.tStart = t  # underestimates by a little under one frame
                         image_stimulus1_box_A.frameNStart = frameN  # exact frame index
                         image_stimulus1_box_A.setAutoDraw(True)
-                    
+
                     # *image_stimulus2_box_A* updates
                     if t >= 0.4 and image_stimulus2_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         image_stimulus2_box_A.tStart = t  # underestimates by a little under one frame
                         image_stimulus2_box_A.frameNStart = frameN  # exact frame index
                         image_stimulus2_box_A.setAutoDraw(True)
-                    
+
                     # *stimulus1_box_A* updates
                     if t >= 0.4 and stimulus1_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         stimulus1_box_A.tStart = t  # underestimates by a little under one frame
                         stimulus1_box_A.frameNStart = frameN  # exact frame index
                         stimulus1_box_A.setAutoDraw(True)
-                    
+
                     # *stimulus2_box_A* updates
                     if t >= 0.4 and stimulus2_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         stimulus2_box_A.tStart = t  # underestimates by a little under one frame
                         stimulus2_box_A.frameNStart = frameN  # exact frame index
                         stimulus2_box_A.setAutoDraw(True)
-                    
+
                     # *required_response_A* updates
                     if t >= 0.4 and required_response_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
@@ -2777,7 +2777,7 @@ for thisTask in task:
                         event.clearEvents(eventType='keyboard')
                     if required_response_A.status == STARTED:
                         theseKeys = event.getKeys(keyList=list(required_allowed))
-                        
+
                         # check for quit:
                         if "escape" in theseKeys:
                             endExpNow = True
@@ -2792,7 +2792,7 @@ for thisTask in task:
                                     required_response_A.corr = 0
                                 # a response ends the routine
                                 continueRoutine = False
-                    
+
                     # *feedback_response_A* updates
                     if t >= 0.4 and feedback_response_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
@@ -2814,7 +2814,7 @@ for thisTask in task:
                         event.clearEvents(eventType='keyboard')
                     if feedback_response_A.status == STARTED:
                         theseKeys = event.getKeys(keyList=list(feedback_allowed))
-                        
+
                         # check for quit:
                         if "escape" in theseKeys:
                             endExpNow = True
@@ -2827,21 +2827,21 @@ for thisTask in task:
                                     feedback_response_A.corr = 1
                                 else:
                                     feedback_response_A.corr = 0
-                    
+
                     # *left_box_A* updates
                     if t >= response_option_onset and left_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         left_box_A.tStart = t  # underestimates by a little under one frame
                         left_box_A.frameNStart = frameN  # exact frame index
                         left_box_A.setAutoDraw(True)
-                    
+
                     # *right_box_A* updates
                     if t >= response_option_onset and right_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         right_box_A.tStart = t  # underestimates by a little under one frame
                         right_box_A.frameNStart = frameN  # exact frame index
                         right_box_A.setAutoDraw(True)
-                    
+
                     # *accuracy_feedback_box_A* updates
                     if t >= 0.4 and accuracy_feedback_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
@@ -2850,7 +2850,7 @@ for thisTask in task:
                         accuracy_feedback_box_A.setAutoDraw(True)
                     if accuracy_feedback_box_A.status == STARTED:  # only update if being drawn
                         accuracy_feedback_box_A.setText(accuracyFeedback, log=False)
-                    
+
                     # check if all components have finished
                     if not continueRoutine:  # a component has requested a forced-end of Routine
                         break
@@ -2859,15 +2859,15 @@ for thisTask in task:
                         if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                             continueRoutine = True
                             break  # at least one component has not yet finished
-                    
+
                     # check for quit (the Esc key)
                     if endExpNow or event.getKeys(keyList=["escape"]):
                         core.quit()
-                    
+
                     # refresh the screen
                     if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                         win.flip()
-                
+
                 #-------Ending Routine "trial_A"-------
                 for thisComponent in trial_AComponents:
                     if hasattr(thisComponent, "setAutoDraw"):
@@ -2904,13 +2904,13 @@ for thisTask in task:
                 # the Routine "trial_A" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
                 thisExp.nextEntry()
-                
+
             # completed reptitions repeats of 'trials_Afirst'
-            
-            
+
+
             #------Prepare to start Routine "postblock_A"-------
             t = 0
-            postblock_AClock.reset()  # clock 
+            postblock_AClock.reset()  # clock
             frameN = -1
             # update component parameters for each repeat
             # Option to simulates using ResponseEmulator:
@@ -2918,28 +2918,28 @@ for thisTask in task:
                 simulated_responses = [(1.1, 'e'), (1.1, 'i')]  # simulated responses take the form (onsetTime, responseKey). You can simulate more than one.
                 responder = ResponseEmulator(simulated_responses)
                 responder.start()
-            
+
             # calculate summary stats
             try:  # first check which block was run by seeing if the object exists
                 trials_Afirst.data
             except NameError:
                 continue
             else:  # if it does exist, calculate block summary data
-                block_A_percentage_accuracy = (float(trials_Afirst.data['required_response_A.corr'].count()) - float(trials_Afirst.data['feedback_response_A.corr'].sum())) /  float(trials_Afirst.data['required_response_A.corr'].count()) * 100 
+                block_A_percentage_accuracy = (float(trials_Afirst.data['required_response_A.corr'].count()) - float(trials_Afirst.data['feedback_response_A.corr'].sum())) /  float(trials_Afirst.data['required_response_A.corr'].count()) * 100
                 block_A_median_latency = np.median(trials_Afirst.data['required_response_A.rt'])
-            
+
             try:
                 trials_Asecond.data
             except NameError:
                 continue
             else:  # if it does exist, calculate block summary data
-                block_A_percentage_accuracy = (float(trials_Asecond.data['required_response_A.corr'].count()) - float(trials_Asecond.data['feedback_response_A.corr'].sum())) /  float(trials_Asecond.data['required_response_A.corr'].count()) * 100 
+                block_A_percentage_accuracy = (float(trials_Asecond.data['required_response_A.corr'].count()) - float(trials_Asecond.data['feedback_response_A.corr'].sum())) /  float(trials_Asecond.data['required_response_A.corr'].count()) * 100
                 block_A_median_latency = np.median(trials_Asecond.data['required_response_A.rt'])
-            
+
             # set messages
-            msg_accuracy = "%s %i %s" %(accuracy, block_A_percentage_accuracy, percentCorrect) 
+            msg_accuracy = "%s %i %s" %(accuracy, block_A_percentage_accuracy, percentCorrect)
             msg_latency = "%s %.2f %s" %(speed, block_A_median_latency, seconds)
-            
+
             ### save summary stats to experiment handler so they're written to the csv file
             ##thisExp.addData('block_A_percentage_accuracy', block_A_percentage_accuracy)
             ##thisExp.addData('block_A_median_latency', block_A_median_latency)
@@ -2959,7 +2959,7 @@ for thisTask in task:
             for thisComponent in postblock_AComponents:
                 if hasattr(thisComponent, 'status'):
                     thisComponent.status = NOT_STARTED
-            
+
             #-------Start Routine "postblock_A"-------
             continueRoutine = True
             while continueRoutine:
@@ -2967,36 +2967,36 @@ for thisTask in task:
                 t = postblock_AClock.getTime()
                 frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                 # update/draw components on each frame
-                
-                
+
+
                 # *aim_box_A* updates
                 if t >= 0.4 and aim_box_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     aim_box_A.tStart = t  # underestimates by a little under one frame
                     aim_box_A.frameNStart = frameN  # exact frame index
                     aim_box_A.setAutoDraw(True)
-                
+
                 # *accuracy_box_A* updates
                 if t >= 0.4 and accuracy_box_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     accuracy_box_A.tStart = t  # underestimates by a little under one frame
                     accuracy_box_A.frameNStart = frameN  # exact frame index
                     accuracy_box_A.setAutoDraw(True)
-                
+
                 # *latency_box_A* updates
                 if t >= 0.4 and latency_box_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     latency_box_A.tStart = t  # underestimates by a little under one frame
                     latency_box_A.frameNStart = frameN  # exact frame index
                     latency_box_A.setAutoDraw(True)
-                
+
                 # *press_box_A* updates
                 if t >= 0.4 and press_box_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     press_box_A.tStart = t  # underestimates by a little under one frame
                     press_box_A.frameNStart = frameN  # exact frame index
                     press_box_A.setAutoDraw(True)
-                
+
                 # *postblock_response_A* updates
                 if t >= 1 and postblock_response_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
@@ -3007,14 +3007,14 @@ for thisTask in task:
                     event.clearEvents(eventType='keyboard')
                 if postblock_response_A.status == STARTED:
                     theseKeys = event.getKeys(keyList=['e', 'i'])
-                    
+
                     # check for quit:
                     if "escape" in theseKeys:
                         endExpNow = True
                     if len(theseKeys) > 0:  # at least one key was pressed
                         # a response ends the routine
                         continueRoutine = False
-                
+
                 # check if all components have finished
                 if not continueRoutine:  # a component has requested a forced-end of Routine
                     break
@@ -3023,28 +3023,28 @@ for thisTask in task:
                     if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                         continueRoutine = True
                         break  # at least one component has not yet finished
-                
+
                 # check for quit (the Esc key)
                 if endExpNow or event.getKeys(keyList=["escape"]):
                     core.quit()
-                
+
                 # refresh the screen
                 if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                     win.flip()
-            
+
             #-------Ending Routine "postblock_A"-------
             for thisComponent in postblock_AComponents:
                 if hasattr(thisComponent, "setAutoDraw"):
                     thisComponent.setAutoDraw(False)
-            
+
             # the Routine "postblock_A" was not non-slip safe, so reset the non-slip timer
             routineTimer.reset()
         # completed Afirst_nReps repeats of 'Afirst'
-        
-        
+
+
         #------Prepare to start Routine "preblock_B"-------
         t = 0
-        preblock_BClock.reset()  # clock 
+        preblock_BClock.reset()  # clock
         frameN = -1
         # update component parameters for each repeat
         # Option to simulates using ResponseEmulator:
@@ -3052,7 +3052,7 @@ for thisTask in task:
             simulated_responses = [(1.1, 'e'), (1.1, 'i')]  # simulated responses take the form (onsetTime, responseKey). You can simulate more than one.
             responder = ResponseEmulator(simulated_responses)
             responder.start()
-        
+
         # Generate list of stimuli for the block
         stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2, True)  # function and variable determined at begin exp.
         stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2, True)
@@ -3072,7 +3072,7 @@ for thisTask in task:
         for thisComponent in preblock_BComponents:
             if hasattr(thisComponent, 'status'):
                 thisComponent.status = NOT_STARTED
-        
+
         #-------Start Routine "preblock_B"-------
         continueRoutine = True
         while continueRoutine:
@@ -3080,15 +3080,15 @@ for thisTask in task:
             t = preblock_BClock.getTime()
             frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
             # update/draw components on each frame
-            
-            
+
+
             # *rule_box_B* updates
             if t >= 0.4 and rule_box_B.status == NOT_STARTED:
                 # keep track of start time/frame for later
                 rule_box_B.tStart = t  # underestimates by a little under one frame
                 rule_box_B.frameNStart = frameN  # exact frame index
                 rule_box_B.setAutoDraw(True)
-            
+
             # *preblock_response_B* updates
             if t >= 1 and preblock_response_B.status == NOT_STARTED:
                 # keep track of start time/frame for later
@@ -3099,14 +3099,14 @@ for thisTask in task:
                 event.clearEvents(eventType='keyboard')
             if preblock_response_B.status == STARTED:
                 theseKeys = event.getKeys(keyList=['e', 'i'])
-                
+
                 # check for quit:
                 if "escape" in theseKeys:
                     endExpNow = True
                 if len(theseKeys) > 0:  # at least one key was pressed
                     # a response ends the routine
                     continueRoutine = False
-            
+
             # check if all components have finished
             if not continueRoutine:  # a component has requested a forced-end of Routine
                 break
@@ -3115,25 +3115,25 @@ for thisTask in task:
                 if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                     continueRoutine = True
                     break  # at least one component has not yet finished
-            
+
             # check for quit (the Esc key)
             if endExpNow or event.getKeys(keyList=["escape"]):
                 core.quit()
-            
+
             # refresh the screen
             if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                 win.flip()
-        
+
         #-------Ending Routine "preblock_B"-------
         for thisComponent in preblock_BComponents:
             if hasattr(thisComponent, "setAutoDraw"):
                 thisComponent.setAutoDraw(False)
-        
+
         # the Routine "preblock_B" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
-        
+
         # set up handler to look after randomisation of conditions etc
-        trials_B = data.TrialHandler(nReps=reptitions, method='random', 
+        trials_B = data.TrialHandler(nReps=reptitions, method='random',
             extraInfo=expInfo, originPath=None,
             trialList=data.importConditions('block_layout.xlsx'),
             seed=None, name='trials_B')
@@ -3143,17 +3143,17 @@ for thisTask in task:
         if thisTrials_B != None:
             for paramName in thisTrials_B.keys():
                 exec(paramName + '= thisTrials_B.' + paramName)
-        
+
         for thisTrials_B in trials_B:
             currentLoop = trials_B
             # abbreviate parameter names if possible (e.g. rgb = thisTrials_B.rgb)
             if thisTrials_B != None:
                 for paramName in thisTrials_B.keys():
                     exec(paramName + '= thisTrials_B.' + paramName)
-            
+
             #------Prepare to start Routine "trial_B"-------
             t = 0
-            trial_BClock.reset()  # clock 
+            trial_BClock.reset()  # clock
             frameN = -1
             # update component parameters for each repeat
             # Option to simulates using ResponseEmulator:
@@ -3161,32 +3161,32 @@ for thisTask in task:
                 simulated_responses = [(0.5, 'e'), (0.5, 'i')]  # simulated responses take the form (onsetTime, responseKey). You can simulate more than one.
                 responder = ResponseEmulator(simulated_responses)
                 responder.start()
-            
+
             # For each stimlulus, choose a random exemplar from the appropriate list
             # word stimulus 1
             if stimulus1_category == 'a':
                 stimulus1 = stim1_catA_stimuli_many.pop()
             elif stimulus1_category == 'b':
                 stimulus1 = stim1_catB_stimuli_many.pop()
-            
+
             # word stimulus 2
             if stimulus2_category == 'c':
                 stimulus2 = stim2_catA_stimuli_many.pop()
             elif stimulus2_category == 'd':
                 stimulus2 = stim2_catB_stimuli_many.pop()
-            
+
             # image stimulus 1
             if stimulus1_category == 'a':
                 img_stimulus1 = img_stim1_catA_stimuli_many.pop()
             elif stimulus1_category == 'b':
                 img_stimulus1 = img_stim1_catB_stimuli_many.pop()
-            
+
             # image stimulus 2
             if stimulus2_category == 'c':
                 img_stimulus2 = img_stim2_catA_stimuli_many.pop()
             elif stimulus2_category == 'd':
                 img_stimulus2 = img_stim2_catB_stimuli_many.pop()
-            
+
             # set correct and incorrect responses
             if string_to_booleanl(moving_response_options) == False:
                 response_option_left = response_option_B  # i.e., the focal trial type is the right hand one, for hand dominance
@@ -3262,7 +3262,7 @@ for thisTask in task:
             for thisComponent in trial_BComponents:
                 if hasattr(thisComponent, 'status'):
                     thisComponent.status = NOT_STARTED
-            
+
             #-------Start Routine "trial_B"-------
             continueRoutine = True
             while continueRoutine:
@@ -3275,35 +3275,35 @@ for thisTask in task:
                     accuracyFeedback=""
                 else:
                     accuracyFeedback="X"
-                
+
                 # *image_stimulus1_box_B* updates
                 if t >= 0.4 and image_stimulus1_box_B.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     image_stimulus1_box_B.tStart = t  # underestimates by a little under one frame
                     image_stimulus1_box_B.frameNStart = frameN  # exact frame index
                     image_stimulus1_box_B.setAutoDraw(True)
-                
+
                 # *image_stimulus2_box_B* updates
                 if t >= 0.4 and image_stimulus2_box_B.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     image_stimulus2_box_B.tStart = t  # underestimates by a little under one frame
                     image_stimulus2_box_B.frameNStart = frameN  # exact frame index
                     image_stimulus2_box_B.setAutoDraw(True)
-                
+
                 # *stimulus1_box_B* updates
                 if t >= 0.4 and stimulus1_box_B.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     stimulus1_box_B.tStart = t  # underestimates by a little under one frame
                     stimulus1_box_B.frameNStart = frameN  # exact frame index
                     stimulus1_box_B.setAutoDraw(True)
-                
+
                 # *stimulus2_box_B* updates
                 if t >= 0.4 and stimulus2_box_B.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     stimulus2_box_B.tStart = t  # underestimates by a little under one frame
                     stimulus2_box_B.frameNStart = frameN  # exact frame index
                     stimulus2_box_B.setAutoDraw(True)
-                
+
                 # *required_response_B* updates
                 if t >= 0.4 and required_response_B.status == NOT_STARTED:
                     # keep track of start time/frame for later
@@ -3325,7 +3325,7 @@ for thisTask in task:
                     event.clearEvents(eventType='keyboard')
                 if required_response_B.status == STARTED:
                     theseKeys = event.getKeys(keyList=list(required_allowed))
-                    
+
                     # check for quit:
                     if "escape" in theseKeys:
                         endExpNow = True
@@ -3340,7 +3340,7 @@ for thisTask in task:
                                 required_response_B.corr = 0
                             # a response ends the routine
                             continueRoutine = False
-                
+
                 # *feedback_response_B* updates
                 if t >= 0.4 and feedback_response_B.status == NOT_STARTED:
                     # keep track of start time/frame for later
@@ -3362,7 +3362,7 @@ for thisTask in task:
                     event.clearEvents(eventType='keyboard')
                 if feedback_response_B.status == STARTED:
                     theseKeys = event.getKeys(keyList=list(feedback_allowed))
-                    
+
                     # check for quit:
                     if "escape" in theseKeys:
                         endExpNow = True
@@ -3375,21 +3375,21 @@ for thisTask in task:
                                 feedback_response_B.corr = 1
                             else:
                                 feedback_response_B.corr = 0
-                
+
                 # *left_box_B* updates
                 if t >= response_option_onset and left_box_B.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     left_box_B.tStart = t  # underestimates by a little under one frame
                     left_box_B.frameNStart = frameN  # exact frame index
                     left_box_B.setAutoDraw(True)
-                
+
                 # *right_box_B* updates
                 if t >= response_option_onset and right_box_B.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     right_box_B.tStart = t  # underestimates by a little under one frame
                     right_box_B.frameNStart = frameN  # exact frame index
                     right_box_B.setAutoDraw(True)
-                
+
                 # *accuracy_feedback_box_B* updates
                 if t >= 0.4 and accuracy_feedback_box_B.status == NOT_STARTED:
                     # keep track of start time/frame for later
@@ -3398,7 +3398,7 @@ for thisTask in task:
                     accuracy_feedback_box_B.setAutoDraw(True)
                 if accuracy_feedback_box_B.status == STARTED:  # only update if being drawn
                     accuracy_feedback_box_B.setText(accuracyFeedback, log=False)
-                
+
                 # check if all components have finished
                 if not continueRoutine:  # a component has requested a forced-end of Routine
                     break
@@ -3407,15 +3407,15 @@ for thisTask in task:
                     if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                         continueRoutine = True
                         break  # at least one component has not yet finished
-                
+
                 # check for quit (the Esc key)
                 if endExpNow or event.getKeys(keyList=["escape"]):
                     core.quit()
-                
+
                 # refresh the screen
                 if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                     win.flip()
-            
+
             #-------Ending Routine "trial_B"-------
             for thisComponent in trial_BComponents:
                 if hasattr(thisComponent, "setAutoDraw"):
@@ -3452,13 +3452,13 @@ for thisTask in task:
             # the Routine "trial_B" was not non-slip safe, so reset the non-slip timer
             routineTimer.reset()
             thisExp.nextEntry()
-            
+
         # completed reptitions repeats of 'trials_B'
-        
-        
+
+
         #------Prepare to start Routine "postblock_B"-------
         t = 0
-        postblock_BClock.reset()  # clock 
+        postblock_BClock.reset()  # clock
         frameN = -1
         # update component parameters for each repeat
         # Option to simulates using ResponseEmulator:
@@ -3466,15 +3466,15 @@ for thisTask in task:
             simulated_responses = [(1.1, 'e'), (1.1, 'i')]  # simulated responses take the form (onsetTime, responseKey). You can simulate more than one.
             responder = ResponseEmulator(simulated_responses)
             responder.start()
-        
+
         # calculate summary stats
-        block_B_percentage_accuracy = (float(trials_B.data['required_response_B.corr'].count()) - float(trials_B.data['feedback_response_B.corr'].sum())) /  float(trials_B.data['required_response_B.corr'].count()) * 100 
+        block_B_percentage_accuracy = (float(trials_B.data['required_response_B.corr'].count()) - float(trials_B.data['feedback_response_B.corr'].sum())) /  float(trials_B.data['required_response_B.corr'].count()) * 100
         block_B_median_latency = np.median(trials_B.data['required_response_B.rt'])
-        
+
         # set messages
-        msg_accuracy = "%s %i %s" %(accuracy, block_B_percentage_accuracy, percentCorrect) 
+        msg_accuracy = "%s %i %s" %(accuracy, block_B_percentage_accuracy, percentCorrect)
         msg_latency = "%s %.2f %s" %(speed, block_B_median_latency, seconds)
-        
+
         ### save summary stats to experiment handler so they're written to the csv file
         ##thisExp.addData('block_B_percentage_accuracy', block_B_percentage_accuracy)
         ##thisExp.addData('block_B_median_latency', block_B_median_latency)
@@ -3494,7 +3494,7 @@ for thisTask in task:
         for thisComponent in postblock_BComponents:
             if hasattr(thisComponent, 'status'):
                 thisComponent.status = NOT_STARTED
-        
+
         #-------Start Routine "postblock_B"-------
         continueRoutine = True
         while continueRoutine:
@@ -3502,36 +3502,36 @@ for thisTask in task:
             t = postblock_BClock.getTime()
             frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
             # update/draw components on each frame
-            
-            
+
+
             # *aim_box_B* updates
             if t >= 0.4 and aim_box_B.status == NOT_STARTED:
                 # keep track of start time/frame for later
                 aim_box_B.tStart = t  # underestimates by a little under one frame
                 aim_box_B.frameNStart = frameN  # exact frame index
                 aim_box_B.setAutoDraw(True)
-            
+
             # *accuracy_box_B* updates
             if t >= 0.4 and accuracy_box_B.status == NOT_STARTED:
                 # keep track of start time/frame for later
                 accuracy_box_B.tStart = t  # underestimates by a little under one frame
                 accuracy_box_B.frameNStart = frameN  # exact frame index
                 accuracy_box_B.setAutoDraw(True)
-            
+
             # *latency_box_B* updates
             if t >= 0.4 and latency_box_B.status == NOT_STARTED:
                 # keep track of start time/frame for later
                 latency_box_B.tStart = t  # underestimates by a little under one frame
                 latency_box_B.frameNStart = frameN  # exact frame index
                 latency_box_B.setAutoDraw(True)
-            
+
             # *press_box_B* updates
             if t >= 0.4 and press_box_B.status == NOT_STARTED:
                 # keep track of start time/frame for later
                 press_box_B.tStart = t  # underestimates by a little under one frame
                 press_box_B.frameNStart = frameN  # exact frame index
                 press_box_B.setAutoDraw(True)
-            
+
             # *postblock_response_B* updates
             if t >= 1 and postblock_response_B.status == NOT_STARTED:
                 # keep track of start time/frame for later
@@ -3542,14 +3542,14 @@ for thisTask in task:
                 event.clearEvents(eventType='keyboard')
             if postblock_response_B.status == STARTED:
                 theseKeys = event.getKeys(keyList=['e', 'i'])
-                
+
                 # check for quit:
                 if "escape" in theseKeys:
                     endExpNow = True
                 if len(theseKeys) > 0:  # at least one key was pressed
                     # a response ends the routine
                     continueRoutine = False
-            
+
             # check if all components have finished
             if not continueRoutine:  # a component has requested a forced-end of Routine
                 break
@@ -3558,25 +3558,25 @@ for thisTask in task:
                 if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                     continueRoutine = True
                     break  # at least one component has not yet finished
-            
+
             # check for quit (the Esc key)
             if endExpNow or event.getKeys(keyList=["escape"]):
                 core.quit()
-            
+
             # refresh the screen
             if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                 win.flip()
-        
+
         #-------Ending Routine "postblock_B"-------
         for thisComponent in postblock_BComponents:
             if hasattr(thisComponent, "setAutoDraw"):
                 thisComponent.setAutoDraw(False)
-        
+
         # the Routine "postblock_B" was not non-slip safe, so reset the non-slip timer
         routineTimer.reset()
-        
+
         # set up handler to look after randomisation of conditions etc
-        Asecond = data.TrialHandler(nReps=Asecond_nReps, method='sequential', 
+        Asecond = data.TrialHandler(nReps=Asecond_nReps, method='sequential',
             extraInfo=expInfo, originPath=None,
             trialList=[None],
             seed=None, name='Asecond')
@@ -3586,17 +3586,17 @@ for thisTask in task:
         if thisAsecond != None:
             for paramName in thisAsecond.keys():
                 exec(paramName + '= thisAsecond.' + paramName)
-        
+
         for thisAsecond in Asecond:
             currentLoop = Asecond
             # abbreviate parameter names if possible (e.g. rgb = thisAsecond.rgb)
             if thisAsecond != None:
                 for paramName in thisAsecond.keys():
                     exec(paramName + '= thisAsecond.' + paramName)
-            
+
             #------Prepare to start Routine "preblock_A"-------
             t = 0
-            preblock_AClock.reset()  # clock 
+            preblock_AClock.reset()  # clock
             frameN = -1
             # update component parameters for each repeat
             # Option to simulates using ResponseEmulator:
@@ -3604,7 +3604,7 @@ for thisTask in task:
                 simulated_responses = [(1.1, 'e'), (1.1, 'i')]  # simulated responses take the form (onsetTime, responseKey). You can simulate more than one.
                 responder = ResponseEmulator(simulated_responses)
                 responder.start()
-            
+
             # Generate list of stimuli for the block
             stim1_catA_stimuli_many = generate_trials('labelA_stimuli', 2, True)  # function and variable determined at begin exp.
             stim1_catB_stimuli_many = generate_trials('labelB_stimuli', 2, True)
@@ -3624,7 +3624,7 @@ for thisTask in task:
             for thisComponent in preblock_AComponents:
                 if hasattr(thisComponent, 'status'):
                     thisComponent.status = NOT_STARTED
-            
+
             #-------Start Routine "preblock_A"-------
             continueRoutine = True
             while continueRoutine:
@@ -3632,15 +3632,15 @@ for thisTask in task:
                 t = preblock_AClock.getTime()
                 frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                 # update/draw components on each frame
-                
-                
+
+
                 # *rule_box_A* updates
                 if t >= 0.4 and rule_box_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     rule_box_A.tStart = t  # underestimates by a little under one frame
                     rule_box_A.frameNStart = frameN  # exact frame index
                     rule_box_A.setAutoDraw(True)
-                
+
                 # *preblock_response_A* updates
                 if t >= 1 and preblock_response_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
@@ -3651,14 +3651,14 @@ for thisTask in task:
                     event.clearEvents(eventType='keyboard')
                 if preblock_response_A.status == STARTED:
                     theseKeys = event.getKeys(keyList=['e', 'i'])
-                    
+
                     # check for quit:
                     if "escape" in theseKeys:
                         endExpNow = True
                     if len(theseKeys) > 0:  # at least one key was pressed
                         # a response ends the routine
                         continueRoutine = False
-                
+
                 # check if all components have finished
                 if not continueRoutine:  # a component has requested a forced-end of Routine
                     break
@@ -3667,25 +3667,25 @@ for thisTask in task:
                     if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                         continueRoutine = True
                         break  # at least one component has not yet finished
-                
+
                 # check for quit (the Esc key)
                 if endExpNow or event.getKeys(keyList=["escape"]):
                     core.quit()
-                
+
                 # refresh the screen
                 if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                     win.flip()
-            
+
             #-------Ending Routine "preblock_A"-------
             for thisComponent in preblock_AComponents:
                 if hasattr(thisComponent, "setAutoDraw"):
                     thisComponent.setAutoDraw(False)
-            
+
             # the Routine "preblock_A" was not non-slip safe, so reset the non-slip timer
             routineTimer.reset()
-            
+
             # set up handler to look after randomisation of conditions etc
-            trials_Asecond = data.TrialHandler(nReps=reptitions, method='random', 
+            trials_Asecond = data.TrialHandler(nReps=reptitions, method='random',
                 extraInfo=expInfo, originPath=None,
                 trialList=data.importConditions('block_layout.xlsx'),
                 seed=None, name='trials_Asecond')
@@ -3695,17 +3695,17 @@ for thisTask in task:
             if thisTrials_Asecond != None:
                 for paramName in thisTrials_Asecond.keys():
                     exec(paramName + '= thisTrials_Asecond.' + paramName)
-            
+
             for thisTrials_Asecond in trials_Asecond:
                 currentLoop = trials_Asecond
                 # abbreviate parameter names if possible (e.g. rgb = thisTrials_Asecond.rgb)
                 if thisTrials_Asecond != None:
                     for paramName in thisTrials_Asecond.keys():
                         exec(paramName + '= thisTrials_Asecond.' + paramName)
-                
+
                 #------Prepare to start Routine "trial_A"-------
                 t = 0
-                trial_AClock.reset()  # clock 
+                trial_AClock.reset()  # clock
                 frameN = -1
                 # update component parameters for each repeat
                 # Option to simulates using ResponseEmulator:
@@ -3713,32 +3713,32 @@ for thisTask in task:
                     simulated_responses = [(0.5, 'e'), (0.5, 'i')]  # simulated responses take the form (onsetTime, responseKey). You can simulate more than one.
                     responder = ResponseEmulator(simulated_responses)
                     responder.start()
-                
+
                 # For each stimlulus, choose a random exemplar from the appropriate list
                 # word stimulus 1
                 if stimulus1_category == 'a':
                     stimulus1 = stim1_catA_stimuli_many.pop()
                 elif stimulus1_category == 'b':
                     stimulus1 = stim1_catB_stimuli_many.pop()
-                
+
                 # word stimulus 2
                 if stimulus2_category == 'c':
                     stimulus2 = stim2_catA_stimuli_many.pop()
                 elif stimulus2_category == 'd':
                     stimulus2 = stim2_catB_stimuli_many.pop()
-                
+
                 # image stimulus 1
                 if stimulus1_category == 'a':
                     img_stimulus1 = img_stim1_catA_stimuli_many.pop()
                 elif stimulus1_category == 'b':
                     img_stimulus1 = img_stim1_catB_stimuli_many.pop()
-                
+
                 # image stimulus 2
                 if stimulus2_category == 'c':
                     img_stimulus2 = img_stim2_catA_stimuli_many.pop()
                 elif stimulus2_category == 'd':
                     img_stimulus2 = img_stim2_catB_stimuli_many.pop()
-                
+
                 # set correct and incorrect responses
                 if string_to_booleanl(moving_response_options) == False:
                     response_option_left = response_option_B  # i.e., the focal trial type is the right hand one, for hand dominance
@@ -3814,7 +3814,7 @@ for thisTask in task:
                 for thisComponent in trial_AComponents:
                     if hasattr(thisComponent, 'status'):
                         thisComponent.status = NOT_STARTED
-                
+
                 #-------Start Routine "trial_A"-------
                 continueRoutine = True
                 while continueRoutine:
@@ -3827,35 +3827,35 @@ for thisTask in task:
                         accuracyFeedback=""
                     else:
                         accuracyFeedback="X"
-                    
+
                     # *image_stimulus1_box_A* updates
                     if t >= 0.4 and image_stimulus1_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         image_stimulus1_box_A.tStart = t  # underestimates by a little under one frame
                         image_stimulus1_box_A.frameNStart = frameN  # exact frame index
                         image_stimulus1_box_A.setAutoDraw(True)
-                    
+
                     # *image_stimulus2_box_A* updates
                     if t >= 0.4 and image_stimulus2_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         image_stimulus2_box_A.tStart = t  # underestimates by a little under one frame
                         image_stimulus2_box_A.frameNStart = frameN  # exact frame index
                         image_stimulus2_box_A.setAutoDraw(True)
-                    
+
                     # *stimulus1_box_A* updates
                     if t >= 0.4 and stimulus1_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         stimulus1_box_A.tStart = t  # underestimates by a little under one frame
                         stimulus1_box_A.frameNStart = frameN  # exact frame index
                         stimulus1_box_A.setAutoDraw(True)
-                    
+
                     # *stimulus2_box_A* updates
                     if t >= 0.4 and stimulus2_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         stimulus2_box_A.tStart = t  # underestimates by a little under one frame
                         stimulus2_box_A.frameNStart = frameN  # exact frame index
                         stimulus2_box_A.setAutoDraw(True)
-                    
+
                     # *required_response_A* updates
                     if t >= 0.4 and required_response_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
@@ -3877,7 +3877,7 @@ for thisTask in task:
                         event.clearEvents(eventType='keyboard')
                     if required_response_A.status == STARTED:
                         theseKeys = event.getKeys(keyList=list(required_allowed))
-                        
+
                         # check for quit:
                         if "escape" in theseKeys:
                             endExpNow = True
@@ -3892,7 +3892,7 @@ for thisTask in task:
                                     required_response_A.corr = 0
                                 # a response ends the routine
                                 continueRoutine = False
-                    
+
                     # *feedback_response_A* updates
                     if t >= 0.4 and feedback_response_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
@@ -3914,7 +3914,7 @@ for thisTask in task:
                         event.clearEvents(eventType='keyboard')
                     if feedback_response_A.status == STARTED:
                         theseKeys = event.getKeys(keyList=list(feedback_allowed))
-                        
+
                         # check for quit:
                         if "escape" in theseKeys:
                             endExpNow = True
@@ -3927,21 +3927,21 @@ for thisTask in task:
                                     feedback_response_A.corr = 1
                                 else:
                                     feedback_response_A.corr = 0
-                    
+
                     # *left_box_A* updates
                     if t >= response_option_onset and left_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         left_box_A.tStart = t  # underestimates by a little under one frame
                         left_box_A.frameNStart = frameN  # exact frame index
                         left_box_A.setAutoDraw(True)
-                    
+
                     # *right_box_A* updates
                     if t >= response_option_onset and right_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
                         right_box_A.tStart = t  # underestimates by a little under one frame
                         right_box_A.frameNStart = frameN  # exact frame index
                         right_box_A.setAutoDraw(True)
-                    
+
                     # *accuracy_feedback_box_A* updates
                     if t >= 0.4 and accuracy_feedback_box_A.status == NOT_STARTED:
                         # keep track of start time/frame for later
@@ -3950,7 +3950,7 @@ for thisTask in task:
                         accuracy_feedback_box_A.setAutoDraw(True)
                     if accuracy_feedback_box_A.status == STARTED:  # only update if being drawn
                         accuracy_feedback_box_A.setText(accuracyFeedback, log=False)
-                    
+
                     # check if all components have finished
                     if not continueRoutine:  # a component has requested a forced-end of Routine
                         break
@@ -3959,15 +3959,15 @@ for thisTask in task:
                         if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                             continueRoutine = True
                             break  # at least one component has not yet finished
-                    
+
                     # check for quit (the Esc key)
                     if endExpNow or event.getKeys(keyList=["escape"]):
                         core.quit()
-                    
+
                     # refresh the screen
                     if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                         win.flip()
-                
+
                 #-------Ending Routine "trial_A"-------
                 for thisComponent in trial_AComponents:
                     if hasattr(thisComponent, "setAutoDraw"):
@@ -4004,13 +4004,13 @@ for thisTask in task:
                 # the Routine "trial_A" was not non-slip safe, so reset the non-slip timer
                 routineTimer.reset()
                 thisExp.nextEntry()
-                
+
             # completed reptitions repeats of 'trials_Asecond'
-            
-            
+
+
             #------Prepare to start Routine "postblock_A"-------
             t = 0
-            postblock_AClock.reset()  # clock 
+            postblock_AClock.reset()  # clock
             frameN = -1
             # update component parameters for each repeat
             # Option to simulates using ResponseEmulator:
@@ -4018,28 +4018,28 @@ for thisTask in task:
                 simulated_responses = [(1.1, 'e'), (1.1, 'i')]  # simulated responses take the form (onsetTime, responseKey). You can simulate more than one.
                 responder = ResponseEmulator(simulated_responses)
                 responder.start()
-            
+
             # calculate summary stats
             try:  # first check which block was run by seeing if the object exists
                 trials_Afirst.data
             except NameError:
                 continue
             else:  # if it does exist, calculate block summary data
-                block_A_percentage_accuracy = (float(trials_Afirst.data['required_response_A.corr'].count()) - float(trials_Afirst.data['feedback_response_A.corr'].sum())) /  float(trials_Afirst.data['required_response_A.corr'].count()) * 100 
+                block_A_percentage_accuracy = (float(trials_Afirst.data['required_response_A.corr'].count()) - float(trials_Afirst.data['feedback_response_A.corr'].sum())) /  float(trials_Afirst.data['required_response_A.corr'].count()) * 100
                 block_A_median_latency = np.median(trials_Afirst.data['required_response_A.rt'])
-            
+
             try:
                 trials_Asecond.data
             except NameError:
                 continue
             else:  # if it does exist, calculate block summary data
-                block_A_percentage_accuracy = (float(trials_Asecond.data['required_response_A.corr'].count()) - float(trials_Asecond.data['feedback_response_A.corr'].sum())) /  float(trials_Asecond.data['required_response_A.corr'].count()) * 100 
+                block_A_percentage_accuracy = (float(trials_Asecond.data['required_response_A.corr'].count()) - float(trials_Asecond.data['feedback_response_A.corr'].sum())) /  float(trials_Asecond.data['required_response_A.corr'].count()) * 100
                 block_A_median_latency = np.median(trials_Asecond.data['required_response_A.rt'])
-            
+
             # set messages
-            msg_accuracy = "%s %i %s" %(accuracy, block_A_percentage_accuracy, percentCorrect) 
+            msg_accuracy = "%s %i %s" %(accuracy, block_A_percentage_accuracy, percentCorrect)
             msg_latency = "%s %.2f %s" %(speed, block_A_median_latency, seconds)
-            
+
             ### save summary stats to experiment handler so they're written to the csv file
             ##thisExp.addData('block_A_percentage_accuracy', block_A_percentage_accuracy)
             ##thisExp.addData('block_A_median_latency', block_A_median_latency)
@@ -4059,7 +4059,7 @@ for thisTask in task:
             for thisComponent in postblock_AComponents:
                 if hasattr(thisComponent, 'status'):
                     thisComponent.status = NOT_STARTED
-            
+
             #-------Start Routine "postblock_A"-------
             continueRoutine = True
             while continueRoutine:
@@ -4067,36 +4067,36 @@ for thisTask in task:
                 t = postblock_AClock.getTime()
                 frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
                 # update/draw components on each frame
-                
-                
+
+
                 # *aim_box_A* updates
                 if t >= 0.4 and aim_box_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     aim_box_A.tStart = t  # underestimates by a little under one frame
                     aim_box_A.frameNStart = frameN  # exact frame index
                     aim_box_A.setAutoDraw(True)
-                
+
                 # *accuracy_box_A* updates
                 if t >= 0.4 and accuracy_box_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     accuracy_box_A.tStart = t  # underestimates by a little under one frame
                     accuracy_box_A.frameNStart = frameN  # exact frame index
                     accuracy_box_A.setAutoDraw(True)
-                
+
                 # *latency_box_A* updates
                 if t >= 0.4 and latency_box_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     latency_box_A.tStart = t  # underestimates by a little under one frame
                     latency_box_A.frameNStart = frameN  # exact frame index
                     latency_box_A.setAutoDraw(True)
-                
+
                 # *press_box_A* updates
                 if t >= 0.4 and press_box_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
                     press_box_A.tStart = t  # underestimates by a little under one frame
                     press_box_A.frameNStart = frameN  # exact frame index
                     press_box_A.setAutoDraw(True)
-                
+
                 # *postblock_response_A* updates
                 if t >= 1 and postblock_response_A.status == NOT_STARTED:
                     # keep track of start time/frame for later
@@ -4107,14 +4107,14 @@ for thisTask in task:
                     event.clearEvents(eventType='keyboard')
                 if postblock_response_A.status == STARTED:
                     theseKeys = event.getKeys(keyList=['e', 'i'])
-                    
+
                     # check for quit:
                     if "escape" in theseKeys:
                         endExpNow = True
                     if len(theseKeys) > 0:  # at least one key was pressed
                         # a response ends the routine
                         continueRoutine = False
-                
+
                 # check if all components have finished
                 if not continueRoutine:  # a component has requested a forced-end of Routine
                     break
@@ -4123,30 +4123,30 @@ for thisTask in task:
                     if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                         continueRoutine = True
                         break  # at least one component has not yet finished
-                
+
                 # check for quit (the Esc key)
                 if endExpNow or event.getKeys(keyList=["escape"]):
                     core.quit()
-                
+
                 # refresh the screen
                 if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
                     win.flip()
-            
+
             #-------Ending Routine "postblock_A"-------
             for thisComponent in postblock_AComponents:
                 if hasattr(thisComponent, "setAutoDraw"):
                     thisComponent.setAutoDraw(False)
-            
+
             # the Routine "postblock_A" was not non-slip safe, so reset the non-slip timer
             routineTimer.reset()
         # completed Asecond_nReps repeats of 'Asecond'
-        
+
     # completed complete_test_blocks repeats of 'test_blocks'
-    
-    
+
+
     #------Prepare to start Routine "end"-------
     t = 0
-    endClock.reset()  # clock 
+    endClock.reset()  # clock
     frameN = -1
     # update component parameters for each repeat
     end_box.setText(end_message)
@@ -4159,7 +4159,7 @@ for thisTask in task:
     for thisComponent in endComponents:
         if hasattr(thisComponent, 'status'):
             thisComponent.status = NOT_STARTED
-    
+
     #-------Start Routine "end"-------
     continueRoutine = True
     while continueRoutine:
@@ -4167,14 +4167,14 @@ for thisTask in task:
         t = endClock.getTime()
         frameN = frameN + 1  # number of completed frames (so 0 is the first frame)
         # update/draw components on each frame
-        
+
         # *end_box* updates
         if t >= 0.4 and end_box.status == NOT_STARTED:
             # keep track of start time/frame for later
             end_box.tStart = t  # underestimates by a little under one frame
             end_box.frameNStart = frameN  # exact frame index
             end_box.setAutoDraw(True)
-        
+
         # *end_response* updates
         if t >= .4 and end_response.status == NOT_STARTED:
             # keep track of start time/frame for later
@@ -4185,14 +4185,14 @@ for thisTask in task:
             event.clearEvents(eventType='keyboard')
         if end_response.status == STARTED:
             theseKeys = event.getKeys(keyList=['return'])
-            
+
             # check for quit:
             if "escape" in theseKeys:
                 endExpNow = True
             if len(theseKeys) > 0:  # at least one key was pressed
                 # a response ends the routine
                 continueRoutine = False
-        
+
         # check if all components have finished
         if not continueRoutine:  # a component has requested a forced-end of Routine
             break
@@ -4201,15 +4201,15 @@ for thisTask in task:
             if hasattr(thisComponent, "status") and thisComponent.status != FINISHED:
                 continueRoutine = True
                 break  # at least one component has not yet finished
-        
+
         # check for quit (the Esc key)
         if endExpNow or event.getKeys(keyList=["escape"]):
             core.quit()
-        
+
         # refresh the screen
         if continueRoutine:  # don't flip if this routine is over or we'll get a blank screen
             win.flip()
-    
+
     #-------Ending Routine "end"-------
     for thisComponent in endComponents:
         if hasattr(thisComponent, "setAutoDraw"):

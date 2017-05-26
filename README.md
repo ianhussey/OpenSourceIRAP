@@ -235,6 +235,13 @@ Many published articles refer to the "*D*-IRAP" score rather than the " *D*1" sc
 
 While several articles to date have employed the method used by Nicholson & Barnes-Holmes (2012; see Hussey, Thompson, et al., 2015 for disussion), who excluded *D*1 scores from single test block pairs and averages the remaining ones, De Schryver, Hughes, De Houwer & Rosseel (in prep: "On the Interpretation of Reliability in the Context of Implicit Cognition") make a persuasive argument for treating the data produced by a given instance of a measure as a single analytic unit. That is, rather than excluding individual test block pairs where the participant fails to maintain the test block criteria, De Schryver et al argue that exclusions should be done based on overall task performance. As such, the processing script here produces on overall test block accuracy score and one mean test block reaction time score. Test block exclusions can then be applied to these (e.g., outliers defined as absolute deviation from mean rt > 2.5 SD).
 
+#### e. Trial type designations
+
+- Trial type 1 refers to trials that present a label 1 stimulus and a target 1 stimulus.
+- Trial type 2 refers to trials that present a label 1 stimulus and a target 2 stimulus.
+- Trial type 3 refers to trials that present a label 2 stimulus and a target 1 stimulus.
+- Trial type 4 refers to trials that present a label 2 stimulus and a target 2 stimulus.
+
 ## Timing accuracy
 PsychoPy is technically capable of millosecond timing, depending on design choices by the researcher (see Garaizar & Vadillo, 2014). 
 
