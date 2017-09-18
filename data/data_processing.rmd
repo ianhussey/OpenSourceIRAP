@@ -1,28 +1,30 @@
-# Calculate D1 scores, accuracy and latency summary statistics for the 
-# Open Source IRAP (Implicit Relational Assessment Procedure)
+---
+title: "Process data for the Open Source IRAP"
+subtitle: "Calculate D1 scores, accuracy and latency summary statistics"
+author: "Ian Hussey^[Ghent University. Email: ian.hussey@ugent.be]"
+date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  html_document:
+    code_folding: hide
+    highlight: haddock
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
 
-# author: Ian Hussey (ian.hussey@ugent.be)
-# license: GPLv3+
+# Usage
 
-# Usage:
-# Simply set the input directory [the line containing setwd()] and 
-# output directory [the line containing write.csv()] and run script.
-# See README for notes.
+Simply open this RMarkdown file in RStudio and hit Knit or run the code chunk below. See README for notes.
 
-# NB all groupings  are done by a variable called "unique_identifier". 
-# This is a concation of participant, stimulus_file and date. As such, 
-# even if you are delivering the task to multiple participants
-# simultaneously (via multiple computers), and/or duplicate participant
-# codes are entered by accident, this unique identifier should 
-# seperate participants' data appropriately.
+All groupings  are done by a variable called "unique_identifier". This is a concation of participant, stimulus_file and date. As such, even if you are delivering the task to multiple participants simultaneously (via multiple computers), and/or duplicate participant codes are entered by accident, this unique identifier should seperate participants' data appropriately.
 
-# To do:
-# None.
+If the script has already been run and a "processed_IRAP_data.csv" file is present, the script will throw an error. Delete this file and rerun.
 
+# To do
 
-# dependencies ------------------------------------------------------------
+None.
 
-
+```{r, message=FALSE}
 # check for all dependencies and install missing ones. 
 # solution from https://gist.github.com/stevenworthington/3178163
 auto_install_dependencies <- function(pkg){
@@ -37,6 +39,7 @@ library(plyr)
 library(dplyr)
 library(tidyr)
 library(data.table)
+library(readr)
 
 # NB Given the shared namespaces between plyr and dplyr (e.g., both 
 # contain functions called "rename"), this script specifies which 
@@ -44,17 +47,7 @@ library(data.table)
 # (as done above) prevents any issues, but this method is safer.
 
 
-# data acquisition and cleaning -------------------------------------------
-
-
-## Set the working directory, where the IRAP data output files are located.
-# NB R usersfront slashes ("/") for folders and doubl backslashes ("\\") to allow characters such as spaces
-# e.g. for Mac:
-setwd("/Users/Ian/git/Open Source IRAP/data")
-# e.g. for Windows:
-#setwd("c:/mydocuments/Open\\ Source\\ IRAP/data")
-# e.g. for Linux:
-#setwd("/usr/Ian/Open Source IRAP/data")
+# data acquisition and cleaning ----------------------------------------------------
 
 # Create a list of all files in this folder that use the extension ".csv"
 files <- list.files(pattern = "\\.csv$")  
@@ -84,9 +77,10 @@ if("trials_B.thisTrialN" %in% colnames(input_df)){
   input_df[,"trials_B.thisTrialN"] <- NA
 }
 
-# Make some variable names more transparent, plus rectify the the accuracy variable
-cleaned_df <- 
-  input_df %>%
+
+# tidy and recitify ----------------------------------------------------
+
+cleaned_df <- input_df %>%
   dplyr::rename(trial_type = trialType,
                 practice_block_pair = practice_blocks.thisRepN,
                 test_block_pair = test_blocks.thisRepN,
@@ -123,74 +117,72 @@ cleaned_df <-
                                               ifelse(auto_response_monkey == "n", 
                                                      FALSE, NA))) %>%  # convert y/n to TRUE/FALSE
   ungroup() %>%  # removes rowwise
-  select(unique_identifier,
-         stimulus_file,
-         participant,
-         starting_block,
-         practice_block_pair,
-         test_block_pair,
-         trial_order,
-         trial_type,
-         rt_a,
-         rt_b,
-         rt,
-         accuracy_a,
-         accuracy_b,
-         accuracy,
-         accuracy_criterion,
-         latency_criterion,
-         age,
-         gender,
-         date,
-         max_pairs_practice_blocks,
-         n_pairs_test_blocks,
-         moving_response_options,
-         auto_response_monkey,
-         rule_A,
-         rule_B,
-         response_option_A,
-         response_option_B,
-         labelA_text_stimuli_exemplars,
-         labelB_text_stimuli_exemplars,
-         targetA_text_stimuli_exemplars,
-         targetB_text_stimuli_exemplars,
-         labelA_image_stimuli_exemplars,
-         labelB_image_stimuli_exemplars,
-         targetA_image_stimuli_exemplars,
-         targetB_image_stimuli_exemplars)
+  dplyr::select(unique_identifier,
+                stimulus_file,
+                participant,
+                starting_block,
+                practice_block_pair,
+                test_block_pair,
+                trial_order,
+                trial_type,
+                rt_a,
+                rt_b,
+                rt,
+                accuracy_a,
+                accuracy_b,
+                accuracy,
+                accuracy_criterion,
+                latency_criterion,
+                age,
+                gender,
+                date,
+                max_pairs_practice_blocks,
+                n_pairs_test_blocks,
+                moving_response_options,
+                auto_response_monkey,
+                rule_A,
+                rule_B,
+                response_option_A,
+                response_option_B,
+                labelA_text_stimuli_exemplars,
+                labelB_text_stimuli_exemplars,
+                targetA_text_stimuli_exemplars,
+                targetB_text_stimuli_exemplars,
+                labelA_image_stimuli_exemplars,
+                labelB_image_stimuli_exemplars,
+                targetA_image_stimuli_exemplars,
+                targetB_image_stimuli_exemplars)
 
-
-# demographics and test parameters  ---------------------------------------
-
+# demographics and test parameters ----------------------------------------------------
 
 # Select variables of interest
 demographics_df <-
   cleaned_df %>%
-  select(unique_identifier,
-         stimulus_file,
-         participant,
-         gender,
-         age,
-         date,
-         starting_block,
-         max_pairs_practice_blocks,
-         n_pairs_test_blocks,
-         latency_criterion,
-         accuracy_criterion,
-         moving_response_options,
-         auto_response_monkey,
-         rule_A,
-         rule_B,
-         response_option_A,
-         response_option_B,
-         labelA_text_stimuli_exemplars,
-         labelB_text_stimuli_exemplars,
-         targetA_text_stimuli_exemplars,
-         targetB_text_stimuli_exemplars,
-         labelA_image_stimuli_exemplars,
-         labelB_image_stimuli_exemplars,
-         targetA_image_stimuli_exemplars,
-         targetB_image_stimuli_exemplars) %>%
+  dplyr::select(unique_identifier,
+                stimulus_file,
+                participant,
+                gender,
+                age,
+                date,
+                starting_block,
+                max_pairs_practice_blocks,
+                n_pairs_test_blocks,
+                latency_criterion,
+                accuracy_criterion,
+                moving_response_options,
+                auto_response_monkey,
+                rule_A,
+                rule_B,
+                response_option_A,
+                response_option_B,
+                labelA_text_stimuli_exemplars,
+                labelB_text_stimuli_exemplars,
+                targetA_text_stimuli_exemplars,
+                targetB_text_stimuli_exemplars,
+                labelA_image_stimuli_exemplars,
+                labelB_image_stimuli_exemplars,
+                targetA_image_stimuli_exemplars,
+                targetB_image_stimuli_exemplars) %>%
   distinct(unique_identifier, .keep_all = TRUE)  
   # NB other routines use a group_by() at the top, but this throws an error in full_join() for some reason. 
   # Rather than bugtest, I've employed the workaround of a distinct() call at the end of the routine instead.
@@ -201,9 +193,7 @@ n_pairs_practice_blocks_df <-
   group_by(unique_identifier) %>%
   dplyr::summarize(n_pairs_practice_blocks = max(practice_block_pair, na.rm = TRUE))
 
-
- # D1 scores and mean latency ----------------------------------------------
-
+# D1 scores and mean latency ----------------------------------------------------
 
 # mean rt
 mean_rt_df <-  
@@ -212,8 +202,8 @@ mean_rt_df <-
   filter(rt <= 10000 &
            !is.na(test_block_pair)) %>%  # test blocks only
   dplyr::summarize(rt_mean = round(mean(rt, na.rm = TRUE), 3)*1000) %>%
-  select(unique_identifier, 
-         rt_mean) %>%
+  dplyr::select(unique_identifier, 
+                rt_mean) %>%
   ungroup()
 
 # D1 calculated from all test block rts
@@ -231,8 +221,8 @@ D1_df <-
   ungroup() %>%
   group_by(unique_identifier) %>%
   dplyr::summarize(D1 = round(mean(D1), 3)) %>%
-  select(unique_identifier, 
-         D1) %>%
+  dplyr::select(unique_identifier, 
+                D1) %>%
   ungroup()
 
 # D1 calculated for each of the four trial-types from all test block rts
@@ -251,9 +241,9 @@ D1_by_tt_df <-
   ungroup() %>%
   group_by(unique_identifier,
            trial_type) %>%
-  select(unique_identifier, 
-         trial_type,
-         D1_by_tt) %>%
+  dplyr::select(unique_identifier, 
+                trial_type,
+                D1_by_tt) %>%
   dplyr::summarize(D1_by_tt = round(mean(D1_by_tt), 3)) %>%
   spread(trial_type, D1_by_tt) %>%
   dplyr::rename(D1_trial_type_1 = `1`,
@@ -278,8 +268,8 @@ D1_odd_df <-
   ungroup() %>%
   group_by(unique_identifier) %>%
   dplyr::summarize(D1_odd = round(mean(D1_odd), 3)) %>%
-  select(unique_identifier, 
-         D1_odd) %>%
+  dplyr::select(unique_identifier, 
+                D1_odd) %>%
   ungroup()
 
 # D1 for EVEN trials by order of presentation (for split half reliability) calculated from all test block rts
@@ -298,14 +288,11 @@ D1_even_df <-
   ungroup() %>%
   group_by(unique_identifier) %>%
   dplyr::summarize(D1_even = round(mean(D1_even), 3)) %>%
-  select(unique_identifier, 
-         D1_even) %>%
+  dplyr::select(unique_identifier, 
+                D1_even) %>%
   ungroup()
 
-
-# percentage accuracy and percentage fast trials --------------------------
-
-
+# percentage accuracy and percentage fast trials ----------------------------------------------------
 # add new column that records if RT < 300ms.
 # exclusions based on fast trials (>10% trials <300ms) is part of the D1 algorithm
 cleaned_df$too_fast_trial <- ifelse(cleaned_df$rt < .3, 1, 0) 
@@ -318,13 +305,11 @@ percentage_accuracy_and_fast_trials_df <-
   dplyr::summarize(percentage_accuracy = round(sum(accuracy)/n(), 3),
                    percent_fast_trials = sum(too_fast_trial)/n()) %>%  # arbitrary number of test block trials
   dplyr::mutate(exclude_based_on_fast_trials = ifelse(percent_fast_trials>=0.1, TRUE, FALSE)) %>%  
-  select(unique_identifier,
-         percentage_accuracy,
-         exclude_based_on_fast_trials)
+  dplyr::select(unique_identifier,
+                percentage_accuracy,
+                exclude_based_on_fast_trials)
 
-
-# join data frames & quantify failed practice blocks ----------------------
-
+# join data frames and quantify failed practice blocks ----------------------------------------------------
 
 output_df <- 
   join_all(list(demographics_df,
@@ -341,14 +326,10 @@ output_df <-
   mutate(passed_practice_blocks = ifelse(!is.na(D1), TRUE, FALSE))
  
 
-# write to disk -----------------------------------------------------------
+# write to disk ----------------------------------------------------
 
+output_df %>% write_csv("processed_IRAP_data.csv")
 
-# NB R usersfront slashes ("/") for folders and doubl backslashes ("\\") to allow characters such as spaces
-# e.g. for Mac:
-write.csv(output_df, file = "/Users/Ian/git/Open Source IRAP/data processing/processed_IRAP_data.csv", row.names=FALSE)
-# e.g. for Windows:
-#write.csv(output_df, file = "c:/mydocuments/Open\\ Source\\ IRAP/data processing/processed_IRAP_data.csv", row.names=FALSE)  
-# e.g. for Linux:
-#write.csv(output_df, file = "/usr/Ian/Open Source IRAP/data processing/processed_IRAP_data.csv", row.names=FALSE)
+```
+
 

@@ -19,7 +19,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 ## Version
-0.9.9.1
+0.9.10
 
 *NB This code is still in beta - it hasn't been used it in a published article yet.*
 
@@ -51,13 +51,11 @@ This implementation of the IRAP has very high fidelity to the procedure describe
 - Typically, reaction time differences between the two block then are quantified (e.g., using the *D*1 effect size score, below) in order to produce a measure of "implicit attitudes" (although see [De Houwer, 2006](http://users.ugent.be/~jdhouwer/why.pdf)).
 
 ## Requirements
-- [PsychoPy - v1.82](https://github.com/psychopy/psychopy/releases/tag/r1.82.02)
+- [PsychoPy v1.85.3](https://github.com/psychopy/psychopy/releases/tag/r1.82.02)
   - A free and open source program for delivering psychology experiments written in Python. See [here for documentation](http://www.psychopy.org/documentation.html).
   - PsychoPy runs locally on Windows, Mac, and Linux. It's not possible to run PsychoPy scripts online.
   - You might be able to use more recent versions, but will probably need to run the `Open Source IRAP.py` file rather than the `Open Source IRAP.psyexp` file.
-
-- [R - v3.3.1](https://www.r-project.org/) or later
-  - The included data processing script is written in R. I reccomend you run it in [RStudio](https://www.rstudio.com/), a very user friendly interface for R.
+- [RStudio v1.0.136+](https://www.rstudio.com/), a very user friendly interface for R that integrates Knitr and RMarkdown documents, which are used by the processing script.
 
 ## Usage
 ### 1. Running
@@ -147,18 +145,14 @@ When you run the task, an auto-response 'monkey' can be invoked by setting "UseM
 `.psydat`, `.csv` and `.log` files are produced for each participant. The `.csv` file alone is sufficient to most analyses (e.g., calculation of D scores). To my understanding, the format of the `.csv` output files are Tidy Data compliant (Wickham, 2014) and therefore easy to analyse (e.g., in R) with little to no processing needed.
 
 ### 2. Data processing
-The included `data processing.r` R script produces accuracy and latency summary data and *D*1 scores for each participant (including "overall" *D*1 scores, *D*1 scores for each trial-type, and split-half overall *D*1 scores).
+The included `data processing.rmd` R script produces accuracy and latency summary data and *D*1 scores for each participant (including "overall" *D*1 scores, *D*1 scores for each trial-type, and split-half overall *D*1 scores).
 
 Very little familiarity with R/RStudio is needed to use this script. 
 
-1. Change the set working directory line to the location of your data
-   - i.e., the line containing[the line containing `setwd()`
-   - e.g. `setwd("~/git/Open Source IRAP/data`
-   - NB you must have at least one output file that has test block data for the script to run. 
-2. Change the save output line to your chosen directory 
-   - i.e., the line containing `write.csv()`
-   - e.g., `write.csv(all_tasks_df, file = '~/git/Open Source IRAP/data processing/processed_IRAP_data.csv', row.names=FALSE)`)
-3. Run the script (e.g., in RStudio on mac: ⌘-a to select all lines and ⌘-⏎ to run; windows: ctrl-a to select all lines and ctrl-⏎ to run).
+1. Open the script in RStudio.
+2. Click "Knit", this will run the script and create a html file record.
+
+ ![IRAP icon](screenshots/knit.png)
 
 The script produces a `processed_IRAP_data.csv` file with the following variables for analysis:
 ​	
@@ -260,9 +254,14 @@ If there are additional features or refinements you would like to see please fee
 1. If a participant gets 100% of trials correct throughout the task then the incorrect response RT column will not be created for that participant. This is a) extremely unlikely, and b) not a problem if you process data files based on column header matching (e.g., most R methods, including the bundled script). However, it can be problematic if your data processing workflow relies on column order rather than column header name (e.g., a SPSS script using a GET command).
 
 ## To do list
-1. Update the `Open Source IRAP.psyexp` file to work in PsychoPy v1.84+ once it's released.
+None.
 
 ## Changelog
+### 0.9.10
+
+1. Works in PsychoPy 1.85.3 (latest)
+2. Data processing file changed to an RMarkdown file, works with one click and uses relative paths so users don't have to alter file paths manually. 
+
 ### 0.9.9.1
 
 1. processing script updated to calculate D1 scores for each block pair and then average them. This is not necessarially statistically more appropriate than simply binning all con blocks versus all incon blocks, but it is consistent with published IRAP work. 
