@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 This experiment was created using PsychoPy2 Experiment Builder (v1.85.3),
-    on Mon Sep 18 12:03:18 2017
+    on Wed Nov 14 14:02:11 2018
 If you publish work using this script please cite the PsychoPy publications:
     Peirce, JW (2007) PsychoPy - Psychophysics software in Python.
         Journal of Neuroscience Methods, 162(1-2), 8-13.
@@ -671,14 +671,14 @@ thisExp.addLoop(task)  # add the loop to the experiment
 thisTask = task.trialList[0]  # so we can initialise stimuli with some values
 # abbreviate parameter names if possible (e.g. rgb = thisTask.rgb)
 if thisTask != None:
-    for paramName in thisTask:
+    for paramName in thisTask.keys():
         exec(paramName + '= thisTask.' + paramName)
 
 for thisTask in task:
     currentLoop = task
     # abbreviate parameter names if possible (e.g. rgb = thisTask.rgb)
     if thisTask != None:
-        for paramName in thisTask:
+        for paramName in thisTask.keys():
             exec(paramName + '= thisTask.' + paramName)
     
     # ------Prepare to start Routine "instructions"-------
@@ -808,14 +808,14 @@ for thisTask in task:
     thisPractice_block = practice_blocks.trialList[0]  # so we can initialise stimuli with some values
     # abbreviate parameter names if possible (e.g. rgb = thisPractice_block.rgb)
     if thisPractice_block != None:
-        for paramName in thisPractice_block:
+        for paramName in thisPractice_block.keys():
             exec(paramName + '= thisPractice_block.' + paramName)
     
     for thisPractice_block in practice_blocks:
         currentLoop = practice_blocks
         # abbreviate parameter names if possible (e.g. rgb = thisPractice_block.rgb)
         if thisPractice_block != None:
-            for paramName in thisPractice_block:
+            for paramName in thisPractice_block.keys():
                 exec(paramName + '= thisPractice_block.' + paramName)
         
         # set up handler to look after randomisation of conditions etc
@@ -827,14 +827,14 @@ for thisTask in task:
         thisPractice_Afirst = practice_Afirst.trialList[0]  # so we can initialise stimuli with some values
         # abbreviate parameter names if possible (e.g. rgb = thisPractice_Afirst.rgb)
         if thisPractice_Afirst != None:
-            for paramName in thisPractice_Afirst:
+            for paramName in thisPractice_Afirst.keys():
                 exec(paramName + '= thisPractice_Afirst.' + paramName)
         
         for thisPractice_Afirst in practice_Afirst:
             currentLoop = practice_Afirst
             # abbreviate parameter names if possible (e.g. rgb = thisPractice_Afirst.rgb)
             if thisPractice_Afirst != None:
-                for paramName in thisPractice_Afirst:
+                for paramName in thisPractice_Afirst.keys():
                     exec(paramName + '= thisPractice_Afirst.' + paramName)
             
             # ------Prepare to start Routine "preblock_A"-------
@@ -934,14 +934,14 @@ for thisTask in task:
             thisPractice_trials_Afirst = practice_trials_Afirst.trialList[0]  # so we can initialise stimuli with some values
             # abbreviate parameter names if possible (e.g. rgb = thisPractice_trials_Afirst.rgb)
             if thisPractice_trials_Afirst != None:
-                for paramName in thisPractice_trials_Afirst:
+                for paramName in thisPractice_trials_Afirst.keys():
                     exec(paramName + '= thisPractice_trials_Afirst.' + paramName)
             
             for thisPractice_trials_Afirst in practice_trials_Afirst:
                 currentLoop = practice_trials_Afirst
                 # abbreviate parameter names if possible (e.g. rgb = thisPractice_trials_Afirst.rgb)
                 if thisPractice_trials_Afirst != None:
-                    for paramName in thisPractice_trials_Afirst:
+                    for paramName in thisPractice_trials_Afirst.keys():
                         exec(paramName + '= thisPractice_trials_Afirst.' + paramName)
                 
                 # ------Prepare to start Routine "trial_A"-------
@@ -1249,19 +1249,11 @@ for thisTask in task:
                 responder.start()
             
             # calculate summary stats
-            try:  # first check which block was run by seeing if the object exists
-                practice_trials_Afirst.data
-            except NameError:
-                pass
-            else:  # if it does exist, calculate block summary data
+            if(starting_block == 'a'):  
                 prac_block_A_percentage_accuracy = (float(practice_trials_Afirst.data['required_response_A.corr'].count()) - float(practice_trials_Afirst.data['feedback_response_A.corr'].sum())) /  float(practice_trials_Afirst.data['required_response_A.corr'].count()) * 100 
                 prac_block_A_median_latency = np.median(practice_trials_Afirst.data['required_response_A.rt'])
             
-            try: 
-                practice_trials_Asecond.data
-            except NameError:
-                pass
-            else:  # if it does exist, calculate block summary data
+            if(starting_block == 'b'):  
                 prac_block_A_percentage_accuracy = (float(practice_trials_Asecond.data['required_response_A.corr'].count()) - float(practice_trials_Asecond.data['feedback_response_A.corr'].sum())) /  float(practice_trials_Asecond.data['required_response_A.corr'].count()) * 100 
                 prac_block_A_median_latency = np.median(practice_trials_Asecond.data['required_response_A.rt'])
             
@@ -1460,14 +1452,14 @@ for thisTask in task:
         thisPractice_trials_B = practice_trials_B.trialList[0]  # so we can initialise stimuli with some values
         # abbreviate parameter names if possible (e.g. rgb = thisPractice_trials_B.rgb)
         if thisPractice_trials_B != None:
-            for paramName in thisPractice_trials_B:
+            for paramName in thisPractice_trials_B.keys():
                 exec(paramName + '= thisPractice_trials_B.' + paramName)
         
         for thisPractice_trials_B in practice_trials_B:
             currentLoop = practice_trials_B
             # abbreviate parameter names if possible (e.g. rgb = thisPractice_trials_B.rgb)
             if thisPractice_trials_B != None:
-                for paramName in thisPractice_trials_B:
+                for paramName in thisPractice_trials_B.keys():
                     exec(paramName + '= thisPractice_trials_B.' + paramName)
             
             # ------Prepare to start Routine "trial_B"-------
@@ -1884,14 +1876,14 @@ for thisTask in task:
         thisPractice_Asecond = practice_Asecond.trialList[0]  # so we can initialise stimuli with some values
         # abbreviate parameter names if possible (e.g. rgb = thisPractice_Asecond.rgb)
         if thisPractice_Asecond != None:
-            for paramName in thisPractice_Asecond:
+            for paramName in thisPractice_Asecond.keys():
                 exec(paramName + '= thisPractice_Asecond.' + paramName)
         
         for thisPractice_Asecond in practice_Asecond:
             currentLoop = practice_Asecond
             # abbreviate parameter names if possible (e.g. rgb = thisPractice_Asecond.rgb)
             if thisPractice_Asecond != None:
-                for paramName in thisPractice_Asecond:
+                for paramName in thisPractice_Asecond.keys():
                     exec(paramName + '= thisPractice_Asecond.' + paramName)
             
             # ------Prepare to start Routine "preblock_A"-------
@@ -1991,14 +1983,14 @@ for thisTask in task:
             thisPractice_trials_Asecond = practice_trials_Asecond.trialList[0]  # so we can initialise stimuli with some values
             # abbreviate parameter names if possible (e.g. rgb = thisPractice_trials_Asecond.rgb)
             if thisPractice_trials_Asecond != None:
-                for paramName in thisPractice_trials_Asecond:
+                for paramName in thisPractice_trials_Asecond.keys():
                     exec(paramName + '= thisPractice_trials_Asecond.' + paramName)
             
             for thisPractice_trials_Asecond in practice_trials_Asecond:
                 currentLoop = practice_trials_Asecond
                 # abbreviate parameter names if possible (e.g. rgb = thisPractice_trials_Asecond.rgb)
                 if thisPractice_trials_Asecond != None:
-                    for paramName in thisPractice_trials_Asecond:
+                    for paramName in thisPractice_trials_Asecond.keys():
                         exec(paramName + '= thisPractice_trials_Asecond.' + paramName)
                 
                 # ------Prepare to start Routine "trial_A"-------
@@ -2306,19 +2298,11 @@ for thisTask in task:
                 responder.start()
             
             # calculate summary stats
-            try:  # first check which block was run by seeing if the object exists
-                practice_trials_Afirst.data
-            except NameError:
-                pass
-            else:  # if it does exist, calculate block summary data
+            if(starting_block == 'a'):  
                 prac_block_A_percentage_accuracy = (float(practice_trials_Afirst.data['required_response_A.corr'].count()) - float(practice_trials_Afirst.data['feedback_response_A.corr'].sum())) /  float(practice_trials_Afirst.data['required_response_A.corr'].count()) * 100 
                 prac_block_A_median_latency = np.median(practice_trials_Afirst.data['required_response_A.rt'])
             
-            try: 
-                practice_trials_Asecond.data
-            except NameError:
-                pass
-            else:  # if it does exist, calculate block summary data
+            if(starting_block == 'b'):  
                 prac_block_A_percentage_accuracy = (float(practice_trials_Asecond.data['required_response_A.corr'].count()) - float(practice_trials_Asecond.data['feedback_response_A.corr'].sum())) /  float(practice_trials_Asecond.data['required_response_A.corr'].count()) * 100 
                 prac_block_A_median_latency = np.median(practice_trials_Asecond.data['required_response_A.rt'])
             
@@ -2481,14 +2465,14 @@ for thisTask in task:
     thisTest_block = test_blocks.trialList[0]  # so we can initialise stimuli with some values
     # abbreviate parameter names if possible (e.g. rgb = thisTest_block.rgb)
     if thisTest_block != None:
-        for paramName in thisTest_block:
+        for paramName in thisTest_block.keys():
             exec(paramName + '= thisTest_block.' + paramName)
     
     for thisTest_block in test_blocks:
         currentLoop = test_blocks
         # abbreviate parameter names if possible (e.g. rgb = thisTest_block.rgb)
         if thisTest_block != None:
-            for paramName in thisTest_block:
+            for paramName in thisTest_block.keys():
                 exec(paramName + '= thisTest_block.' + paramName)
         
         # set up handler to look after randomisation of conditions etc
@@ -2500,14 +2484,14 @@ for thisTask in task:
         thisAfirst = Afirst.trialList[0]  # so we can initialise stimuli with some values
         # abbreviate parameter names if possible (e.g. rgb = thisAfirst.rgb)
         if thisAfirst != None:
-            for paramName in thisAfirst:
+            for paramName in thisAfirst.keys():
                 exec(paramName + '= thisAfirst.' + paramName)
         
         for thisAfirst in Afirst:
             currentLoop = Afirst
             # abbreviate parameter names if possible (e.g. rgb = thisAfirst.rgb)
             if thisAfirst != None:
-                for paramName in thisAfirst:
+                for paramName in thisAfirst.keys():
                     exec(paramName + '= thisAfirst.' + paramName)
             
             # ------Prepare to start Routine "preblock_A"-------
@@ -2607,14 +2591,14 @@ for thisTask in task:
             thisTrials_Afirst = trials_Afirst.trialList[0]  # so we can initialise stimuli with some values
             # abbreviate parameter names if possible (e.g. rgb = thisTrials_Afirst.rgb)
             if thisTrials_Afirst != None:
-                for paramName in thisTrials_Afirst:
+                for paramName in thisTrials_Afirst.keys():
                     exec(paramName + '= thisTrials_Afirst.' + paramName)
             
             for thisTrials_Afirst in trials_Afirst:
                 currentLoop = trials_Afirst
                 # abbreviate parameter names if possible (e.g. rgb = thisTrials_Afirst.rgb)
                 if thisTrials_Afirst != None:
-                    for paramName in thisTrials_Afirst:
+                    for paramName in thisTrials_Afirst.keys():
                         exec(paramName + '= thisTrials_Afirst.' + paramName)
                 
                 # ------Prepare to start Routine "trial_A"-------
@@ -2922,19 +2906,11 @@ for thisTask in task:
                 responder.start()
             
             # calculate summary stats
-            try:  # first check which block was run by seeing if the object exists
-                trials_Afirst.data
-            except NameError:
-                continue
-            else:  # if it does exist, calculate block summary data
+            if(starting_block == 'a'): 
                 block_A_percentage_accuracy = (float(trials_Afirst.data['required_response_A.corr'].count()) - float(trials_Afirst.data['feedback_response_A.corr'].sum())) /  float(trials_Afirst.data['required_response_A.corr'].count()) * 100 
                 block_A_median_latency = np.median(trials_Afirst.data['required_response_A.rt'])
             
-            try:
-                trials_Asecond.data
-            except NameError:
-                continue
-            else:  # if it does exist, calculate block summary data
+            if(starting_block == 'b'): 
                 block_A_percentage_accuracy = (float(trials_Asecond.data['required_response_A.corr'].count()) - float(trials_Asecond.data['feedback_response_A.corr'].sum())) /  float(trials_Asecond.data['required_response_A.corr'].count()) * 100 
                 block_A_median_latency = np.median(trials_Asecond.data['required_response_A.rt'])
             
@@ -3133,14 +3109,14 @@ for thisTask in task:
         thisTrials_B = trials_B.trialList[0]  # so we can initialise stimuli with some values
         # abbreviate parameter names if possible (e.g. rgb = thisTrials_B.rgb)
         if thisTrials_B != None:
-            for paramName in thisTrials_B:
+            for paramName in thisTrials_B.keys():
                 exec(paramName + '= thisTrials_B.' + paramName)
         
         for thisTrials_B in trials_B:
             currentLoop = trials_B
             # abbreviate parameter names if possible (e.g. rgb = thisTrials_B.rgb)
             if thisTrials_B != None:
-                for paramName in thisTrials_B:
+                for paramName in thisTrials_B.keys():
                     exec(paramName + '= thisTrials_B.' + paramName)
             
             # ------Prepare to start Routine "trial_B"-------
@@ -3557,14 +3533,14 @@ for thisTask in task:
         thisAsecond = Asecond.trialList[0]  # so we can initialise stimuli with some values
         # abbreviate parameter names if possible (e.g. rgb = thisAsecond.rgb)
         if thisAsecond != None:
-            for paramName in thisAsecond:
+            for paramName in thisAsecond.keys():
                 exec(paramName + '= thisAsecond.' + paramName)
         
         for thisAsecond in Asecond:
             currentLoop = Asecond
             # abbreviate parameter names if possible (e.g. rgb = thisAsecond.rgb)
             if thisAsecond != None:
-                for paramName in thisAsecond:
+                for paramName in thisAsecond.keys():
                     exec(paramName + '= thisAsecond.' + paramName)
             
             # ------Prepare to start Routine "preblock_A"-------
@@ -3664,14 +3640,14 @@ for thisTask in task:
             thisTrials_Asecond = trials_Asecond.trialList[0]  # so we can initialise stimuli with some values
             # abbreviate parameter names if possible (e.g. rgb = thisTrials_Asecond.rgb)
             if thisTrials_Asecond != None:
-                for paramName in thisTrials_Asecond:
+                for paramName in thisTrials_Asecond.keys():
                     exec(paramName + '= thisTrials_Asecond.' + paramName)
             
             for thisTrials_Asecond in trials_Asecond:
                 currentLoop = trials_Asecond
                 # abbreviate parameter names if possible (e.g. rgb = thisTrials_Asecond.rgb)
                 if thisTrials_Asecond != None:
-                    for paramName in thisTrials_Asecond:
+                    for paramName in thisTrials_Asecond.keys():
                         exec(paramName + '= thisTrials_Asecond.' + paramName)
                 
                 # ------Prepare to start Routine "trial_A"-------
@@ -3979,19 +3955,11 @@ for thisTask in task:
                 responder.start()
             
             # calculate summary stats
-            try:  # first check which block was run by seeing if the object exists
-                trials_Afirst.data
-            except NameError:
-                continue
-            else:  # if it does exist, calculate block summary data
+            if(starting_block == 'a'): 
                 block_A_percentage_accuracy = (float(trials_Afirst.data['required_response_A.corr'].count()) - float(trials_Afirst.data['feedback_response_A.corr'].sum())) /  float(trials_Afirst.data['required_response_A.corr'].count()) * 100 
                 block_A_median_latency = np.median(trials_Afirst.data['required_response_A.rt'])
             
-            try:
-                trials_Asecond.data
-            except NameError:
-                continue
-            else:  # if it does exist, calculate block summary data
+            if(starting_block == 'b'): 
                 block_A_percentage_accuracy = (float(trials_Asecond.data['required_response_A.corr'].count()) - float(trials_Asecond.data['feedback_response_A.corr'].sum())) /  float(trials_Asecond.data['required_response_A.corr'].count()) * 100 
                 block_A_median_latency = np.median(trials_Asecond.data['required_response_A.rt'])
             

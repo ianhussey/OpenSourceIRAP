@@ -19,7 +19,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 ## Version
-0.9.10
+0.9.11
 
 *NB This code is still in beta - it hasn't been used it in a published article yet.*
 
@@ -156,42 +156,42 @@ Very little familiarity with R/RStudio is needed to use this script.
 
 The script produces a `processed_IRAP_data.csv` file with the following variables for analysis:
 ​	
-	unique_identifier  # participant+stimulus_file+date
-	stimulus_file	
-	participant	gender	
-	age	
-	date	
-	starting_block  # a or b	
-	max_pairs_practice_blocks	
-	n_pairs_test_blocks	
-	latency_criterion  # in seconds, not ms	
-	accuracy_criterion  # out of 100%, not 1.0 (e.g., 80)	
-	moving_response_options  # TRUE or FALSE	
-	auto_response_monkey  # TRUE or FALSE	
-	rule_A	
-	rule_B	
-	response_option_A	
-	response_option_B	
-	labelA_text_stimuli_exemplars  # list of unicode exemplars	
-	labelB_text_stimuli_exemplars	
-	targetA_text_stimuli_exemplars	
-	targetB_text_stimuli_exemplars	
-	labelA_image_stimuli_exemplars	
-	labelB_image_stimuli_exemplars	
-	targetA_image_stimuli_exemplars	
-	targetB_image_stimuli_exemplars	
-	n_pairs_practice_blocks	
-	D1	
-	D1_trial_type_1	
-	D1_trial_type_2	
-	D1_trial_type_3	
-	D1_trial_type_4	
-	D1_odd	
-	D1_even	
-	rt_mean
-	percentage_accuracy	
-	exclude_based_on_fast_trials  # TRUE or FALSE	
-	passed_practice_blocks  # TRUE or FALSE
+​	unique_identifier  # participant+stimulus_file+date
+​	stimulus_file	
+​	participant	gender	
+​	age	
+​	date	
+​	starting_block  # a or b	
+​	max_pairs_practice_blocks	
+​	n_pairs_test_blocks	
+​	latency_criterion  # in seconds, not ms	
+​	accuracy_criterion  # out of 100%, not 1.0 (e.g., 80)	
+​	moving_response_options  # TRUE or FALSE	
+​	auto_response_monkey  # TRUE or FALSE	
+​	rule_A	
+​	rule_B	
+​	response_option_A	
+​	response_option_B	
+​	labelA_text_stimuli_exemplars  # list of unicode exemplars	
+​	labelB_text_stimuli_exemplars	
+​	targetA_text_stimuli_exemplars	
+​	targetB_text_stimuli_exemplars	
+​	labelA_image_stimuli_exemplars	
+​	labelB_image_stimuli_exemplars	
+​	targetA_image_stimuli_exemplars	
+​	targetB_image_stimuli_exemplars	
+​	n_pairs_practice_blocks	
+​	D1	
+​	D1_trial_type_1	
+​	D1_trial_type_2	
+​	D1_trial_type_3	
+​	D1_trial_type_4	
+​	D1_odd	
+​	D1_even	
+​	rt_mean
+​	percentage_accuracy	
+​	exclude_based_on_fast_trials  # TRUE or FALSE	
+​	passed_practice_blocks  # TRUE or FALSE
 
 Note that while this file includes contains all the necessary info to replicate an IRAP in the absense of having access to the PsychoPy `.psyexp`/`.py file`, `stimuli.xlsx` file and `task.xlsx file`. Only the screen locations and initial instructions are not saved here. This also allows one to easily determine what experiment an output file was produced by, e.g., if it were misplaced.
 ​	
@@ -257,9 +257,13 @@ If there are additional features or refinements you would like to see please fee
 None.
 
 ## Changelog
+### 0.9.11
+
+1. Corrected issue where post block feedback screen did not appear after the B block on the test (but not practice) blocks when block order was set to B first. Thanks to Charlotte Wesson for reporting this bug, which was likely due to a change in the timing of when psychopy creates objects. Code now relies on the global block order variable rather than the existance of objects that were (at one point) a consequence of this global variable.
+
 ### 0.9.10
 
-1. Works in PsychoPy 1.85.3 (latest)
+1. Works in PsychoPy 1.85.3
 2. Data processing file changed to an RMarkdown file, works with one click and uses relative paths so users don't have to alter file paths manually. 
 
 ### 0.9.9.1
